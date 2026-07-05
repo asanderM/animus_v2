@@ -1,0 +1,14 @@
+# Documentação e contexto interno do projeto — não faz parte do site publicado
+docs/
+n8n/
+database/
+scripts/
+backup_recomeco/
+.agents/
+.claude/
+.edge_debug/
+walkthrough.md
+cronograma_fase.md
+ideia_sites.md
+pipeline_animus.md
+CLAUDE.md

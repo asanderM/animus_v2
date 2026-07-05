@@ -1,20 +1,580 @@
-<!doctype html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Animus AI — Vertical SaaS Studio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,700;1,800;1,900&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <script type="module" crossorigin src="/assets/index-Dl2YyJXg.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-sFjvBJcR.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<!DOCTYPE html>
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Animus AI Studio | Sites e Automações Inteligentes</title>
+<meta name="description" content="Infraestrutura digital para pequenos negócios locais: site próprio, atendimento inteligente no WhatsApp e gestão organizada. Agende um diagnóstico gratuito."/>
+<meta name="robots" content="index, follow"/>
+<meta property="og:title" content="Animus AI Studio | Sites e Automações Inteligentes"/>
+<meta property="og:description" content="Infraestrutura digital para pequenos negócios locais prosperarem no Brasil. Diagnóstico gratuito, sem compromisso."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://animusai.com.br"/>
+<meta property="og:image" content="assets/cartao_animus.png"/>
+<link rel="icon" type="image/png" href="assets/animus_ia_icon.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Calendly (oculto até a conta real ser configurada — ver seção "Agendamento" comentada no <main>)
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
+-->
+
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "background": "#0a0a0a",
+          "carbon": "#141414",
+          "primary": "#b8960c",
+          "primary-burn": "#8a6f0a",
+          "on-surface": "#e8e4dc",
+          "on-surface-variant": "#9e9a94",
+          "outline-variant": "#2e2b26",
+        },
+        spacing: {
+          "section-padding": "140px",
+          "margin-mobile": "24px",
+          "margin-desktop": "80px",
+          "container-max": "1200px",
+        },
+        fontFamily: {
+          "headline": ["Space Grotesk", "sans-serif"],
+          "body": ["Space Grotesk", "sans-serif"],
+          "mono": ["JetBrains Mono", "monospace"],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #0a0a0a;
+    color: #e8e4dc;
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+  .noise-overlay {
+    position: fixed; inset: 0;
+    opacity: 0.045; z-index: 9998;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .gold-glow { background: radial-gradient(circle, rgba(184,150,12,0.16) 0%, transparent 70%); }
+  .gold-line { height: 1px; background: linear-gradient(to right, transparent, rgba(184,150,12,0.4), transparent); }
+  .card {
+    background: #141414;
+    border: 1px solid rgba(184,150,12,0.12);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  }
+  .card:hover {
+    border-color: rgba(184,150,12,0.4);
+    box-shadow: 0 0 40px rgba(184,150,12,0.08);
+    transform: translateY(-4px);
+  }
+  .clip-corner { clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); }
+  .clip-corner-sm { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+  .btn-primary {
+    position: relative; overflow: hidden;
+    transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.25s ease;
+  }
+  .btn-primary:hover { transform: scale(1.03); box-shadow: 0 0 40px rgba(184,150,12,0.3); }
+  .btn-primary:active { transform: scale(0.96); }
+  .btn-primary { cursor: pointer; }
+  .cta-swap { display: inline-grid; }
+  .cta-swap > span { grid-area: 1 / 1; white-space: nowrap; transition: clip-path 0.45s ease; }
+  @media (max-width: 480px) {
+    .cta-swap > span { white-space: normal; text-align: center; }
+  }
+  .cta-swap > .cta-default { clip-path: inset(0 0 0 0); }
+  .cta-swap > .cta-alt { clip-path: inset(0 100% 0 0); }
+  .btn-primary:hover .cta-swap > .cta-default { clip-path: inset(0 0 0 100%); }
+  .btn-primary:hover .cta-swap > .cta-alt { clip-path: inset(0 0 0 0); }
+  .cta-scan-bar {
+    position: absolute; top: 0; bottom: 0; left: 0; width: 3px;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.85), transparent);
+    box-shadow: 0 0 10px 2px rgba(184,150,12,0.7);
+    opacity: 0; pointer-events: none; z-index: 2;
+  }
+  @keyframes cta-scan-sweep {
+    0% { left: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+  .btn-primary:hover .cta-scan-bar { animation: cta-scan-sweep 0.45s ease-in-out; }
+  @media (prefers-reduced-motion: reduce) {
+    .cta-scan-bar { display: none; }
+    .cta-swap > span { transition: none; }
+  }
+
+  /* Modal de qualificação (CTA Final) */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: rgba(0,0,0,0.75);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    animation: modal-fade-in 0.2s ease forwards;
+  }
+  .modal-overlay.closing { animation: modal-fade-out 0.2s ease forwards; }
+  .modal-card {
+    background: #141414;
+    border: 1px solid rgba(184,150,12,0.3);
+    color: #e8e4dc;
+    max-width: 420px; width: 100%;
+    padding: 32px;
+    position: relative;
+    transform: scale(0.96);
+    animation: modal-scale-in 0.2s ease forwards;
+  }
+  .modal-overlay.closing .modal-card { animation: none; }
+  @keyframes modal-fade-in { to { opacity: 1; } }
+  @keyframes modal-fade-out { to { opacity: 0; } }
+  @keyframes modal-scale-in { to { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .modal-overlay, .modal-card { animation: none; opacity: 1; transform: none; }
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none; color: #9e9a94; cursor: pointer;
+    font-size: 20px; line-height: 1; padding: 4px;
+  }
+  .modal-close:hover { color: #b8960c; }
+  .modal-option {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0; cursor: pointer; font-size: 14px;
+  }
+  .modal-option input { accent-color: #b8960c; width: 16px; height: 16px; }
+  .modal-textarea {
+    width: 100%; background: #0a0a0a; border: 1px solid rgba(184,150,12,0.2);
+    color: #e8e4dc; padding: 12px; font-family: inherit; font-size: 14px;
+    margin-top: 12px; resize: vertical; min-height: 80px;
+  }
+  .modal-textarea:focus { outline: none; border-color: rgba(184,150,12,0.6); }
+  .modal-textarea::placeholder { color: #6b6862; }
+
+  @keyframes blink { 50% { opacity: 0; } }
+  .cursor-blink { animation: blink 1s step-start infinite; color: #b8960c; }
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-reveal {
+      opacity: 0;
+      translate: 0 28px;
+      transition: opacity 0.7s ease-out, translate 0.7s ease-out;
+    }
+    .scroll-reveal.visible { opacity: 1; translate: 0 0; }
+  }
+  .below-fold { content-visibility: auto; contain-intrinsic-size: auto 500px; }
+
+  .float-wa {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+    background: #25D366; border-radius: 9999px;
+    width: 56px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .float-wa:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
+
+  /* Intro logo mark (SVG, estático) */
+  .intro-mark { position: relative; margin: 0 auto; flex-shrink: 0; }
+  .intro-mark svg { width: clamp(64px, 8vw, 96px); height: auto; display: block; }
+</style>
+</head>
+<body class="font-body">
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<!-- Floating WhatsApp -->
+<a class="float-wa" href="https://wa.me/5551989586987?text=Ol%C3%A1%2C+quero+agendar+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- Modal de qualificação (aberto pelo CTA Final) -->
+<div class="modal-overlay hidden" id="cta-modal" role="dialog" aria-modal="true" aria-labelledby="cta-modal-title">
+  <div class="modal-card clip-corner-sm">
+    <button class="modal-close" id="cta-modal-close" aria-label="Fechar">&times;</button>
+
+    <!-- Estado 1 — formulário -->
+    <div id="cta-modal-form">
+      <h3 id="cta-modal-title" class="font-headline text-xl font-bold mb-1">Sobre o que você quer conversar?</h3>
+      <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mb-4">Opcional — só pra agilizar a conversa</p>
+      <label class="modal-option"><input type="checkbox" name="cta-topic" value="Site novo ou reformulado"/> Site novo ou reformulado</label>
+      <label class="modal-option"><input type="checkbox" name="cta-topic" value="Atendimento Automático"/> Atendimento Automático</label>
+      <label class="modal-option"><input type="checkbox" name="cta-topic" value="CRM visual completo"/> CRM visual completo</label>
+      <textarea class="modal-textarea" id="cta-modal-message" placeholder="Quer adiantar algo? Dúvidas, contexto do seu negócio..."></textarea>
+      <button class="btn-primary w-full bg-primary text-background py-3 clip-corner-sm font-bold text-sm mt-5" id="cta-modal-submit">Concluir</button>
+    </div>
+
+    <!-- Estado 2 — confirmação -->
+    <div id="cta-modal-confirm" class="hidden text-center">
+      <p class="font-headline text-lg font-bold mb-2">Recebemos, obrigado!</p>
+      <p class="text-on-surface-variant text-sm mb-6">Agora é só continuar no WhatsApp pra gente conversar.</p>
+      <a class="btn-primary inline-block w-full bg-primary text-background py-3 clip-corner-sm font-bold text-sm" id="cta-modal-whatsapp" href="https://wa.me/5551989586987" target="_blank" rel="noopener">Abrir WhatsApp</a>
+    </div>
+  </div>
+</div>
+<!-- TODO: integração futura — enviar payload para Supabase (armazenamento) e webhook n8n
+     (notificação WhatsApp). Número de WhatsApp ainda será definido como permanente antes
+     dessa integração. -->
+
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/20">
+  <div class="relative flex justify-between items-center max-w-[1200px] mx-auto px-6 md:px-20 py-3">
+    <a href="#" class="flex items-center gap-3 group">
+      <img src="assets/animus_ia_icon.png" alt="Animus AI Studio" class="w-9 h-9 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"/>
+      <div>
+        <span class="font-headline text-lg tracking-tight text-on-surface font-bold">ANIMUS AI STUDIO</span>
+        <p class="font-mono text-[9px] text-primary leading-none tracking-[0.12em] hidden sm:block">[ SITES E AUTOMAÇÕES INTELIGENTES ]</p>
+      </div>
+    </a>
+    <div class="hidden md:flex gap-8 items-center">
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#problema">Problema</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#ofertas">Ofertas</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Como Funciona</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#contato">Contato</a>
+      <a class="btn-primary bg-primary text-background px-7 py-2.5 clip-corner-sm font-bold text-sm hover:shadow-lg transition-all" href="https://wa.me/5551989586987?text=Ol%C3%A1%2C+quero+agendar+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
+        <span class="cta-scan-bar" aria-hidden="true"></span>
+        <span class="cta-swap"><span class="cta-default">Diagnóstico gratuito</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+      </a>
+    </div>
+    <button class="md:hidden text-primary" id="nav-toggle" aria-label="Abrir menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="hidden md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-outline-variant/20 px-6 py-6 flex-col gap-6" id="mobile-menu">
+      <a class="block text-on-surface-variant hover:text-primary transition-colors" href="#problema">Problema</a>
+      <a class="block text-on-surface-variant hover:text-primary transition-colors mt-4" href="#ofertas">Ofertas</a>
+      <a class="block text-on-surface-variant hover:text-primary transition-colors mt-4" href="#como-funciona">Como Funciona</a>
+      <a class="block text-on-surface-variant hover:text-primary transition-colors mt-4" href="#contato">Contato</a>
+      <a class="btn-primary block w-full text-center bg-primary text-background px-7 py-3 clip-corner-sm font-bold text-sm mt-6" href="https://wa.me/5551989586987?text=Ol%C3%A1%2C+quero+agendar+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
+        <span class="cta-scan-bar" aria-hidden="true"></span>
+        <span class="cta-swap"><span class="cta-default">Diagnóstico gratuito</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero (estática — ícone [A] + cursor piscando) -->
+  <section class="relative min-h-screen flex items-center pt-28 pb-20 px-6 md:px-margin-desktop overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] -z-10" style="background: radial-gradient(circle, rgba(184,150,12,0.16) 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="max-w-container-max mx-auto w-full flex flex-col items-center text-center gap-8">
+
+      <!-- Logo mark -->
+      <div class="intro-mark" aria-hidden="true">
+        <svg viewBox="0 0 260 240" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50,20 H30 V220 H50" fill="none" stroke="#b8960c" stroke-width="8" stroke-linecap="square"/>
+          <path d="M210,20 H230 V220 H210" fill="none" stroke="#b8960c" stroke-width="8" stroke-linecap="square"/>
+          <path d="M130,65 L95,175" fill="none" stroke="#b8960c" stroke-width="11" stroke-linecap="square"/>
+          <path d="M130,65 L165,175" fill="none" stroke="#b8960c" stroke-width="11" stroke-linecap="square"/>
+          <path d="M109,131 H151" fill="none" stroke="#b8960c" stroke-width="10" stroke-linecap="square"/>
+        </svg>
+      </div>
+
+      <div class="font-mono text-primary text-sm tracking-[0.2em]">
+        ANIMUS AI STUDIO<span class="cursor-blink">_</span>
+      </div>
+
+      <div>
+        <p class="font-mono text-[11px] text-primary uppercase tracking-[0.3em] mb-6">[ Sites e Automações Inteligentes ]</p>
+      </div>
+      <h1 class="font-headline text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
+        Liberte seu negócio do manual.<br/>
+        <span class="text-primary">Conquiste clientes 24h por dia.</span>
+      </h1>
+      <p class="text-on-surface-variant text-lg md:text-xl max-w-xl">
+        Infraestrutura digital enxuta pra pequenos negócios locais prosperarem — site próprio, atendimento inteligente e organização, sem depender de você estar online o tempo todo.
+      </p>
+      <div class="flex flex-col items-center gap-3">
+        <a class="btn-primary bg-primary text-background px-6 sm:px-10 py-3.5 sm:py-4 clip-corner font-bold text-base sm:text-lg" href="https://wa.me/5551989586987?text=Ol%C3%A1%2C+quero+agendar+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
+          <span class="cta-scan-bar" aria-hidden="true"></span>
+          <span class="cta-swap"><span class="cta-default">Agende seu diagnóstico gratuito</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+        </a>
+        <p class="font-mono text-[11px] text-on-surface-variant">Sem compromisso · Sem enrolação</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problema/Dor -->
+  <section class="py-section-padding px-6 md:px-margin-desktop" id="problema">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <p class="font-mono text-primary uppercase tracking-[0.3em] mb-4">[ O problema real ]</p>
+        <h2 class="font-headline text-3xl md:text-5xl font-bold">Seu negócio está perdendo <span class="text-primary">tempo e dinheiro?</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:80ms">
+          <p class="font-mono text-primary text-xs mb-3">01</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Refém das redes sociais</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Seu negócio depende 100% do Instagram. Se o algoritmo muda ou a conta cai, sua audiência some com ele.</p>
+        </div>
+        <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:160ms">
+          <p class="font-mono text-primary text-xs mb-3">02</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Atendimento ineficiente</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Você perde clientes por demorar a responder no WhatsApp ou por não atender fora do horário comercial.</p>
+        </div>
+        <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:240ms">
+          <p class="font-mono text-primary text-xs mb-3">03</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Gestão desorganizada</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Planilhas, agendas de papel e calendários separados fazem você perder tempo e informação todo dia.</p>
+        </div>
+        <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:320ms">
+          <p class="font-mono text-primary text-xs mb-3">04</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Presença digital fraca</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Site desatualizado, inexistente, ou que simplesmente não transmite credibilidade pro seu cliente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Apresentação da Animus -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold">
+    <div class="max-w-[760px] mx-auto text-center scroll-reveal">
+      <p class="font-mono text-primary uppercase tracking-[0.3em] mb-4">[ Quem constrói ]</p>
+      <h2 class="font-headline text-3xl md:text-5xl font-bold mb-6">Animus AI Studio: seu guia pro <span class="text-primary">próximo passo digital</span></h2>
+      <p class="text-on-surface-variant text-lg leading-relaxed">
+        Somos uma agência especializada em IA e automação, focada em ajudar pequenos negócios locais a construir uma infraestrutura digital sólida e eficiente. Nosso compromisso é com resultado tangível — soluções feitas sob medida pra realidade do seu negócio.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 Frentes de Oferta -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="ofertas">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <p class="font-mono text-primary uppercase tracking-[0.3em] mb-4">[ Nossas frentes ]</p>
+        <h2 class="font-headline text-3xl md:text-5xl font-bold">Três pilares de <span class="text-primary">transformação</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Site -->
+        <div class="card clip-corner p-9 scroll-reveal" style="transition-delay:100ms">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-4">Frente 01</p>
+          <h3 class="font-headline text-xl font-bold mb-4">Site Novo ou Reformulado</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-4">Seu negócio ainda não tem endereço próprio na internet? Ou seu site não atrai clientes de verdade?</p>
+          <div class="gold-line my-4"></div>
+          <p class="text-on-surface text-sm leading-relaxed mb-4">Construímos seu site institucional com domínio próprio, tirando seu negócio da dependência total das redes sociais — trabalhando por você 24h por dia.</p>
+          <p class="font-mono text-[10px] text-primary">→ Mais visibilidade e controle total da sua marca online.</p>
+        </div>
+        <!-- WhatsApp IA -->
+        <div class="card clip-corner p-9 scroll-reveal border-[rgba(184,150,12,0.3)]" style="transition-delay:200ms">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-4">Frente 02</p>
+          <h3 class="font-headline text-xl font-bold mb-4">Atendimento Automático</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-4">Perdendo clientes por não conseguir responder a todos no WhatsApp? Seu atendimento não funciona fora do horário comercial?</p>
+          <div class="gold-line my-4"></div>
+          <p class="text-on-surface text-sm leading-relaxed mb-4">Implementamos atendimento automático inteligente que qualifica e agenda clientes 24h por dia, 7 dias por semana.</p>
+          <p class="font-mono text-[10px] text-primary">→ Nunca mais perca um lead por demora na resposta.</p>
+        </div>
+        <!-- CRM -->
+        <div class="card clip-corner p-9 scroll-reveal" style="transition-delay:300ms">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-4">Frente 03</p>
+          <h3 class="font-headline text-xl font-bold mb-4">CRM Visual Completo</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-4">Sua gestão de clientes é uma bagunça de planilhas, agendas e anotações soltas?</p>
+          <div class="gold-line my-4"></div>
+          <p class="text-on-surface text-sm leading-relaxed mb-4">Um painel único e intuitivo que substitui ferramentas fragmentadas — do primeiro contato ao pós-venda, sem complicação técnica.</p>
+          <p class="font-mono text-[10px] text-primary">→ Organização total e visão clara de cada cliente.</p>
+        </div>
+      </div>
+
+      <!-- CTA intermediário -->
+      <div class="text-center mt-16 scroll-reveal">
+        <a class="btn-primary inline-block max-w-full bg-primary text-background px-6 sm:px-10 py-3.5 sm:py-4 clip-corner font-bold text-base sm:text-lg" href="https://wa.me/5551989586987?text=Quero+saber+qual+frente+faz+mais+sentido+pro+meu+neg%C3%B3cio" target="_blank" rel="noopener">
+          <span class="cta-scan-bar" aria-hidden="true"></span>
+          <span class="cta-swap"><span class="cta-default">Fale com a Animus e descubra seu potencial</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como Funciona / Garantia -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="como-funciona">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <p class="font-mono text-primary uppercase tracking-[0.3em] mb-4">[ Nosso método ]</p>
+        <h2 class="font-headline text-3xl md:text-5xl font-bold">Transparência, eficiência e <span class="text-primary">resultado garantido</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+        <div class="scroll-reveal" style="transition-delay:80ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">01</p>
+          <h3 class="font-headline text-base font-bold mb-2">Diagnóstico Gratuito</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Uma conversa aprofundada pra entender suas dores e objetivos. Sem compromisso, sem enrolação.</p>
+        </div>
+        <div class="scroll-reveal" style="transition-delay:160ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">02</p>
+          <h3 class="font-headline text-base font-bold mb-2">Proposta Personalizada</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Solução sob medida, com escopo fechado e cronograma claro. Você sabe exatamente o que esperar.</p>
+        </div>
+        <div class="scroll-reveal" style="transition-delay:240ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">03</p>
+          <h3 class="font-headline text-base font-bold mb-2">Desenvolvimento Ágil</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Construção com agilidade e comunicação constante. Você acompanha cada etapa do processo.</p>
+        </div>
+        <div class="scroll-reveal" style="transition-delay:320ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">04</p>
+          <h3 class="font-headline text-base font-bold mb-2">Entrega e Suporte</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Solução funcionando, com suporte pra você aproveitar ao máximo o que foi construído.</p>
+        </div>
+      </div>
+      <div class="card clip-corner p-8 md:p-10 max-w-3xl mx-auto text-center scroll-reveal">
+        <p class="font-mono text-primary text-xs uppercase tracking-widest mb-3">Garantia</p>
+        <p class="text-on-surface text-lg leading-relaxed">Trabalhamos com <span class="text-primary font-semibold">escopo fechado</span> e entrega rápida — resultado em semanas, não meses. Sem contratos de fidelidade longa. Seu investimento é protegido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="py-section-padding px-6 md:px-20 relative overflow-hidden below-fold">
+    <div class="gold-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] -z-10" aria-hidden="true"></div>
+    <div class="max-w-[760px] mx-auto text-center scroll-reveal">
+      <img src="assets/animus_ia_icon.png" alt="Animus AI Studio" class="w-16 h-16 mx-auto mb-8 rounded-full"/>
+      <p class="font-mono text-[11px] text-primary uppercase tracking-[0.3em] mb-6">[ Animus AI Studio ]</p>
+      <h2 class="font-headline text-4xl md:text-6xl font-bold mb-6 leading-tight">Pronto pra transformar <span class="text-primary">seu negócio?</span></h2>
+      <p class="text-on-surface-variant text-xl mb-12 max-w-lg mx-auto">Agende seu diagnóstico gratuito agora. Sem burocracia, sem compromisso.</p>
+      <a class="btn-primary inline-flex items-center gap-3 bg-primary text-background px-6 sm:px-12 py-4 sm:py-5 clip-corner font-bold text-base sm:text-xl" href="https://wa.me/5551989586987?text=Ol%C3%A1%2C+quero+agendar+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener" id="cta-final-trigger">
+        <span class="cta-scan-bar" aria-hidden="true"></span>
+        <span class="cta-swap"><span class="cta-default">Falar agora no WhatsApp</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Agendamento (Calendly) — OCULTO até termos uma conta real ou decidirmos migrar
+       pra uma solução conectada ao Supabase. Placeholder atual (data-url) não aponta
+       pra uma conta configurada, por isso a seção fica comentada em vez de visível.
+       Pra reativar: remover este comentário e trocar o data-url pelo link real,
+       e devolver o id="contato" daqui pro nav (hoje ele aponta pro rodapé).
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="contato">
+    <div class="max-w-container-max mx-auto text-center">
+      <p class="font-mono text-primary uppercase tracking-[0.3em] mb-4 scroll-reveal">[ Agende seu diagnóstico ]</p>
+      <h2 class="font-headline text-3xl md:text-5xl font-bold mb-10 scroll-reveal">Escolha o melhor horário <span class="text-primary">pra conversar</span></h2>
+      <div class="card clip-corner p-2 md:p-4 max-w-3xl mx-auto scroll-reveal">
+        TODO: substituir pelo link real do Calendly assim que a conta estiver configurada
+        <div class="calendly-inline-widget" data-url="https://calendly.com/animus-ai-studio/diagnostico-gratuito" style="min-width:280px;height:700px;"></div>
+      </div>
+    </div>
+  </section>
+  -->
+</main>
+
+<!-- Rodapé -->
+<footer class="bg-[#050505] pt-16 pb-8 border-t border-[rgba(184,150,12,0.1)] px-6 md:px-20" id="contato">
+  <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mb-14">
+    <div>
+      <div class="flex items-center gap-3 mb-5">
+        <img src="assets/animus_ia_icon.png" alt="Animus AI Studio" class="w-11 h-11 rounded-full"/>
+        <div>
+          <p class="font-bold text-xl tracking-tight text-primary">ANIMUS AI STUDIO</p>
+          <p class="font-mono text-[9px] text-on-surface-variant tracking-[0.15em]">[ SITES E AUTOMAÇÕES INTELIGENTES ]</p>
+        </div>
+      </div>
+      <p class="text-on-surface-variant max-w-sm text-sm leading-relaxed">
+        Infraestrutura digital inteligente pra pequenos negócios locais prosperarem no Brasil.
+      </p>
+    </div>
+    <div class="flex flex-col md:items-end gap-3">
+      <a class="flex items-center gap-2 text-primary hover:underline" href="https://wa.me/5551989586987"><span class="font-mono text-xs">WhatsApp</span> (51) 98958-6987</a>
+      <a class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-sm" href="mailto:contato@animusai.com.br">contato@animusai.com.br</a>
+      <div class="flex gap-6 mt-3 font-mono text-[10px] uppercase tracking-widest">
+        <a class="hover:text-primary transition-colors" href="#">Termos de Uso</a>
+        <a class="hover:text-primary transition-colors" href="#">Privacidade</a>
+      </div>
+    </div>
+  </div>
+  <div class="gold-line mb-6"></div>
+  <div class="flex flex-col md:flex-row justify-between items-center gap-3 text-on-surface-variant font-mono text-[10px] uppercase tracking-widest">
+    <p>© <span id="current-year"></span> Animus AI Studio</p>
+    <p class="text-primary/80">[ Foco • Código • Evolução ]</p>
+  </div>
+</footer>
+
+<!-- Calendly script (oculto junto com a seção "Agendamento" acima)
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+-->
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (navToggle && mobileMenu) {
+    navToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+    mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      mobileMenu.classList.remove('flex');
+    }));
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  });
+
+  // Modal de qualificação — só no CTA Final
+  const ctaModal = document.getElementById('cta-modal');
+  const ctaTrigger = document.getElementById('cta-final-trigger');
+  const ctaModalClose = document.getElementById('cta-modal-close');
+  const ctaModalForm = document.getElementById('cta-modal-form');
+  const ctaModalConfirm = document.getElementById('cta-modal-confirm');
+  const ctaModalSubmit = document.getElementById('cta-modal-submit');
+  const ctaModalMessage = document.getElementById('cta-modal-message');
+  const ctaModalWhatsapp = document.getElementById('cta-modal-whatsapp');
+
+  function openCtaModal() {
+    ctaModal.classList.remove('hidden', 'closing');
+    ctaModalForm.classList.remove('hidden');
+    ctaModalConfirm.classList.add('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCtaModal() {
+    ctaModal.classList.add('closing');
+    setTimeout(() => {
+      ctaModal.classList.add('hidden');
+      ctaModal.classList.remove('closing');
+      document.body.style.overflow = '';
+    }, 200);
+  }
+
+  if (ctaTrigger && ctaModal) {
+    ctaTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCtaModal();
+    });
+    ctaModalClose.addEventListener('click', closeCtaModal);
+    ctaModal.addEventListener('click', (e) => {
+      if (e.target === ctaModal) closeCtaModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !ctaModal.classList.contains('hidden')) closeCtaModal();
+    });
+
+    ctaModalSubmit.addEventListener('click', () => {
+      const topics = Array.from(document.querySelectorAll('input[name="cta-topic"]:checked')).map(i => i.value);
+      const freeText = ctaModalMessage.value.trim();
+
+      let message = 'Olá, quero agendar um diagnóstico gratuito.';
+      if (topics.length) message += ' Quero falar sobre: ' + topics.join(', ') + '.';
+      if (freeText) message += ' ' + freeText;
+
+      // TODO: integração futura — enviar payload (topics, freeText) para Supabase
+      // (armazenamento) e webhook n8n (notificação WhatsApp). Número de WhatsApp
+      // ainda será definido como permanente antes dessa integração.
+
+      ctaModalWhatsapp.href = 'https://wa.me/5551989586987?text=' + encodeURIComponent(message);
+      ctaModalForm.classList.add('hidden');
+      ctaModalConfirm.classList.remove('hidden');
+    });
+  }
+</script>
+</body>
 </html>
