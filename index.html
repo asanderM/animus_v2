@@ -210,9 +210,15 @@
   }
   .float-wa:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.5); }
 
-  /* Intro logo mark (SVG, estático) */
-  .intro-mark { position: relative; margin: 0 auto; flex-shrink: 0; }
-  .intro-mark svg { width: clamp(64px, 8vw, 96px); height: auto; display: block; }
+  /* Intro logo mark (texto tipado, JetBrains Mono) */
+  .intro-mark {
+    position: relative; margin: 0 auto; flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: clamp(64px, 10vw, 96px);
+    line-height: 1;
+    color: #b8960c;
+  }
 </style>
 </head>
 <body class="font-body">
@@ -294,15 +300,7 @@
     <div class="max-w-container-max mx-auto w-full flex flex-col items-center text-center gap-8">
 
       <!-- Logo mark -->
-      <div class="intro-mark" aria-hidden="true">
-        <svg viewBox="60 40 140 160" xmlns="http://www.w3.org/2000/svg">
-          <path d="M92,50 H70 V190 H92" fill="none" stroke="#b8960c" stroke-width="8" stroke-linecap="square"/>
-          <path d="M168,50 H190 V190 H168" fill="none" stroke="#b8960c" stroke-width="8" stroke-linecap="square"/>
-          <path d="M130,65 L95,175" fill="none" stroke="#b8960c" stroke-width="11" stroke-linecap="square"/>
-          <path d="M130,65 L165,175" fill="none" stroke="#b8960c" stroke-width="11" stroke-linecap="square"/>
-          <path d="M109,131 H151" fill="none" stroke="#b8960c" stroke-width="10" stroke-linecap="square"/>
-        </svg>
-      </div>
+      <div class="intro-mark" aria-hidden="true">[A]</div>
 
       <div class="font-mono text-primary text-sm tracking-[0.2em]">
         ANIMUS AI STUDIO<span class="cursor-blink">_</span>
