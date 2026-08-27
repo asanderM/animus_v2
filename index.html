@@ -65,7 +65,7 @@
           "outline-variant": "#2e2b26",
         },
         spacing: {
-          "section-padding": "140px",
+          "section-padding": "100px",
           "margin-mobile": "24px",
           "margin-desktop": "80px",
           "container-max": "1200px",
@@ -119,21 +119,18 @@
   .clip-corner { clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); }
   .clip-corner-sm { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
   .btn-primary {
-    position: relative; overflow: hidden;
+    position: relative; overflow: hidden; cursor: pointer;
     transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.25s ease;
   }
   .btn-primary:hover { transform: scale(1.03); box-shadow: 0 0 40px rgba(var(--color-ouro-escuro-rgb), 0.3); }
   .btn-primary:active { transform: scale(0.96); }
-  .btn-primary { cursor: pointer; }
-  .cta-swap { display: inline-grid; }
-  .cta-swap > span { grid-area: 1 / 1; white-space: nowrap; transition: clip-path 0.45s ease; }
-  @media (max-width: 480px) {
-    .cta-swap > span { white-space: normal; text-align: center; }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(var(--color-ouro-escuro-rgb), 0.4);
+    color: var(--color-gelo-sujo);
+    transition: border-color 0.25s ease, background 0.25s ease;
   }
-  .cta-swap > .cta-default { clip-path: inset(0 0 0 0); }
-  .cta-swap > .cta-alt { clip-path: inset(0 100% 0 0); }
-  .btn-primary:hover .cta-swap > .cta-default { clip-path: inset(0 0 0 100%); }
-  .btn-primary:hover .cta-swap > .cta-alt { clip-path: inset(0 0 0 0); }
+  .btn-secondary:hover { border-color: var(--color-ouro-escuro); background: rgba(var(--color-ouro-escuro-rgb), 0.08); }
   .cta-scan-bar {
     position: absolute; top: 0; bottom: 0; left: 0; width: 3px;
     background: linear-gradient(180deg, transparent, rgba(255,255,255,0.85), transparent);
@@ -149,7 +146,6 @@
   .btn-primary:hover .cta-scan-bar { animation: cta-scan-sweep 0.45s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
     .cta-scan-bar { display: none; }
-    .cta-swap > span { transition: none; }
   }
 
   /* Modal de qualificação (CTA Final) */
@@ -230,39 +226,57 @@
     position: relative; margin: 0 auto; flex-shrink: 0;
     font-family: 'JetBrains Mono', monospace;
     font-weight: 600;
-    font-size: clamp(64px, 10vw, 96px);
+    font-size: clamp(48px, 7vw, 72px);
     line-height: 1;
     color: var(--color-ouro-escuro);
   }
+
+  .flow-arrow { color: var(--color-ouro-escuro); font-family: 'JetBrains Mono', monospace; font-size: 20px; line-height: 1; }
+
+  .step-connector { flex: 1; height: 1px; background: linear-gradient(to right, rgba(var(--color-ouro-escuro-rgb),0.4), rgba(var(--color-ouro-escuro-rgb),0.1)); margin-top: 20px; }
+  .step-circle {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border: 1px solid rgba(var(--color-ouro-escuro-rgb), 0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--color-ouro-escuro);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+
+  .faq-item summary { list-style: none; cursor: pointer; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-chevron { transition: transform 0.25s ease; display: inline-block; }
+  .faq-item[open] .faq-chevron { transform: rotate(45deg); }
 </style>
 </head>
 <body class="font-body">
 <div class="noise-overlay" aria-hidden="true"></div>
 
 <!-- Floating WhatsApp -->
-<a class="float-wa" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+resolver+isso+agora" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+<a class="float-wa" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<!-- Modal de qualificação (aberto pelo CTA Final) -->
+<!-- Modal de qualificação (aberto pelos CTAs de diagnóstico) -->
 <div class="modal-overlay hidden" id="cta-modal" role="dialog" aria-modal="true" aria-labelledby="cta-modal-title">
   <div class="modal-card clip-corner-sm">
     <button class="modal-close" id="cta-modal-close" aria-label="Fechar">&times;</button>
 
     <!-- Estado 1 — formulário -->
     <div id="cta-modal-form">
-      <h3 id="cta-modal-title" class="font-headline text-xl font-bold mb-1">Qual é o maior problema hoje?</h3>
-      <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mb-4">Opcional — só pra agilizar a conversa</p>
-      <label class="modal-option"><input type="checkbox" name="cta-topic" value="Perco cliente por demora no WhatsApp"/> Perco cliente por demora no WhatsApp</label>
-      <label class="modal-option"><input type="checkbox" name="cta-topic" value="Não tenho site ou o que tenho não convence"/> Não tenho site ou o que tenho não convence</label>
-      <label class="modal-option"><input type="checkbox" name="cta-topic" value="Minha gestão de clientes é bagunça"/> Minha gestão de clientes é bagunça</label>
+      <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-3">1 de 2</p>
+      <h3 id="cta-modal-title" class="font-headline text-xl font-bold mb-4">Qual é o maior problema hoje?</h3>
+      <label class="modal-option"><input type="radio" name="cta-topic" value="Perco cliente por demora no WhatsApp"/> Perco cliente por demora no WhatsApp</label>
+      <label class="modal-option"><input type="radio" name="cta-topic" value="Não tenho site ou o que tenho não convence"/> Não tenho site ou o que tenho não convence</label>
+      <label class="modal-option"><input type="radio" name="cta-topic" value="Minha gestão de clientes é bagunça"/> Minha gestão de clientes é bagunça</label>
       <label class="sr-only-label" for="cta-modal-message">Quer adiantar algo? (opcional)</label>
-      <textarea class="modal-textarea" id="cta-modal-message" placeholder="Quer adiantar algo? Dúvidas, contexto do seu negócio..."></textarea>
-      <button class="btn-primary w-full bg-primary text-background py-3 clip-corner-sm font-bold text-sm mt-5" id="cta-modal-submit">Concluir</button>
+      <textarea class="modal-textarea" id="cta-modal-message" placeholder="Quer adiantar algo? Dúvidas, contexto do seu negócio... (opcional)"></textarea>
+      <button class="btn-primary w-full bg-primary text-background py-3 clip-corner-sm font-bold text-sm mt-5" id="cta-modal-submit">Continuar</button>
+      <a class="block text-center text-on-surface-variant hover:text-primary text-xs font-mono mt-4 transition-colors" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener" id="cta-modal-skip">Prefere ir direto? Abrir WhatsApp sem preencher →</a>
     </div>
 
     <!-- Estado 2 — confirmação -->
     <div id="cta-modal-confirm" class="hidden text-center">
+      <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-3">2 de 2</p>
       <p class="font-headline text-lg font-bold mb-2">Recebemos, obrigado!</p>
       <p class="text-on-surface-variant text-sm mb-6">Agora é só continuar no WhatsApp pra gente conversar.</p>
       <a class="btn-primary inline-block w-full bg-primary text-background py-3 clip-corner-sm font-bold text-sm" id="cta-modal-whatsapp" href="https://wa.me/5551993203344" target="_blank" rel="noopener">Abrir WhatsApp</a>
@@ -284,174 +298,332 @@
       </div>
     </a>
     <div class="hidden md:flex gap-8 items-center">
-      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#problema">Problema</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#ofertas">Ofertas</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Como Funciona</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#contato">Contato</a>
-      <a class="btn-primary js-cta-open-modal bg-primary text-background px-7 py-2.5 clip-corner-sm font-bold text-sm hover:shadow-lg transition-all" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+resolver+isso+agora" target="_blank" rel="noopener">
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Como funciona</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#incluido">O que está incluído</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#para-quem">Para quem é</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#faq">Dúvidas</a>
+      <a class="btn-primary js-cta-open-modal bg-primary text-background px-7 py-2.5 clip-corner-sm font-bold text-sm hover:shadow-lg transition-all" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
         <span class="cta-scan-bar" aria-hidden="true"></span>
-        <span class="cta-swap"><span class="cta-default">Quero resolver isso agora</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+        Diagnóstico gratuito
       </a>
     </div>
     <button class="md:hidden text-primary" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="hidden md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-outline-variant/20 px-6 py-6 flex-col gap-6" id="mobile-menu">
-      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#problema">Problema</a>
-      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#ofertas">Ofertas</a>
-      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Como Funciona</a>
-      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#contato">Contato</a>
-      <a class="btn-primary js-cta-open-modal block w-full text-center bg-primary text-background px-7 py-3 clip-corner-sm font-bold text-sm mt-6" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+resolver+isso+agora" target="_blank" rel="noopener">
+      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Como funciona</a>
+      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#incluido">O que está incluído</a>
+      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#para-quem">Para quem é</a>
+      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#faq">Dúvidas</a>
+      <a class="btn-primary js-cta-open-modal block w-full text-center bg-primary text-background px-7 py-3 clip-corner-sm font-bold text-sm mt-2" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
         <span class="cta-scan-bar" aria-hidden="true"></span>
-        <span class="cta-swap"><span class="cta-default">Quero resolver isso agora</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+        Diagnóstico gratuito
       </a>
     </div>
   </div>
 </nav>
 
 <main>
-  <!-- Hero (estática — ícone [A] + cursor piscando) -->
-  <section class="relative min-h-screen flex items-center pt-28 pb-20 px-6 md:px-margin-desktop overflow-hidden">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] -z-10" style="background: radial-gradient(circle, rgba(184,150,12,0.16) 0%, transparent 70%);" aria-hidden="true"></div>
-    <div class="max-w-container-max mx-auto w-full flex flex-col items-center text-center gap-8">
-
-      <!-- Logo mark -->
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center pt-28 pb-16 px-6 md:px-margin-desktop overflow-hidden">
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] -z-10 gold-glow" aria-hidden="true"></div>
+    <div class="max-w-container-max mx-auto w-full flex flex-col items-center text-center gap-7">
       <div class="intro-mark" aria-hidden="true">[A]</div>
-
-      <div class="font-mono text-primary text-sm tracking-[0.2em]">
-        ANIMUS AI STUDIO<span class="cursor-blink">_</span>
-      </div>
+      <div class="font-mono text-primary text-sm tracking-[0.2em]">ANIMUS AI STUDIO<span class="cursor-blink">_</span></div>
 
       <h1 class="font-headline text-4xl md:text-6xl font-bold leading-tight max-w-3xl">
-        Seu cliente não espera você abrir o WhatsApp.<br/>
-        <span class="text-primary">Seu negócio responde sozinho, 24h.</span>
+        Pare de perder clientes <span class="text-primary">porque você estava ocupado.</span>
       </h1>
-      <p class="text-on-surface-variant text-lg md:text-xl max-w-xl">
-        Atendimento automático e organização rodando por conta própria — com site institucional incluso — pra você não perder venda por demora ou bagunça.
+      <p class="text-on-surface-variant text-lg md:text-xl max-w-2xl">
+        A Animus implementa atendimento inteligente no WhatsApp, organização dos seus contatos e um site que transmite confiança — pra seu negócio responder melhor mesmo quando você não está online.
       </p>
-      <div class="flex flex-col items-center gap-3">
-        <a class="btn-primary js-cta-open-modal bg-primary text-background px-6 sm:px-10 py-3.5 sm:py-4 clip-corner font-bold text-base sm:text-lg" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+resolver+isso+agora" target="_blank" rel="noopener">
+      <div class="flex flex-col sm:flex-row items-center gap-4">
+        <a class="btn-primary js-cta-open-modal bg-primary text-background px-8 py-4 clip-corner font-bold text-base sm:text-lg" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
           <span class="cta-scan-bar" aria-hidden="true"></span>
-          <span class="cta-swap"><span class="cta-default">Quero resolver isso agora</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+          Quero um diagnóstico gratuito
         </a>
-        <p class="font-mono text-[10px] text-on-surface-variant">Sem compromisso · Sem enrolação</p>
+        <a class="btn-secondary px-8 py-4 clip-corner font-bold text-base sm:text-lg" href="#como-funciona">Ver como funciona</a>
+      </div>
+      <p class="font-mono text-[10px] text-on-surface-variant">Conversa de 20 minutos · Sem compromisso · Escopo explicado antes de contratar</p>
+
+      <!-- Mini diagrama de fluxo -->
+      <div class="w-full max-w-4xl mt-10">
+        <div class="flex flex-col md:flex-row items-stretch gap-3">
+          <div class="card clip-corner-sm p-5 flex-1 text-left">
+            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">1. Cliente</p>
+            <p class="text-on-surface text-sm leading-relaxed">"Vocês fazem manutenção de ar condicionado? Preciso de um orçamento."</p>
+          </div>
+          <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
+          <div class="card clip-corner-sm p-5 flex-1 text-left">
+            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">2. Agente</p>
+            <p class="text-on-surface text-sm leading-relaxed">Identifica o serviço, pergunta endereço e horário, e avisa quando precisa de um humano.</p>
+          </div>
+          <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
+          <div class="card clip-corner-sm p-5 flex-1 text-left">
+            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">3. Painel</p>
+            <p class="text-on-surface text-sm leading-relaxed">Contato salvo com status "Orçamento pendente" e o próximo passo já anotado.</p>
+          </div>
+        </div>
+        <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest text-center mt-4">[ Exemplo de fluxo — demonstração conceitual, não é print real ]</p>
       </div>
     </div>
   </section>
 
-  <!-- Problema/Dor -->
-  <section class="py-section-padding px-6 md:px-margin-desktop" id="problema">
+  <!-- Barra de resultado -->
+  <section class="py-16 px-6 md:px-margin-desktop below-fold">
+    <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="scroll-reveal">
+        <p class="font-mono text-primary text-xs uppercase tracking-widest mb-2">Resposta mais rápida</p>
+        <p class="text-on-surface-variant text-sm leading-relaxed">O primeiro atendimento não depende de você estar disponível naquele momento.</p>
+      </div>
+      <div class="scroll-reveal" style="transition-delay:80ms">
+        <p class="font-mono text-primary text-xs uppercase tracking-widest mb-2">Leads organizados</p>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Cada contato tem histórico, status e próximo passo.</p>
+      </div>
+      <div class="scroll-reveal" style="transition-delay:160ms">
+        <p class="font-mono text-primary text-xs uppercase tracking-widest mb-2">Presença profissional</p>
+        <p class="text-on-surface-variant text-sm leading-relaxed">Seu site explica a oferta e facilita o contato.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problema -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="problema">
     <div class="max-w-container-max mx-auto">
       <div class="text-center mb-16 scroll-reveal">
-        <h2 class="font-headline text-3xl md:text-5xl font-bold">Seu negócio está perdendo <span class="text-primary">tempo e dinheiro?</span></h2>
-        <p class="text-on-surface-variant text-base md:text-lg max-w-xl mx-auto mt-4">Não é falta de esforço seu. É rotina brigando com coisa que já devia estar resolvida sozinha.</p>
+        <h2 class="font-headline text-3xl md:text-5xl font-bold max-w-3xl mx-auto">O problema não é falta de esforço. <span class="text-primary">É depender de processos manuais pra tudo.</span></h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:80ms">
           <p class="font-mono text-primary text-xs mb-3">01</p>
-          <h3 class="font-headline text-lg font-bold mb-2">Refém das redes sociais</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Seu negócio depende 100% do Instagram. Se o algoritmo muda ou a conta cai, sua audiência some com ele.</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Lead esperando resposta</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Quantas pessoas chamam quando você está atendendo outro cliente?</p>
         </div>
         <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:160ms">
           <p class="font-mono text-primary text-xs mb-3">02</p>
-          <h3 class="font-headline text-lg font-bold mb-2">Atendimento ineficiente</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Você perde clientes por demorar a responder no WhatsApp ou por não atender fora do horário comercial.</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Agenda espalhada</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Você encontra o histórico de cada contato em poucos segundos?</p>
         </div>
         <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:240ms">
           <p class="font-mono text-primary text-xs mb-3">03</p>
-          <h3 class="font-headline text-lg font-bold mb-2">Gestão desorganizada</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Planilhas, agendas de papel e calendários separados fazem você perder tempo e informação todo dia.</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Dependência do Instagram</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Se alguém descobrir seu negócio hoje, encontra uma página própria pra entender sua oferta?</p>
         </div>
         <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:320ms">
           <p class="font-mono text-primary text-xs mb-3">04</p>
-          <h3 class="font-headline text-lg font-bold mb-2">Presença digital fraca</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Site desatualizado, inexistente, ou que simplesmente não transmite credibilidade pro seu cliente.</p>
+          <h3 class="font-headline text-lg font-bold mb-2">Dono como gargalo</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Quantas tarefas precisam passar por você antes de um cliente avançar?</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Apresentação da Animus -->
-  <section class="py-section-padding px-6 md:px-margin-desktop below-fold">
+  <!-- Fluxo em 3 etapas -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="como-funciona">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h2 class="font-headline text-3xl md:text-5xl font-bold max-w-3xl mx-auto">Uma operação simples pro cliente avançar <span class="text-primary">sem você carregar tudo na cabeça.</span></h2>
+      </div>
+      <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-0 max-w-4xl mx-auto scroll-reveal">
+        <div class="flex md:flex-col items-center gap-4 md:gap-3 md:text-center md:w-48">
+          <div class="step-circle">01</div>
+          <div><h3 class="font-headline text-base font-bold">Atrair</h3><p class="text-on-surface-variant text-sm leading-relaxed">Site institucional e presença digital própria.</p></div>
+        </div>
+        <div class="hidden md:block step-connector"></div>
+        <div class="flow-arrow md:hidden ml-4" aria-hidden="true">↓</div>
+        <div class="flex md:flex-col items-center gap-4 md:gap-3 md:text-center md:w-48">
+          <div class="step-circle">02</div>
+          <div><h3 class="font-headline text-base font-bold">Atender</h3><p class="text-on-surface-variant text-sm leading-relaxed">Agente no WhatsApp responde perguntas frequentes, coleta informações e encaminha o que precisa de atenção humana.</p></div>
+        </div>
+        <div class="hidden md:block step-connector"></div>
+        <div class="flow-arrow md:hidden ml-4" aria-hidden="true">↓</div>
+        <div class="flex md:flex-col items-center gap-4 md:gap-3 md:text-center md:w-48">
+          <div class="step-circle">03</div>
+          <div><h3 class="font-headline text-base font-bold">Organizar</h3><p class="text-on-surface-variant text-sm leading-relaxed">Painel registra contatos, status, histórico e próximos passos.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- O que está incluído -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="incluido">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h2 class="font-headline text-3xl md:text-5xl font-bold">O que está <span class="text-primary">incluído</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div class="card clip-corner-sm p-7 scroll-reveal">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Entrega</p>
+          <h3 class="font-headline text-lg font-bold mb-3">Atendimento inteligente</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-2"><span class="text-on-surface">Implementamos:</span> fluxos de perguntas, triagem, coleta de dados e encaminhamento.</p>
+          <p class="text-on-surface-variant text-sm leading-relaxed"><span class="text-on-surface">Você passa a:</span> acompanhar só o que exige decisão humana.</p>
+        </div>
+        <div class="card clip-corner-sm p-7 scroll-reveal" style="transition-delay:80ms">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Entrega</p>
+          <h3 class="font-headline text-lg font-bold mb-3">Organização de clientes</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-2"><span class="text-on-surface">Implementamos:</span> cadastro, histórico, status e próximos passos.</p>
+          <p class="text-on-surface-variant text-sm leading-relaxed"><span class="text-on-surface">Você passa a:</span> saber quem entrou, em que etapa está e o que fazer depois.</p>
+        </div>
+        <div class="card clip-corner-sm p-7 scroll-reveal" style="transition-delay:160ms">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Entrega</p>
+          <h3 class="font-headline text-lg font-bold mb-3">Site institucional</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-2"><span class="text-on-surface">Implementamos:</span> estrutura, copy, páginas essenciais e CTA de contato.</p>
+          <p class="text-on-surface-variant text-sm leading-relaxed"><span class="text-on-surface">Você passa a:</span> ter presença própria pra apresentar o negócio.</p>
+        </div>
+        <div class="card clip-corner-sm p-7 scroll-reveal" style="transition-delay:240ms">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Entrega</p>
+          <h3 class="font-headline text-lg font-bold mb-3">Implantação</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-2"><span class="text-on-surface">Implementamos:</span> configuração, testes, ajustes e orientação.</p>
+          <p class="text-on-surface-variant text-sm leading-relaxed"><span class="text-on-surface">Você passa a:</span> começar a operar com escopo claro.</p>
+        </div>
+      </div>
+      <p class="text-center text-on-surface-variant text-xs font-mono uppercase tracking-widest mt-8">Site incluído conforme escopo da proposta — confirmado no diagnóstico</p>
+    </div>
+  </section>
+
+  <!-- Demonstração -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="demonstracao">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h2 class="font-headline text-3xl md:text-5xl font-bold max-w-2xl mx-auto">Veja o que acontece depois que o cliente <span class="text-primary">manda a primeira mensagem.</span></h2>
+      </div>
+      <div class="flex flex-col md:flex-row items-stretch gap-3 max-w-4xl mx-auto scroll-reveal">
+        <div class="card clip-corner-sm p-6 flex-1 text-left">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Mensagem inicial</p>
+          <p class="text-on-surface text-sm leading-relaxed">"Boa tarde, vi o Instagram de vocês. Fazem corte + barba hoje ainda?"</p>
+        </div>
+        <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
+        <div class="card clip-corner-sm p-6 flex-1 text-left">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Triagem</p>
+          <p class="text-on-surface text-sm leading-relaxed">Agente confirma serviço, oferece horários livres e pergunta se é a primeira vez do cliente.</p>
+        </div>
+        <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
+        <div class="card clip-corner-sm p-6 flex-1 text-left">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Registro no painel</p>
+          <p class="text-on-surface text-sm leading-relaxed">Lead vira card com nome, serviço, horário marcado e status "Agendado".</p>
+        </div>
+      </div>
+      <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest text-center mt-6">[ Exemplo de fluxo — demonstração conceitual, não é print real ]</p>
+    </div>
+  </section>
+
+  <!-- Para quem é / não é -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="para-quem">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h2 class="font-headline text-3xl md:text-5xl font-bold">Para quem <span class="text-primary">é — e para quem não é</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div class="card clip-corner-sm p-8 scroll-reveal">
+          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-4">É pra você se</p>
+          <ul class="space-y-3 text-on-surface-variant text-sm leading-relaxed">
+            <li>· Recebe contatos pelo WhatsApp</li>
+            <li>· Perde mensagens ou demora pra responder</li>
+            <li>· Usa planilhas, cadernos ou vários calendários</li>
+            <li>· Quer uma implementação feita pra sua rotina</li>
+            <li>· Deseja reduzir a dependência do dono no atendimento inicial</li>
+          </ul>
+        </div>
+        <div class="card clip-corner-sm p-8 scroll-reveal" style="transition-delay:80ms">
+          <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mb-4">Talvez não seja o momento se</p>
+          <ul class="space-y-3 text-on-surface-variant text-sm leading-relaxed">
+            <li>· Você ainda não tem uma oferta ou processo minimamente definido</li>
+            <li>· Espera uma solução sem participar do diagnóstico e da configuração</li>
+            <li>· Precisa de um marketplace ou sistema completo de gestão setorial</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Processo -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="processo">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h2 class="font-headline text-3xl md:text-5xl font-bold">Como funciona <span class="text-primary">a implementação</span></h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="scroll-reveal" style="transition-delay:80ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">01</p>
+          <h3 class="font-headline text-base font-bold mb-2">Diagnóstico</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Entendemos sua operação, volume de contatos e principais gargalos.</p>
+        </div>
+        <div class="scroll-reveal" style="transition-delay:160ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">02</p>
+          <h3 class="font-headline text-base font-bold mb-2">Desenho do fluxo</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Definimos perguntas, regras, integrações e limites do agente.</p>
+        </div>
+        <div class="scroll-reveal" style="transition-delay:240ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">03</p>
+          <h3 class="font-headline text-base font-bold mb-2">Implementação</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Configuramos o atendimento, painel, site e pontos de conversão.</p>
+        </div>
+        <div class="scroll-reveal" style="transition-delay:320ms">
+          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">04</p>
+          <h3 class="font-headline text-base font-bold mb-2">Testes e acompanhamento</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Validamos cenários reais, ajustamos e orientamos sua equipe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transparência (no lugar de prova social fabricada) -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="transparencia">
     <div class="max-w-[760px] mx-auto text-center scroll-reveal">
-      <h2 class="font-headline text-3xl md:text-5xl font-bold mb-6">Você já sabe o que falta.<span class="text-primary"> A Animus monta o que resolve.</span></h2>
+      <h2 class="font-headline text-3xl md:text-5xl font-bold mb-6">Como avaliamos se <span class="text-primary">faz sentido pra você</span></h2>
       <p class="text-on-surface-variant text-lg leading-relaxed">
-        Atender rápido, aparecer bem, não perder tempo com bagunça — isso você já sabe que precisa. A Animus entra montando exatamente isso pro seu negócio, do jeito que funciona no seu dia a dia, sem sistema genérico de prateleira.
+        Não vamos te mostrar depoimento ou número que a gente não possa provar. O diagnóstico gratuito serve exatamente pra isso: entender sua operação de verdade, mostrar o que dá pra automatizar primeiro e ser honesto sobre o que o agente resolve sozinho e o que ainda depende de você. Se não fizer sentido, você sai da conversa sabendo o motivo — sem custo e sem pressão.
       </p>
     </div>
   </section>
 
-  <!-- Oferta unificada (implementação fechada) -->
-  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="ofertas">
-    <div class="max-w-container-max mx-auto">
+  <!-- FAQ -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="faq">
+    <div class="max-w-3xl mx-auto">
       <div class="text-center mb-16 scroll-reveal">
-        <h2 class="font-headline text-3xl md:text-5xl font-bold">Uma solução completa, <span class="text-primary">não peças soltas</span></h2>
+        <h2 class="font-headline text-3xl md:text-5xl font-bold">Dúvidas <span class="text-primary">frequentes</span></h2>
       </div>
-      <div class="card clip-corner p-9 md:p-12 scroll-reveal border-[rgba(184,150,12,0.3)] max-w-3xl mx-auto">
-        <p class="text-on-surface-variant text-sm md:text-base leading-relaxed mb-8 max-w-2xl">
-          Cliente perdido por demora no WhatsApp, site que não existe ou não convence, gestão em planilha e anotação solta — no seu momento agora, isso não são três problemas separados, é um problema só. A Animus entrega tudo junto, numa implementação fechada.
-        </p>
-        <div class="gold-line mb-8"></div>
-        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-          <li>
-            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Incluído</p>
-            <h3 class="font-headline text-base font-bold mb-2">Atendimento 24h</h3>
-            <p class="text-on-surface-variant text-sm leading-relaxed">Agente qualifica e agenda no WhatsApp, sem depender de você estar online.</p>
-          </li>
-          <li>
-            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Incluído</p>
-            <h3 class="font-headline text-base font-bold mb-2">Painel de clientes</h3>
-            <p class="text-on-surface-variant text-sm leading-relaxed">Cada contato organizado num só lugar, do primeiro atendimento ao pós-venda.</p>
-          </li>
-        </ul>
-        <div class="border border-dashed border-[rgba(184,150,12,0.3)] p-5">
-          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Bônus do pacote</p>
-          <h3 class="font-headline text-base font-bold mb-2">Site institucional</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Presença própria, com domínio, sem depender só de rede social — vem incluso na implementação, não é vendido à parte.</p>
-        </div>
-      </div>
-
-      <!-- CTA intermediário -->
-      <div class="text-center mt-16 scroll-reveal">
-        <a class="btn-primary js-cta-open-modal inline-block max-w-full bg-primary text-background px-6 sm:px-10 py-3.5 sm:py-4 clip-corner font-bold text-base sm:text-lg" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+resolver+isso+agora" target="_blank" rel="noopener">
-          <span class="cta-scan-bar" aria-hidden="true"></span>
-          <span class="cta-swap"><span class="cta-default">Quero resolver isso agora</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Como Funciona / Garantia -->
-  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="como-funciona">
-    <div class="max-w-container-max mx-auto">
-      <div class="text-center mb-16 scroll-reveal">
-        <h2 class="font-headline text-3xl md:text-5xl font-bold">Transparência, eficiência e <span class="text-primary">resultado garantido</span></h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-        <div class="scroll-reveal" style="transition-delay:80ms">
-          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">01</p>
-          <h3 class="font-headline text-base font-bold mb-2">Diagnóstico Gratuito</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Uma conversa aprofundada pra entender suas dores e objetivos. Sem compromisso, sem enrolação.</p>
-        </div>
-        <div class="scroll-reveal" style="transition-delay:160ms">
-          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">02</p>
-          <h3 class="font-headline text-base font-bold mb-2">Proposta Personalizada</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Solução sob medida, com escopo fechado e cronograma claro. Você sabe exatamente o que esperar.</p>
-        </div>
-        <div class="scroll-reveal" style="transition-delay:240ms">
-          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">03</p>
-          <h3 class="font-headline text-base font-bold mb-2">Desenvolvimento Ágil</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Construção com agilidade e comunicação constante. Você acompanha cada etapa do processo.</p>
-        </div>
-        <div class="scroll-reveal" style="transition-delay:320ms">
-          <p class="font-mono text-4xl text-primary/40 font-bold mb-3">04</p>
-          <h3 class="font-headline text-base font-bold mb-2">Entrega e Suporte</h3>
-          <p class="text-on-surface-variant text-sm leading-relaxed">Solução funcionando, com suporte pra você aproveitar ao máximo o que foi construído.</p>
-        </div>
-      </div>
-      <div class="card clip-corner p-8 md:p-10 max-w-3xl mx-auto text-center scroll-reveal">
-        <p class="font-mono text-primary text-xs uppercase tracking-widest mb-3">Garantia</p>
-        <p class="text-on-surface text-lg leading-relaxed"><span class="text-primary font-semibold">Escopo fechado</span> e entrega rápida — resultado em semanas, não meses. E o mais importante: o sistema roda sozinho depois de pronto. Você não fica refém da Animus pro dia a dia do seu negócio.</p>
+      <div class="space-y-4 scroll-reveal">
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">A IA responde tudo sozinha?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Não. Ela cuida da triagem, das perguntas repetidas e da coleta de informação. Quando o assunto exige julgamento ou negociação, o agente encaminha pra você.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">O cliente consegue falar com uma pessoa?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Sim. O encaminhamento pra atendimento humano faz parte do fluxo desenhado no diagnóstico, não é uma exceção escondida.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">O atendimento funciona no meu número atual?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Avaliamos isso no diagnóstico — depende do tipo de número e de como ele é usado hoje.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">Posso alterar as perguntas e regras depois?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Sim, o fluxo é seu. Ajustes entram no acompanhamento pós-implementação.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">O que preciso fornecer pra começar?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Contexto do seu atendimento hoje (perguntas mais comuns, horários, serviços) — isso é levantado junto com você no diagnóstico.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">O site vem realmente incluído? O que ele contém?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Conforme o escopo fechado na proposta — a condição exata é confirmada no diagnóstico, não varia depois de combinada.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">Quanto tempo leva a implantação?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Varia com o escopo definido na proposta — informamos um prazo real depois de mapear sua operação, não antes.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">Existe mensalidade, custo de ferramenta ou suporte?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Isso faz parte da proposta apresentada depois do diagnóstico — sem valor exposto antes da conversa, pra evitar comparação fora de contexto.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">O que acontece quando o agente não sabe responder?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Ele encaminha pra você em vez de arriscar uma resposta errada. Esse limite é desenhado junto com você, não é padrão genérico.</p>
+        </details>
+        <details class="faq-item card clip-corner-sm p-6">
+          <summary class="font-headline text-base font-bold flex justify-between items-center gap-4">Meus dados ficam protegidos?<span class="faq-chevron font-mono text-primary text-xl" aria-hidden="true">+</span></summary>
+          <p class="text-on-surface-variant text-sm leading-relaxed mt-3">Sim — tratamos isso como parte do escopo técnico, detalhado na proposta.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -461,21 +633,21 @@
     <div class="gold-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] -z-10" aria-hidden="true"></div>
     <div class="max-w-[760px] mx-auto text-center scroll-reveal">
       <img src="assets/animus_ia_icon-128.png" alt="Animus AI Studio" class="w-16 h-16 mx-auto mb-8 rounded-full" loading="lazy"/>
-      <h2 class="font-headline text-4xl md:text-6xl font-bold mb-6 leading-tight">Enquanto isso não muda, <span class="text-primary">o cliente vai pro concorrente.</span></h2>
-      <p class="text-on-surface-variant text-xl mb-12 max-w-lg mx-auto">Agende sua conversa agora e veja o que muda já na primeira semana. Sem burocracia, sem compromisso.</p>
-      <a class="btn-primary js-cta-open-modal inline-flex items-center gap-3 bg-primary text-background px-6 sm:px-12 py-4 sm:py-5 clip-corner font-bold text-base sm:text-xl" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+resolver+isso+agora" target="_blank" rel="noopener" id="cta-final-trigger">
+      <h2 class="font-headline text-4xl md:text-6xl font-bold mb-6 leading-tight">Descubra qual parte do seu atendimento <span class="text-primary">pode parar de depender de você.</span></h2>
+      <p class="text-on-surface-variant text-xl mb-12 max-w-lg mx-auto">Em uma conversa rápida, mapeamos seus gargalos e mostramos o que poderia ser automatizado primeiro.</p>
+      <a class="btn-primary js-cta-open-modal inline-flex items-center gap-3 bg-primary text-background px-6 sm:px-12 py-4 sm:py-5 clip-corner font-bold text-base sm:text-xl" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener" id="cta-final-trigger">
         <span class="cta-scan-bar" aria-hidden="true"></span>
-        <span class="cta-swap"><span class="cta-default">Quero resolver isso agora</span><span class="cta-alt"><span class="font-mono">&gt;</span> Vamos conversar →</span></span>
+        Agendar diagnóstico gratuito
       </a>
+      <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mt-5">Sem compromisso. Você recebe clareza sobre o próximo passo, mesmo que não contrate.</p>
     </div>
   </section>
 
   <!-- Agendamento (Calendly) — OCULTO até termos uma conta real ou decidirmos migrar
        pra uma solução conectada ao Supabase. Placeholder atual (data-url) não aponta
        pra uma conta configurada, por isso a seção fica comentada em vez de visível.
-       Pra reativar: remover este comentário e trocar o data-url pelo link real,
-       e devolver o id="contato" daqui pro nav (hoje ele aponta pro rodapé).
-  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="contato">
+       Pra reativar: remover este comentário e trocar o data-url pelo link real.
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold">
     <div class="max-w-container-max mx-auto text-center">
       <p class="font-mono text-primary uppercase tracking-[0.3em] mb-4 scroll-reveal">[ Agende seu diagnóstico ]</p>
       <h2 class="font-headline text-3xl md:text-5xl font-bold mb-10 scroll-reveal">Escolha o melhor horário <span class="text-primary">pra conversar</span></h2>
@@ -554,7 +726,7 @@
     document.getElementById('current-year').textContent = new Date().getFullYear();
   });
 
-  // Modal de qualificação — todos os CTAs primários (nav, hero, ofertas, final)
+  // Modal de qualificação — todos os CTAs primários (nav, hero, final)
   const ctaModal = document.getElementById('cta-modal');
   const ctaTriggers = document.querySelectorAll('.js-cta-open-modal');
   const ctaModalClose = document.getElementById('cta-modal-close');
@@ -623,14 +795,14 @@
     });
 
     ctaModalSubmit.addEventListener('click', () => {
-      const topics = Array.from(document.querySelectorAll('input[name="cta-topic"]:checked')).map(i => i.value);
+      const topic = document.querySelector('input[name="cta-topic"]:checked');
       const freeText = ctaModalMessage.value.trim();
 
-      let message = 'Olá, quero resolver isso agora.';
-      if (topics.length) message += ' Meu maior problema hoje: ' + topics.join(', ') + '.';
+      let message = 'Olá, quero um diagnóstico gratuito.';
+      if (topic) message += ' Meu maior problema hoje: ' + topic.value + '.';
       if (freeText) message += ' ' + freeText;
 
-      // TODO: integração futura — enviar payload (topics, freeText) para Supabase
+      // TODO: integração futura — enviar payload (topic, freeText) para Supabase
       // (armazenamento) e webhook n8n (notificação WhatsApp). Número de WhatsApp
       // ainda será definido como permanente antes dessa integração.
 

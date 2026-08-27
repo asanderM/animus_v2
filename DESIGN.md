@@ -38,7 +38,7 @@ rounded:
 spacing:
   mobile-margin: "24px"
   desktop-margin: "80px"
-  section-padding: "140px"
+  section-padding: "100px"
   container-max: "1200px"
 components:
   button-primary:
@@ -116,7 +116,7 @@ Paleta quase-monocromática (preto/carbono/gelo) com um único acento dourado qu
 
 ## Layout
 
-Container central com `max-width: 1200px`, margem lateral `24px` no mobile e `80px` no desktop. Seções usam `padding-block: 140px` (exceto Hero, que é `min-h-screen` sem esse padding). Grid de conteúdo é `1 coluna` no mobile, expandindo pra `2` (dores, oferta) ou `4` (etapas) no desktop via `md:grid-cols-*`. Conteúdo abaixo da dobra usa `content-visibility: auto` (classe `.below-fold`) pra performance de renderização. Sem sidebar, sem densidade alta — respiro generoso é parte deliberada do tom "consultoria", não "app".
+Container central com `max-width: 1200px`, margem lateral `24px` no mobile e `80px` no desktop. Seções usam `padding-block: 100px` (reduzido de `140px` na reestruturação pós-briefing — mais seções na página, respiro por seção encolheu pra manter a leitura ágil; exceto Hero, que é `min-h-screen` sem esse padding). Grid de conteúdo é `1 coluna` no mobile, expandindo pra `2` (problema, incluído, para quem é) ou `4` (etapas do processo) no desktop via `md:grid-cols-*`. Conteúdo abaixo da dobra usa `content-visibility: auto` (classe `.below-fold`) pra performance de renderização. Sem sidebar, sem densidade alta — respiro generoso é parte deliberada do tom "consultoria", não "app".
 
 ## Elevation & Depth
 
@@ -154,7 +154,7 @@ Corte de canto (`clip-path`) substitui `border-radius` em todo o sistema — zer
 ### Modal (Qualificação do CTA Final)
 - **Shape:** `clip-corner-sm`, largura máxima `420px`.
 - **Background:** Carbono, borda `1px solid rgba(184,150,12,0.3)`.
-- **Behavior:** overlay escuro (`rgba(0,0,0,0.75)`) com fade+scale de entrada (`0.2s`); campos de checkbox usam `accent-color` dourado; textarea com borda sutil que clareia no foco.
+- **Behavior:** overlay escuro (`rgba(0,0,0,0.75)`) com fade+scale de entrada (`0.2s`); indicador de passo ("1 de 2"/"2 de 2") em mono; pergunta única de múltipla escolha (radio, não checkbox) usa `accent-color` dourado; textarea opcional com borda sutil que clareia no foco; link secundário "abrir WhatsApp direto" sempre disponível, sem obrigar preenchimento.
 - **Redução de movimento:** entrada/saída do modal vira instantânea (sem fade/scale) sob `prefers-reduced-motion: reduce`.
 
 ### Navigation
