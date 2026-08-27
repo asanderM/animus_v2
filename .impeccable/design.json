@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-26T00:00:00Z",
+  "title": "Design System: Animus AI Studio",
+  "extensions": {
+    "colorMeta": {
+      "preto": { "role": "neutral", "displayName": "Preto", "canonical": "#0a0a0a", "tonalRamp": ["#030303", "#0a0a0a", "#141414", "#1f1f1f", "#2e2b26", "#4a4640", "#6b6862", "#9e9a94"] },
+      "preto-rodape": { "role": "neutral", "displayName": "Preto do Rodapé", "canonical": "#050505", "tonalRamp": ["#000000", "#050505", "#0a0a0a", "#141414", "#1f1f1f", "#2e2b26", "#4a4640", "#6b6862"] },
+      "carbono": { "role": "neutral", "displayName": "Carbono", "canonical": "#141414", "tonalRamp": ["#030303", "#0a0a0a", "#141414", "#1f1f1f", "#2e2b26", "#4a4640", "#6b6862", "#9e9a94"] },
+      "ouro-escuro": { "role": "primary", "displayName": "Ouro Escuro", "canonical": "#b8960c", "tonalRamp": ["#3d3204", "#5c4b07", "#7a6309", "#997c0b", "#b8960c", "#d1ab1e", "#e0c358", "#f0dfa0"] },
+      "ouro-queimado": { "role": "primary", "displayName": "Ouro Queimado", "canonical": "#8a6f0a", "tonalRamp": ["#2e2503", "#453705", "#5c4a07", "#735c09", "#8a6f0a", "#a4881c", "#c0a54c", "#dcc586"] },
+      "gelo-sujo": { "role": "neutral", "displayName": "Gelo Sujo", "canonical": "#e8e4dc", "tonalRamp": ["#6b6862", "#847f78", "#9e9a94", "#b8b3ac", "#cfc9c1", "#e8e4dc", "#f0ede7", "#fdfcfa"] },
+      "cinza-neutro": { "role": "neutral", "displayName": "Cinza Neutro", "canonical": "#9e9a94", "tonalRamp": ["#3d3b38", "#575550", "#726f69", "#9e9a94", "#b8b3ac", "#cfc9c1", "#e8e4dc", "#f0ede7"] },
+      "contorno-sutil": { "role": "neutral", "displayName": "Contorno Sutil", "canonical": "#2e2b26", "tonalRamp": ["#0f0e0c", "#1a1917", "#2e2b26", "#4a4640", "#6b6862", "#9e9a94", "#cfc9c1", "#e8e4dc"] },
+      "whatsapp-verde": { "role": "utility", "displayName": "WhatsApp Verde", "canonical": "#25D366", "tonalRamp": ["#0c4a24", "#127a3a", "#18a34d", "#1ec25d", "#25D366", "#4fdc82", "#7ce6a3", "#aef0c6"] }
+    },
+    "typographyMeta": {
+      "headline": { "displayName": "Headline", "purpose": "H1/H2 de seção — Hero, título de cada bloco. Única onde o destaque parcial em ouro (<span>) aparece." },
+      "title": { "displayName": "Title", "purpose": "H3 de card individual (dor, oferta, etapa)." },
+      "body": { "displayName": "Body", "purpose": "Parágrafo de apoio, sempre em Cinza Neutro." },
+      "label": { "displayName": "Label / Mono", "purpose": "Rótulos, tags, números de etapa, tagline — nunca texto corrido." }
+    },
+    "shadows": [
+      { "name": "card-hover-glow", "value": "0 0 40px rgba(184,150,12,0.08)", "purpose": "Halo dourado difuso ao redor do card no hover." },
+      { "name": "button-hover-glow", "value": "0 0 40px rgba(184,150,12,0.3)", "purpose": "Glow mais intenso nos CTAs primários no hover." },
+      { "name": "whatsapp-float-shadow", "value": "0 4px 20px rgba(37,211,102,0.4)", "purpose": "Sombra isolada (cor de terceiro) do botão flutuante de WhatsApp." }
+    ],
+    "motion": [
+      { "name": "ease-button-hover", "value": "transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.25s ease", "purpose": "Escala + glow no hover de botão primário." },
+      { "name": "scan-sweep", "value": "cta-scan-sweep 0.45s ease-in-out", "purpose": "Barra de varredura tipo terminal que cruza o CTA no hover, com crossfade de texto via clip-path." },
+      { "name": "scroll-reveal", "value": "opacity 0.7s ease-out, translate 0.7s ease-out", "purpose": "Fade-in + slide-up de 28px ao entrar no viewport (IntersectionObserver, unobserve após trigger)." },
+      { "name": "cursor-blink", "value": "blink 1s step-start infinite", "purpose": "Cursor `_` piscando ao lado do nome da marca na Hero — puro CSS, sempre ativo." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "480px" },
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA principal — único caminho de conversão do site, sempre abrindo o modal de qualificação ou o WhatsApp.",
+      "html": "<button class=\"ds-btn-primary\">Quero resolver isso agora</button>",
+      "css": ".ds-btn-primary { position: relative; overflow: hidden; background: #b8960c; color: #0a0a0a; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; padding: 14px 32px; border: none; cursor: pointer; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.25s ease; } .ds-btn-primary:hover { background: #8a6f0a; transform: scale(1.03); box-shadow: 0 0 40px rgba(184,150,12,0.3); } .ds-btn-primary:active { transform: scale(0.96); } .ds-btn-primary:focus-visible { outline: 2px solid #e8e4dc; outline-offset: 3px; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Bloco de conteúdo elevado sobre o fundo preto — usado pra dores, ofertas e blocos de destaque.",
+      "html": "<div class=\"ds-card\"><p class=\"ds-card-eyebrow\">01</p><h3 class=\"ds-card-title\">Atendimento ineficiente</h3><p class=\"ds-card-body\">Você perde clientes por demorar a responder no WhatsApp ou por não atender fora do horário comercial.</p></div>",
+      "css": ".ds-card { background: #141414; border: 1px solid rgba(184,150,12,0.12); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); padding: 32px; transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease; } .ds-card:hover { border-color: rgba(184,150,12,0.4); box-shadow: 0 0 40px rgba(184,150,12,0.08); transform: translateY(-4px); } .ds-card-eyebrow { font-family: 'JetBrains Mono', monospace; color: #b8960c; font-size: 12px; margin-bottom: 12px; } .ds-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #e8e4dc; margin-bottom: 8px; } .ds-card-body { font-family: 'Space Grotesk', sans-serif; font-size: 14px; line-height: 1.6; color: #9e9a94; }"
+    },
+    {
+      "name": "Terminal Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Rótulo assinatura em colchetes — usado na tagline do nav, rodapé e destaques de seção. Define o motivo 'terminal' da marca.",
+      "html": "<span class=\"ds-terminal-label\">[ Sites e Automações Inteligentes ]</span>",
+      "css": ".ds-terminal-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 500; color: #b8960c; text-transform: uppercase; letter-spacing: 0.12em; }"
+    },
+    {
+      "name": "Step Number",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Número mono grande e translúcido que abre cada item de uma sequência numerada (ex: as 4 etapas de Como Funciona).",
+      "html": "<div class=\"ds-step\"><p class=\"ds-step-number\">01</p><h3 class=\"ds-step-title\">Diagnóstico Gratuito</h3><p class=\"ds-step-body\">Uma conversa aprofundada pra entender suas dores e objetivos. Sem compromisso, sem enrolação.</p></div>",
+      "css": ".ds-step-number { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 36px; color: rgba(184,150,12,0.4); margin-bottom: 12px; } .ds-step-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; color: #e8e4dc; margin-bottom: 8px; } .ds-step-body { font-family: 'Space Grotesk', sans-serif; font-size: 14px; line-height: 1.6; color: #9e9a94; }"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Barra fixa com blur, marca + tagline em colchetes, links e CTA primário.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-brand\"><span class=\"ds-nav-brand-name\">ANIMUS AI STUDIO</span><span class=\"ds-terminal-label\">[ SITES E AUTOMAÇÕES INTELIGENTES ]</span></div><a class=\"ds-nav-link\" href=\"#\">Problema</a><button class=\"ds-btn-primary\" style=\"padding:10px 28px;font-size:14px;\">Quero resolver isso agora</button></nav>",
+      "css": ".ds-nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: rgba(10,10,10,0.8); backdrop-filter: blur(24px); border-bottom: 1px solid rgba(46,43,38,0.2); } .ds-nav-brand { display: flex; flex-direction: column; } .ds-nav-brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; color: #e8e4dc; } .ds-nav-link { font-family: 'Space Grotesk', sans-serif; color: #9e9a94; text-decoration: none; transition: color 0.2s ease; } .ds-nav-link:hover, .ds-nav-link:focus-visible { color: #b8960c; }"
+    },
+    {
+      "name": "Modal Card",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Cartão de diálogo do modal de qualificação — mesma linguagem visual do Card, com borda dourada mais visível por ser um estado modal.",
+      "html": "<div class=\"ds-modal-card\"><h3 class=\"ds-modal-title\">Qual é o maior problema hoje?</h3><label class=\"ds-modal-option\"><input type=\"checkbox\"/> Perco cliente por demora no WhatsApp</label><button class=\"ds-btn-primary\" style=\"width:100%;margin-top:20px;\">Concluir</button></div>",
+      "css": ".ds-modal-card { background: #141414; border: 1px solid rgba(184,150,12,0.3); color: #e8e4dc; max-width: 420px; padding: 32px; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); } .ds-modal-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 16px; } .ds-modal-option { display: flex; align-items: center; gap: 10px; padding: 10px 0; font-family: 'Space Grotesk', sans-serif; font-size: 14px; cursor: pointer; } .ds-modal-option input { accent-color: #b8960c; width: 16px; height: 16px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Gilded Ledger",
+    "overview": "Um livro-razão em carbono e couro escuro, escriturado a tinta dourada — preciso, restrito, sem enfeite. É a estética de uma consultoria técnica que documenta cada linha com rigor, não a de um produto de consumo tentando parecer divertido. O fundo é quase preto absoluto (#0a0a0a), os blocos de conteúdo flutuam em carbono (#141414) com bordas douradas quase invisíveis em repouso, e o ouro só aparece pra marcar o que importa: números de etapa, rótulos, o CTA. Um grão de ruído sutil (film-noise, 4.5% de opacidade) cobre a página inteira, dando textura análoga a um material físico em vez de tela plana.\n\nO vocabulário tipográfico reforça o mesmo espírito: Space Grotesk carrega toda leitura (títulos e corpo), enquanto JetBrains Mono é reservado só pra \"carimbos\" — rótulos em caixa alta, colchetes [ ], o prompt >_, o cursor piscando. Cantos são sempre cortados (clip-path), nunca arredondados — geometria angular, não macia. Nada tem sombra em repouso; o brilho dourado e o leve levante só acontecem como resposta a interação, nunca como decoração parada.",
+    "keyCharacteristics": [
+      "Fundo quase-preto + acentos em carbono, nunca branco puro",
+      "Ouro (#b8960c) raro e intencional — nunca preenchimento de fundo grande",
+      "Cantos sempre cortados via clip-path, zero border-radius",
+      "Mono reservado a rótulos/chrome; Space Grotesk carrega toda leitura",
+      "Grão de ruído sutil cobrindo toda a página",
+      "Flat em repouso; glow + levante só no hover"
+    ],
+    "rules": [
+      { "name": "The Restrained Gold Rule", "body": "Ouro aparece em ≤10% de qualquer viewport — CTA, um número, um rótulo. Se duas coisas na mesma tela competem por atenção em ouro, uma delas está errada.", "section": "colors" },
+      { "name": "The Two-Voice Rule", "body": "Se o texto é pra ser lido em frase, é Space Grotesk. Se o texto é um rótulo, tag, número solto ou fragmento de \"interface\" (colchetes, prompt, cursor), é JetBrains Mono. As duas fontes nunca se misturam dentro do mesmo bloco de texto corrido.", "section": "typography" },
+      { "name": "The Flat-Until-Interaction Rule", "body": "Nenhuma superfície tem sombra ou glow em repouso. Se algo brilha ou levanta, é porque o usuário acabou de interagir com ele — nunca decoração parada.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do cortar cantos com clip-path (clip-corner / clip-corner-sm) em qualquer superfície nova — nunca border-radius.",
+      "Do manter todo texto de rótulo/tag/número em JetBrains Mono, caixa alta, tracking largo.",
+      "Do deixar toda superfície flat em repouso; glow e levante só entram como resposta a hover/focus.",
+      "Do respeitar prefers-reduced-motion em qualquer animação nova (scan bar, scroll-reveal, modal, cursor piscando)."
+    ],
+    "donts": [
+      "Don't usar border-radius em nenhum componente — quebra a identidade geométrica cortada do sistema.",
+      "Don't usar Gelo Sujo (#e8e4dc) puro pra texto de corpo longo — reservar pro peso maior; corpo de apoio é Cinza Neutro.",
+      "Don't aplicar o Ouro Escuro como fundo de bloco grande (seção inteira, card cheio) — é acento raro, não cor de preenchimento.",
+      "Don't reaproveitar o verde do WhatsApp (#25D366) em nenhum outro componente da marca — é cor de terceiro, isolada de propósito."
+    ]
+  }
+}

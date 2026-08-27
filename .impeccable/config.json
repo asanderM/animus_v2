@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "createdAt": "2026-08-27T00:27:28.209Z",
+        "reason": "Same confirmed brand font, case-variant match from Google Fonts link tag"
+      }
+    ]
+  }
+}

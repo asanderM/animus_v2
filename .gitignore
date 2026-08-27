@@ -12,6 +12,9 @@ ideia_sites.md
 pipeline_animus.md
 CLAUDE.md
 
+# mcp (contém token em texto puro)
+.mcp.json
+
 # Setores da agência — projetos irmãos aninhados aqui dentro, cada um com
 # seu próprio repositório git/remoto. Nunca rastrear pelo repo animus_v2.
 animus_dashboard/
