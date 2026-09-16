@@ -5,50 +5,11 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Animus AI Studio | Sites e Automações Inteligentes</title>
 <meta name="description" content="Atendimento automático no WhatsApp e organização de clientes numa implementação só — com site institucional incluso — pra pequenos negócios locais não perderem venda por demora ou bagunça."/>
-<meta name="robots" content="index, follow"/>
-<link rel="canonical" href="https://animusai.com.br/"/>
 <meta name="geo.region" content="BR-RS"/>
 <meta name="geo.placename" content="Taquara, Vale do Paranhana"/>
-<meta property="og:title" content="Animus AI Studio | Sites e Automações Inteligentes"/>
-<meta property="og:description" content="Atendimento automático e organização de clientes numa implementação só, com site institucional incluso. Sem burocracia, sem compromisso."/>
-<meta property="og:type" content="website"/>
-<meta property="og:locale" content="pt_BR"/>
-<meta property="og:site_name" content="Animus AI Studio"/>
-<meta property="og:url" content="https://animusai.com.br"/>
-<meta property="og:image" content="https://animusai.com.br/assets/cartao_animus.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Animus AI Studio | Sites e Automações Inteligentes"/>
-<meta name="twitter:description" content="Atendimento automático e organização de clientes numa implementação só, com site institucional incluso. Sem burocracia, sem compromisso."/>
-<meta name="twitter:image" content="https://animusai.com.br/assets/cartao_animus.png"/>
 <link rel="icon" type="image/png" href="assets/animus_ia_icon.png"/>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "Animus AI Studio",
-  "image": "https://animusai.com.br/assets/animus_ia_icon.png",
-  "url": "https://animusai.com.br",
-  "telephone": "+5551993203344",
-  "email": "contato@animusai.com.br",
-  "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Taquara",
-    "addressRegion": "RS",
-    "addressCountry": "BR"
-  },
-  "areaServed": {
-    "@type": "Place",
-    "name": "Vale do Paranhana, RS"
-  },
-  "description": "Atendimento automático no WhatsApp e organização de clientes numa implementação só, com site institucional incluso, pra pequenos negócios locais não perderem venda por demora ou bagunça."
-}
-</script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<!-- Calendly (oculto até a conta real ser configurada — ver seção "Agendamento" comentada no <main>)
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/>
--->
 
 <script id="tailwind-config">
   tailwind.config = {
@@ -109,6 +70,7 @@
   .card {
     background: var(--color-carbono);
     border: 1px solid rgba(var(--color-ouro-escuro-rgb), 0.12);
+    border-radius: 10px;
     transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
   }
   .card:hover {
@@ -161,6 +123,7 @@
   .modal-card {
     background: var(--color-carbono);
     border: 1px solid rgba(var(--color-ouro-escuro-rgb), 0.3);
+    border-radius: 10px;
     color: var(--color-gelo-sujo);
     max-width: 420px; width: 100%;
     padding: 32px;
@@ -266,6 +229,77 @@
     #intro-overlay { display: none; }
     html.is-loading #hero-content { opacity: 1; translate: 0 0; }
   }
+
+  /* Movimento de assinatura — timeline que se preenche sozinha
+     (bagunça -> painel organizado). Reaproveita a técnica de swap em
+     grid já usada no .cta-scan-bar/texto do botão: duas camadas na
+     mesma célula, uma esmaece enquanto a outra aparece. Reaproveita
+     também o IntersectionObserver de .scroll-reveal que já existe —
+     zero JS novo, .tl-item só ganha .visible junto com .scroll-reveal. */
+  .tl-row { display: flex; gap: 18px; align-items: flex-start; }
+  .tl-spine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 6px; }
+  .tl-dot {
+    width: 11px; height: 11px;
+    background: var(--color-carbono);
+    border: 1px solid rgba(var(--color-ouro-escuro-rgb), 0.4);
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+  .tl-item.visible .tl-dot {
+    background: var(--color-ouro-escuro);
+    border-color: var(--color-ouro-escuro);
+    box-shadow: 0 0 12px rgba(var(--color-ouro-escuro-rgb), 0.5);
+  }
+  .tl-line { width: 1px; flex: 1; min-height: 32px; background: rgba(var(--color-ouro-escuro-rgb), 0.15); margin-top: 4px; }
+
+  /* Flip 3D real (perspective + rotateY), não só cross-fade — o cartão
+     antigo (rabiscado) literalmente vira e mostra o painel organizado
+     no verso. */
+  .tl-swap { position: relative; flex: 1; perspective: 1400px; }
+  .tl-flip {
+    position: relative; width: 100%;
+    min-height: 6.75rem;
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.4, 0.1, 0.2, 1);
+  }
+  .tl-before, .tl-after {
+    position: absolute; inset: 0;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+    border-radius: 8px;
+  }
+  .tl-item.visible .tl-flip { transform: rotateY(180deg); }
+  .tl-before {
+    transform: rotate(-0.6deg);
+    border: 1px dashed rgba(158, 154, 148, 0.35);
+    padding: 14px 18px;
+    color: var(--color-cinza-neutro);
+    font-size: 13px; font-style: italic;
+  }
+  .tl-after {
+    transform: rotateY(180deg);
+    background: var(--color-carbono);
+    border: 1px solid rgba(var(--color-ouro-escuro-rgb), 0.3);
+    padding: 16px 18px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tl-flip, .tl-dot { transition: none; }
+  }
+
+  /* Profundidade 3D no [A] do hero — gira uma vez no hover, como um
+     selo/moeda de ouro sendo virado (liga com o conceito "livro-razão
+     em couro e ouro" do DESIGN.md). Só reage a interação — nada gira
+     sozinho em repouso, mesma regra "Flat-Until-Interaction" do resto
+     do sistema. Não afeta o [A] do intro-overlay (esse pulsa como
+     indicador de carregamento, propósito diferente). */
+  #hero-content { perspective: 800px; }
+  #hero-content .intro-mark {
+    display: inline-block; cursor: default;
+    transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  #hero-content .intro-mark:hover { transform: rotateY(360deg); }
+  @media (prefers-reduced-motion: reduce) {
+    #hero-content .intro-mark { transition: none; }
+  }
 </style>
 </head>
 <body class="font-body">
@@ -309,9 +343,6 @@
     </div>
   </div>
 </div>
-<!-- TODO: integração futura — enviar payload para Supabase (armazenamento) e webhook n8n
-     (notificação WhatsApp). Número de WhatsApp ainda será definido como permanente antes
-     dessa integração. -->
 
 <!-- Navigation -->
 <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/20">
@@ -324,7 +355,7 @@
       </div>
     </a>
     <div class="hidden md:flex gap-8 items-center">
-      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Como funciona</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors" href="#bagunca-ao-painel">Como funciona</a>
       <a class="text-on-surface-variant hover:text-primary transition-colors" href="#incluido">O que está incluído</a>
       <a class="text-on-surface-variant hover:text-primary transition-colors" href="#para-quem">Para quem é</a>
       <a class="text-on-surface-variant hover:text-primary transition-colors" href="#faq">Dúvidas</a>
@@ -337,7 +368,7 @@
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
     <div class="hidden md:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-xl border-b border-outline-variant/20 px-6 py-6 flex-col gap-6" id="mobile-menu">
-      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#como-funciona">Como funciona</a>
+      <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#bagunca-ao-painel">Como funciona</a>
       <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#incluido">O que está incluído</a>
       <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#para-quem">Para quem é</a>
       <a class="block py-3 text-on-surface-variant hover:text-primary transition-colors" href="#faq">Dúvidas</a>
@@ -368,30 +399,9 @@
           <span class="cta-scan-bar" aria-hidden="true"></span>
           Quero um diagnóstico gratuito
         </a>
-        <a class="btn-secondary px-8 py-4 clip-corner font-bold text-base sm:text-lg" href="#como-funciona">Ver como funciona</a>
+        <a class="btn-secondary px-8 py-4 clip-corner font-bold text-base sm:text-lg" href="#bagunca-ao-painel">Ver como funciona</a>
       </div>
       <p class="font-mono text-[10px] text-on-surface-variant">Conversa de 20 minutos · Sem compromisso · Escopo explicado antes de contratar</p>
-
-      <!-- Mini diagrama de fluxo -->
-      <div class="w-full max-w-4xl mt-10">
-        <div class="flex flex-col md:flex-row items-stretch gap-3">
-          <div class="card clip-corner-sm p-5 flex-1 text-left">
-            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">1. Cliente</p>
-            <p class="text-on-surface text-sm leading-relaxed">"Vocês fazem manutenção de ar condicionado? Preciso de um orçamento."</p>
-          </div>
-          <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
-          <div class="card clip-corner-sm p-5 flex-1 text-left">
-            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">2. Agente</p>
-            <p class="text-on-surface text-sm leading-relaxed">Identifica o serviço, pergunta endereço e horário, e avisa quando precisa de um humano.</p>
-          </div>
-          <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
-          <div class="card clip-corner-sm p-5 flex-1 text-left">
-            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">3. Painel</p>
-            <p class="text-on-surface text-sm leading-relaxed">Contato salvo com status "Orçamento pendente" e o próximo passo já anotado.</p>
-          </div>
-        </div>
-        <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest text-center mt-4">[ Exemplo de fluxo — demonstração conceitual, não é print real ]</p>
-      </div>
     </div>
   </section>
 
@@ -440,6 +450,97 @@
           <h3 class="font-headline text-lg font-bold mb-2">Dono como gargalo</h3>
           <p class="text-on-surface-variant text-sm leading-relaxed">Quantas tarefas precisam passar por você antes de um cliente avançar?</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOVIMENTO DE ASSINATURA — Da bagunça ao painel organizado.
+       Movida pra logo após o Problema (prova real mais cedo, conforme
+       decidido na entrevista). Cada linha da timeline resolve, na
+       ordem, uma das 4 dores 01-04 acima — ao entrar na tela, o
+       "antes" (rabisco/anotação solta) esmaece e vira o "depois"
+       (card organizado do painel). Referência de interação pesquisada
+       no 21st.dev (Card Status List / Incident Status Timeline),
+       reimplementada em CSS+IntersectionObserver puro pra não
+       introduzir React/framer-motion nesse projeto estático. -->
+  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="bagunca-ao-painel">
+    <div class="max-w-container-max mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <p class="font-mono text-primary text-xs uppercase tracking-widest mb-4">[ Como isso resolve na prática ]</p>
+        <h2 class="font-headline text-3xl md:text-5xl font-bold max-w-2xl mx-auto">Da bagunça ao painel organizado. <span class="text-primary">Role a página e veja.</span></h2>
+        <p class="text-on-surface-variant text-sm mt-4 max-w-xl mx-auto">Cada uma das 4 dores acima vira uma linha aqui embaixo — o jeito antigo à esquerda esmaecendo, o painel organizado tomando o lugar.</p>
+      </div>
+
+      <div class="max-w-2xl mx-auto flex flex-col gap-4">
+        <div class="tl-item scroll-reveal tl-row">
+          <div class="tl-spine">
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-line" aria-hidden="true"></div>
+          </div>
+          <div class="tl-swap">
+            <div class="tl-flip">
+              <p class="tl-before">"07:42 — cliente mandou mensagem no Instagram, só vimos à noite."</p>
+              <div class="tl-after card clip-corner-sm">
+                <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Lead novo · via WhatsApp</p>
+                <p class="text-on-surface text-sm">Status: <span class="text-primary">Aguardando resposta</span> — triagem automática já em andamento.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item scroll-reveal tl-row" style="transition-delay:120ms">
+          <div class="tl-spine">
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-line" aria-hidden="true"></div>
+          </div>
+          <div class="tl-swap">
+            <div class="tl-flip">
+              <p class="tl-before">Anotado no caderno: "ligar pro João sobre orçamento" — sem data.</p>
+              <div class="tl-after card clip-corner-sm">
+                <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">João · Contato</p>
+                <p class="text-on-surface text-sm">Status: <span class="text-primary">Orçamento pendente</span> — próximo passo: enviar valor.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item scroll-reveal tl-row" style="transition-delay:240ms">
+          <div class="tl-spine">
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-line" aria-hidden="true"></div>
+          </div>
+          <div class="tl-swap">
+            <div class="tl-flip">
+              <p class="tl-before">Planilha desatualizada há 3 semanas. Ninguém sabe mais o que é o quê.</p>
+              <div class="tl-after card clip-corner-sm">
+                <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Painel de contatos</p>
+                <p class="text-on-surface text-sm">12 contatos ativos · <span class="text-primary">última atualização: agora</span>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item scroll-reveal tl-row" style="transition-delay:360ms">
+          <div class="tl-spine">
+            <div class="tl-dot" aria-hidden="true"></div>
+          </div>
+          <div class="tl-swap">
+            <div class="tl-flip">
+              <p class="tl-before">Você decidindo tudo sozinho — até de madrugada, no celular, na cama.</p>
+              <div class="tl-after card clip-corner-sm">
+                <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Triagem automática</p>
+                <p class="text-on-surface text-sm">Só o que <span class="text-primary">precisa de você</span> chega até você.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest text-center mt-10">[ Ilustração da transformação — exemplo conceitual, não é print real ]</p>
+
+      <div class="text-center mt-12 scroll-reveal">
+        <a class="js-cta-open-modal inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
+          <span>Quer ver isso rodando no seu negócio?</span><span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -504,33 +605,12 @@
         </div>
       </div>
       <p class="text-center text-on-surface-variant text-xs font-mono uppercase tracking-widest mt-8">Site incluído conforme escopo da proposta — confirmado no diagnóstico</p>
-    </div>
-  </section>
 
-  <!-- Demonstração -->
-  <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="demonstracao">
-    <div class="max-w-container-max mx-auto">
-      <div class="text-center mb-16 scroll-reveal">
-        <h2 class="font-headline text-3xl md:text-5xl font-bold max-w-2xl mx-auto">Veja o que acontece depois que o cliente <span class="text-primary">manda a primeira mensagem.</span></h2>
-        <p class="text-on-surface-variant text-sm mt-4 max-w-xl mx-auto">A dor é sempre a mesma — resposta lenta e contato perdido. O fluxo abaixo se adapta ao seu segmento; aqui usamos uma barbearia só como exemplo real de configuração.</p>
+      <div class="text-center mt-10 scroll-reveal">
+        <a class="js-cta-open-modal inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
+          <span>Quero saber o que entra no meu caso</span><span aria-hidden="true">→</span>
+        </a>
       </div>
-      <div class="flex flex-col md:flex-row items-stretch gap-3 max-w-4xl mx-auto scroll-reveal">
-        <div class="card clip-corner-sm p-6 flex-1 text-left">
-          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Mensagem inicial</p>
-          <p class="text-on-surface text-sm leading-relaxed">"Boa tarde, vi o Instagram de vocês. Fazem corte + barba hoje ainda?"</p>
-        </div>
-        <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
-        <div class="card clip-corner-sm p-6 flex-1 text-left">
-          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Triagem</p>
-          <p class="text-on-surface text-sm leading-relaxed">Agente confirma serviço, oferece horários livres e pergunta se é a primeira vez do cliente.</p>
-        </div>
-        <div class="flex items-center justify-center flow-arrow rotate-90 md:rotate-0" aria-hidden="true">→</div>
-        <div class="card clip-corner-sm p-6 flex-1 text-left">
-          <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-2">Registro no painel</p>
-          <p class="text-on-surface text-sm leading-relaxed">Lead vira card com nome, serviço, horário marcado e status "Agendado".</p>
-        </div>
-      </div>
-      <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest text-center mt-6">[ Exemplo de fluxo — demonstração conceitual, não é print real ]</p>
     </div>
   </section>
 
@@ -559,6 +639,12 @@
             <li>· Precisa de um marketplace ou sistema completo de gestão setorial</li>
           </ul>
         </div>
+      </div>
+
+      <div class="text-center mt-10 scroll-reveal">
+        <a class="js-cta-open-modal inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
+          <span>Bateu com o seu caso?</span><span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -597,10 +683,17 @@
   <!-- Transparência (no lugar de prova social fabricada) -->
   <section class="py-section-padding px-6 md:px-margin-desktop below-fold" id="transparencia">
     <div class="max-w-[760px] mx-auto text-center scroll-reveal">
-      <h2 class="font-headline text-3xl md:text-5xl font-bold mb-6">Como avaliamos se <span class="text-primary">faz sentido pra você</span></h2>
+      <p class="font-mono text-primary text-xs uppercase tracking-widest mb-4">[ Por que confiar no diagnóstico ]</p>
+      <h2 class="font-headline text-3xl md:text-5xl font-bold mb-6">A gente entende sua operação <span class="text-primary">antes de te vender qualquer coisa.</span></h2>
       <p class="text-on-surface-variant text-lg leading-relaxed">
         Não vamos te mostrar depoimento ou número que a gente não possa provar. O diagnóstico gratuito serve exatamente pra isso: entender sua operação de verdade, mostrar o que dá pra automatizar primeiro e ser honesto sobre o que o agente resolve sozinho e o que ainda depende de você. Se não fizer sentido, você sai da conversa sabendo o motivo — sem custo e sem pressão.
       </p>
+
+      <div class="mt-10">
+        <a class="js-cta-open-modal inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener">
+          <span>Bora descobrir o que dá pra automatizar primeiro?</span><span aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -669,22 +762,6 @@
       <p class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest mt-5">Sem compromisso. Você recebe clareza sobre o próximo passo, mesmo que não contrate.</p>
     </div>
   </section>
-
-  <!-- Agendamento (Calendly) — OCULTO até termos uma conta real ou decidirmos migrar
-       pra uma solução conectada ao Supabase. Placeholder atual (data-url) não aponta
-       pra uma conta configurada, por isso a seção fica comentada em vez de visível.
-       Pra reativar: remover este comentário e trocar o data-url pelo link real.
-  <section class="py-section-padding px-6 md:px-margin-desktop below-fold">
-    <div class="max-w-container-max mx-auto text-center">
-      <p class="font-mono text-primary uppercase tracking-[0.3em] mb-4 scroll-reveal">[ Agende seu diagnóstico ]</p>
-      <h2 class="font-headline text-3xl md:text-5xl font-bold mb-10 scroll-reveal">Escolha o melhor horário <span class="text-primary">pra conversar</span></h2>
-      <div class="card clip-corner p-2 md:p-4 max-w-3xl mx-auto scroll-reveal">
-        TODO: substituir pelo link real do Calendly assim que a conta estiver configurada
-        <div class="calendly-inline-widget" data-url="https://calendly.com/animus-ai-studio/diagnostico-gratuito" style="min-width:280px;height:700px;"></div>
-      </div>
-    </div>
-  </section>
-  -->
 </main>
 
 <!-- Rodapé -->
@@ -718,9 +795,6 @@
   </div>
 </footer>
 
-<!-- Calendly script (oculto junto com a seção "Agendamento" acima)
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
--->
 <script>
   // Intro overlay — só na primeira visita da sessão; instantâneo se
   // prefers-reduced-motion ou se o usuário já viu nesta aba.
@@ -739,7 +813,8 @@
     });
   })();
 
-  // Scroll reveal
+  // Scroll reveal — também governa o swap da timeline (.tl-item usa a
+  // mesma classe .scroll-reveal/.visible, ver CSS).
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -770,7 +845,7 @@
     document.getElementById('current-year').textContent = new Date().getFullYear();
   });
 
-  // Modal de qualificação — todos os CTAs primários (nav, hero, final)
+  // Modal de qualificação — todos os CTAs (nav, hero, subtis, final)
   const ctaModal = document.getElementById('cta-modal');
   const ctaTriggers = document.querySelectorAll('.js-cta-open-modal');
   const ctaModalClose = document.getElementById('cta-modal-close');
@@ -845,10 +920,6 @@
       let message = 'Olá, quero um diagnóstico gratuito.';
       if (topic) message += ' Meu maior problema hoje: ' + topic.value + '.';
       if (freeText) message += ' ' + freeText;
-
-      // TODO: integração futura — enviar payload (topic, freeText) para Supabase
-      // (armazenamento) e webhook n8n (notificação WhatsApp). Número de WhatsApp
-      // ainda será definido como permanente antes dessa integração.
 
       ctaModalWhatsapp.href = 'https://wa.me/5551993203344?text=' + encodeURIComponent(message);
       ctaModalForm.classList.add('hidden');
