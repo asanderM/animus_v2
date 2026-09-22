@@ -7,8 +7,16 @@
 <meta name="description" content="Atendimento automático no WhatsApp e organização de clientes numa implementação só — com site institucional incluso — pra pequenos negócios locais não perderem venda por demora ou bagunça."/>
 <meta name="geo.region" content="BR-RS"/>
 <meta name="geo.placename" content="Taquara, Vale do Paranhana"/>
-<link rel="icon" type="image/png" href="assets/animus_ia_icon.png"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Animus AI Studio | Sites e Automações Inteligentes"/>
+<meta property="og:description" content="Atendimento automático no WhatsApp e organização de clientes numa implementação só — com site institucional incluso — pra pequenos negócios locais não perderem venda por demora ou bagunça."/>
+<meta property="og:image" content="https://animusai.com.br/assets/animus_papelword.png"/>
+<meta property="og:url" content="https://animusai.com.br/"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://animusai.com.br/assets/animus_papelword.png"/>
+<link rel="icon" type="image/png" href="assets/penguin_logo_icon.png"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 
 <script id="tailwind-config">
@@ -65,7 +73,36 @@
     pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  .gold-glow { background: radial-gradient(circle, rgba(var(--color-ouro-escuro-rgb), 0.16) 0%, transparent 70%); }
+  .gold-glow {
+    background: radial-gradient(circle, rgba(var(--color-ouro-escuro-rgb), 0.16) 0%, transparent 70%);
+    animation: aurora-pulse 7s ease-in-out infinite;
+  }
+  @keyframes aurora-pulse {
+    0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  }
+  /* Identidade Animus: nuvem DENSA de partículas (canvas, particles.js —
+     mesma classe de técnica WebGL/canvas do "cérebro" do Refero) recortada
+     na silhueta real do pinguim via CSS mask-image (nativo, lê o PNG direto,
+     não precisa vetorizar em SVG nem calcular clip-path na mão — é o Tier 2
+     documentado em pattern-library.md, versão mais simples que tsParticles
+     polygon-mask porque usa recurso nativo do CSS em vez de lib nova). */
+  .peak-particles {
+    position: absolute; left: 50%; top: 50%; width: 90vmin; height: 90vmin;
+    transform: translate(-50%, -50%);
+    z-index: -10; pointer-events: none;
+    -webkit-mask-image: url('assets/penguin_mask.png');
+    mask-image: url('assets/penguin_mask.png');
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center; mask-position: center;
+  }
+  .peak-particles canvas { display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    .gold-glow { animation: none; }
+    .peak-particles { display: none; }
+  }
+  .ice-peaks { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: auto; z-index: -9; opacity: 0.65; }
   .gold-line { height: 1px; background: linear-gradient(to right, transparent, rgba(var(--color-ouro-escuro-rgb), 0.4), transparent); }
   .card {
     background: var(--color-carbono);
@@ -221,8 +258,7 @@
     transition: opacity 0.5s ease;
   }
   html.is-loading #intro-overlay { opacity: 1; pointer-events: all; }
-  #intro-overlay .intro-mark { animation: intro-mark-pulse 1.4s ease-in-out infinite; }
-  @keyframes intro-mark-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
+  #intro-overlay video { width: min(70vw, 320px); height: auto; }
   html.is-loading #hero-content { opacity: 0; translate: 0 16px; }
   #hero-content { opacity: 1; translate: 0 0; transition: opacity 0.6s ease 0.15s, translate 0.6s ease 0.15s; }
   @media (prefers-reduced-motion: reduce) {
@@ -307,7 +343,7 @@
 
 <!-- Intro overlay (some sozinho após o load, ver #intro-overlay no <style> e script no fim do body) -->
 <div id="intro-overlay" aria-hidden="true">
-  <div class="intro-mark">[A]</div>
+  <video id="intro-video" src="assets/logo_reveal_intro.mp4" autoplay muted playsinline></video>
 </div>
 <noscript><style>#intro-overlay{display:none!important}</style></noscript>
 
@@ -348,7 +384,7 @@
 <nav class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-xl border-b border-outline-variant/20">
   <div class="relative flex justify-between items-center max-w-[1200px] mx-auto px-6 md:px-20 py-3">
     <a href="#" class="flex items-center gap-3 group">
-      <img src="assets/animus_ia_icon-128.png" alt="Animus AI Studio" class="w-9 h-9 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"/>
+      <img src="assets/penguin_logo_icon.png" alt="Animus AI Studio" class="w-9 h-9 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"/>
       <div>
         <span class="font-headline text-lg tracking-tight text-on-surface font-bold">ANIMUS AI STUDIO</span>
         <p class="font-mono text-[10px] text-primary leading-none tracking-[0.12em] hidden sm:block">[ SITES E AUTOMAÇÕES INTELIGENTES ]</p>
@@ -383,6 +419,7 @@
 <main>
   <!-- Hero -->
   <section class="relative min-h-screen flex items-center pt-28 pb-16 px-6 md:px-margin-desktop overflow-hidden">
+    <div id="peak-particles" class="peak-particles" aria-hidden="true"></div>
     <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] -z-10 gold-glow" aria-hidden="true"></div>
     <div class="max-w-container-max mx-auto w-full flex flex-col items-center text-center gap-7" id="hero-content">
       <div class="intro-mark" aria-hidden="true">[A]</div>
@@ -752,7 +789,7 @@
   <section class="py-section-padding px-6 md:px-20 relative overflow-hidden below-fold">
     <div class="gold-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] -z-10" aria-hidden="true"></div>
     <div class="max-w-[760px] mx-auto text-center scroll-reveal">
-      <img src="assets/animus_ia_icon-128.png" alt="Animus AI Studio" class="w-16 h-16 mx-auto mb-8 rounded-full" loading="lazy"/>
+      <img src="assets/penguin_logo_icon.png" alt="Animus AI Studio" class="w-16 h-16 mx-auto mb-8 rounded-full" loading="lazy"/>
       <h2 class="font-headline text-4xl md:text-6xl font-bold mb-6 leading-tight">Descubra qual parte do seu atendimento <span class="text-primary">pode parar de depender de você.</span></h2>
       <p class="text-on-surface-variant text-xl mb-12 max-w-lg mx-auto">Em uma conversa rápida, mapeamos seus gargalos e mostramos o que poderia ser automatizado primeiro.</p>
       <a class="btn-primary js-cta-open-modal inline-flex items-center gap-3 bg-primary text-background px-6 sm:px-12 py-4 sm:py-5 clip-corner font-bold text-base sm:text-xl" href="https://wa.me/5551993203344?text=Ol%C3%A1%2C+quero+um+diagn%C3%B3stico+gratuito" target="_blank" rel="noopener" id="cta-final-trigger">
@@ -769,7 +806,7 @@
   <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mb-14">
     <div>
       <div class="flex items-center gap-3 mb-5">
-        <img src="assets/animus_ia_icon-128.png" alt="Animus AI Studio" class="w-11 h-11 rounded-full" loading="lazy"/>
+        <img src="assets/penguin_logo_icon.png" alt="Animus AI Studio" class="w-11 h-11 rounded-full" loading="lazy"/>
         <div>
           <p class="font-bold text-xl tracking-tight text-primary">ANIMUS AI STUDIO</p>
           <p class="font-mono text-[10px] text-on-surface-variant tracking-[0.15em]">[ SITES E AUTOMAÇÕES INTELIGENTES ]</p>
@@ -796,6 +833,30 @@
 </footer>
 
 <script>
+  // Nuvem de partícula densa (canvas) recortada em forma de cordilheira —
+  // mesma classe de técnica do "cérebro" do Refero, paleta Animus (dourado/
+  // gelo-sujo/verde-profundo em vez de roxo), sem reduced-motion.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.particlesJS) {
+    particlesJS('peak-particles', {
+      particles: {
+        number: { value: 420, density: { enable: true, value_area: 500 } },
+        color: { value: ['#b8960c', '#e8e4dc', '#8a6f0a'] },
+        shape: { type: 'triangle', stroke: { width: 1, color: '#b8960c' } },
+        opacity: {
+          value: 0.75, random: true,
+          anim: { enable: true, speed: 0.6, opacity_min: 0.1, sync: false }
+        },
+        size: { value: 3, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 0.4, direction: 'none', random: true, straight: false, out_mode: 'out' }
+      },
+      interactivity: { events: { onhover: { enable: false }, onclick: { enable: false } } },
+      retina_detect: true
+    });
+  }
+</script>
+
+<script>
   // Intro overlay — só na primeira visita da sessão; instantâneo se
   // prefers-reduced-motion ou se o usuário já viu nesta aba.
   (function () {
@@ -806,10 +867,18 @@
       return;
     }
     window.addEventListener('load', () => {
-      setTimeout(() => {
+      const finish = () => {
         document.documentElement.classList.remove('is-loading');
         sessionStorage.setItem('animus_intro_seen', '1');
-      }, 550);
+      };
+      const video = document.getElementById('intro-video');
+      if (video) {
+        video.addEventListener('ended', finish, { once: true });
+        // fallback se o vídeo travar/não carregar — nunca prende o visitante
+        setTimeout(finish, 6000);
+      } else {
+        setTimeout(finish, 550);
+      }
     });
   })();
 
