@@ -7,15 +7,31 @@
 <meta name="description" content="Site e atendimento no WhatsApp feitos sob medida para o seu negócio. Você vê a demonstração funcionando antes de pagar. Atendimento presencial em Taquara e no Vale do Paranhana.">
 <meta name="geo.region" content="BR-RS">
 <meta name="geo.placename" content="Taquara, Vale do Paranhana">
-<link rel="canonical" href="https://animusai.com.br/">
+<meta name="robots" content="noindex">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Animus AI Studio — Site e atendimento no WhatsApp sob medida">
 <meta property="og:description" content="Você vê a demonstração funcionando antes de pagar. Atendimento presencial em Taquara e no Vale do Paranhana.">
-<meta property="og:image" content="https://animusai.com.br/assets/animus_papelword.png">
+<meta property="og:image" content="https://animusai.com.br/assets/og-animus.jpg">
 <meta property="og:url" content="https://animusai.com.br/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://animusai.com.br/assets/animus_papelword.png">
+<meta name="twitter:image" content="https://animusai.com.br/assets/og-animus.jpg">
 <link rel="icon" href="assets/penguin_logo_icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Animus AI Studio",
+  "url": "https://animusai.com.br/",
+  "logo": "https://animusai.com.br/assets/penguin_logo_final.png",
+  "image": "https://animusai.com.br/assets/og-animus.jpg",
+  "description": "Site e atendimento no WhatsApp feitos sob medida para pequenos negócios. Demonstração funcionando antes de pagar.",
+  "telephone": "+55-51-99925-0418",
+  "address": { "@type": "PostalAddress", "addressLocality": "Taquara", "addressRegion": "RS", "addressCountry": "BR" },
+  "areaServed": [{ "@type": "City", "name": "Taquara" }, { "@type": "City", "name": "Parobé" }, { "@type": "City", "name": "Igrejinha" }, { "@type": "City", "name": "Três Coroas" }, { "@type": "City", "name": "Rolante" }, { "@type": "City", "name": "Riozinho" }],
+  "knowsLanguage": "pt-BR",
+  "priceRange": "$$"
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -274,6 +290,9 @@
   .aceite input { min-height: 0; width: 20px; height: 20px; margin-top: 1px; accent-color: var(--ouro-vivo); flex: none; }
   .armadilha { position: absolute; left: -9999px; }
   .retorno { font-size: .85rem; min-height: 1.2em; }
+  .privacidade { font-size: .74rem; line-height: 1.5; }
+  .contato .ps { margin-top: 22px; padding: 16px 18px; border-left: 2px solid var(--ouro-vivo); background: color-mix(in srgb, var(--ouro-vivo) 7%, transparent); border-radius: 0 12px 12px 0; font-size: .92rem; }
+  .contato .ps strong { color: var(--ouro); }
   .retorno.erro { color: #c0392b; }
   .sucesso { text-align: center; padding: 30px 0; }
   .sucesso .selo { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; background: var(--ouro-vivo); color: #16140f; font-size: 1.4rem; font-weight: 700; }
@@ -389,7 +408,7 @@
     <div class="wrap">
       <div class="cab">
         <div class="rev"><span class="rotulo">Antes da tecnologia</span><h2 style="margin-top:14px">Você não compra tecnologia. Compra o fim <em>de uma dor de cabeça.</em></h2></div>
-        <p class="rev d1">A pergunta não é "que ferramenta eu preciso?". É "onde o meu negócio perde cliente, tempo ou dinheiro hoje?". Toda solução nossa parte dessa resposta, nessa ordem.</p>
+        <p class="rev d1">A pergunta não é "que ferramenta eu preciso?". É "onde o meu negócio perde cliente, tempo ou dinheiro hoje?". Todo projeto nosso começa por essa resposta, nessa ordem.</p>
       </div>
       <div class="quatro">
         <div class="q rev"><div class="n">1</div><h3>Problema</h3><p>Onde você perde cliente hoje? Mensagem sem resposta, horário desmarcado, ninguém te achando no Google.</p></div>
@@ -477,6 +496,7 @@
           <span class="rotulo">Vamos conversar</span>
           <h2>Conte onde o seu negócio perde cliente.</h2>
           <p>Deixe seu contato. Chamamos você no WhatsApp em horário comercial pra marcar a conversa, sem lista de spam.</p>
+          <p class="ps"><strong>P.S.</strong> A conversa e a demonstração são gratuitas. Você vê o seu site e o seu atendimento funcionando antes de pagar qualquer coisa. Se não fizer sentido, não deve nada.</p>
           <p class="alt">Prefere falar agora? <a href="https://wa.me/5551999250418?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Animus" target="_blank" rel="noopener">Chame no WhatsApp (51) 99925-0418</a></p>
         </div>
         <form id="form" class="rev d1" novalidate>
@@ -486,6 +506,7 @@
           <label>O que você quer resolver? (opcional)<textarea name="problema" maxlength="600" placeholder="Ex.: perco cliente porque demoro pra responder no WhatsApp"></textarea></label>
           <div class="armadilha" aria-hidden="true"><label>Não preencha<input name="site" tabindex="-1" autocomplete="off"></label></div>
           <label class="aceite"><input type="checkbox" name="aceite" required><span>Aceito ser contatado pela Animus no WhatsApp sobre este pedido.</span></label>
+          <p class="privacidade">Seu nome e WhatsApp são usados só pra responder este pedido. Não vendemos nem repassamos seus dados. Quer que a gente apague? É só pedir no WhatsApp.</p>
           <button class="btn btn-ouro" type="submit">Quero ver funcionando <span class="seta">→</span></button>
           <p class="retorno" id="retorno" role="status" aria-live="polite"></p>
         </form>
@@ -500,7 +521,7 @@
       <div><a class="marca" href="#topo"><img src="assets/penguin_logo_icon.png" alt="" width="30" height="30">ANIMUS AI STUDIO</a><p class="frase">Site e atendimento sob medida, feitos aqui no Vale.</p></div>
       <nav class="menu" aria-label="Rodapé"><a href="#solucao">O que fazemos</a><a href="#processo">Como trabalhamos</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a></nav>
     </div>
-    <div class="base"><span>© 2026 Animus AI Studio</span><span>Taquara/RS · (51) 99925-0418</span></div>
+    <div class="base"><span>© 2026 Animus AI Studio · Seus dados só são usados pra responder o seu contato (LGPD)</span><span>Taquara/RS · (51) 99925-0418</span></div>
   </div>
 </footer>
 
