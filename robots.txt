@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://animusai.com.br/sitemap.xml
+Sitemap: https://www.animusai.com.br/sitemap.xml
