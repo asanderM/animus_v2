@@ -34,7 +34,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <script>
   // Tema antes do primeiro paint (evita piscar). Escolha salva > preferência do sistema.
   (function () {
@@ -324,7 +324,7 @@
 <div id="nav">
   <div class="wrap">
     <div class="barra">
-      <a class="marca" href="#topo"><img src="assets/penguin_logo_icon.png" alt="" width="30" height="30"><span>ANIMUS AI STUDIO</span></a>
+      <a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_64.png" alt="" width="30" height="30"><span>ANIMUS AI STUDIO</span></a>
       <nav class="links" aria-label="Principal"><a href="#solucao">O que fazemos</a><a href="#processo">Como trabalhamos</a><a href="#projetos">Projetos</a><a href="#duvidas">Dúvidas</a></nav>
       <div class="acoes-nav">
         <button class="tema" id="tema" type="button" aria-label="Trocar tema claro/escuro">
@@ -518,7 +518,7 @@
 <footer>
   <div class="wrap">
     <div class="topo">
-      <div><a class="marca" href="#topo"><img src="assets/penguin_logo_icon.png" alt="" width="30" height="30">ANIMUS AI STUDIO</a><p class="frase">Site e atendimento sob medida, feitos aqui no Vale.</p></div>
+      <div><a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_64.png" alt="" width="30" height="30">ANIMUS AI STUDIO</a><p class="frase">Site e atendimento sob medida, feitos aqui no Vale.</p></div>
       <nav class="menu" aria-label="Rodapé"><a href="#solucao">O que fazemos</a><a href="#processo">Como trabalhamos</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a></nav>
     </div>
     <div class="base"><span>© 2026 Animus AI Studio · Seus dados só são usados pra responder o seu contato (LGPD)</span><span>Taquara/RS · (51) 99925-0418</span></div>
@@ -724,5 +724,6 @@
     }
   });
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
