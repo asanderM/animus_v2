@@ -897,7 +897,9 @@
 <script type="module">
   // Three.js (~256 KB) só baixa quando os ícones 3D chegam perto da tela.
   const ico = document.querySelector("canvas[data-ico]");
-  if (ico) new IntersectionObserver((e, o) => { if (e.some((x) => x.isIntersecting)) { o.disconnect(); import("./assets/icones3d.js"); } }, { rootMargin: "600px" }).observe(ico);
+  // Espera a página terminar de carregar: compilar o 3D trava a tela ~600 ms e atrasava o poster do vídeo (LCP).
+  const observar = () => new IntersectionObserver((e, o) => { if (e.some((x) => x.isIntersecting)) { o.disconnect(); import("./assets/icones3d.js"); } }, { rootMargin: "200px" }).observe(ico);
+  if (ico) addEventListener("load", () => (window.requestIdleCallback || setTimeout)(observar, { timeout: 2000 }), { once: true });
 </script>
 </body>
 </html>
