@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animus AI Studio — Sites e atendimento no WhatsApp sob medida</title>
-<meta name="description" content="Site e atendimento no WhatsApp feitos sob medida para o seu negócio. Você vê a demonstração funcionando antes de pagar. Atendimento presencial em Taquara e no Vale do Paranhana.">
+<title>Animus AI Studio — Toda a parte digital do seu negócio, sob medida</title>
+<meta name="description" content="Site, atendimento no WhatsApp, sistema de gestão e tarefas que rodam sozinhas, feitos sob medida para o seu negócio. Você vê uma demonstração funcionando antes de decidir.">
 <meta name="geo.region" content="BR-RS">
 <meta name="geo.placename" content="Taquara, Vale do Paranhana">
 <link rel="canonical" href="https://www.animusai.com.br/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Animus AI Studio — Site e atendimento no WhatsApp sob medida">
-<meta property="og:description" content="Você vê a demonstração funcionando antes de pagar. Atendimento presencial em Taquara e no Vale do Paranhana.">
+<meta property="og:title" content="Animus AI Studio — Toda a parte digital do seu negócio, sob medida">
+<meta property="og:description" content="Site, atendimento no WhatsApp, sistema de gestão e tarefas que rodam sozinhas. Você vê funcionando antes de decidir.">
 <meta property="og:image" content="https://www.animusai.com.br/assets/og-animus.jpg">
 <meta property="og:url" content="https://www.animusai.com.br/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.animusai.com.br/assets/og-animus.jpg">
-<link rel="icon" href="assets/penguin_logo_icon.png">
+<link rel="icon" href="assets/penguin_logo_circulo_256.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +24,7 @@
   "url": "https://www.animusai.com.br/",
   "logo": "https://www.animusai.com.br/assets/penguin_logo_final.png",
   "image": "https://www.animusai.com.br/assets/og-animus.jpg",
-  "description": "Site e atendimento no WhatsApp feitos sob medida para pequenos negócios. Demonstração funcionando antes de pagar.",
+  "description": "Site, atendimento no WhatsApp, sistema de gestão e rotinas que rodam sozinhas, sob medida para pequenos negócios. Demonstração funcionando antes de decidir.",
   "telephone": "+55-51-99925-0418",
   "address": { "@type": "PostalAddress", "addressLocality": "Taquara", "addressRegion": "RS", "addressCountry": "BR" },
   "areaServed": [{ "@type": "City", "name": "Taquara" }, { "@type": "City", "name": "Parobé" }, { "@type": "City", "name": "Igrejinha" }, { "@type": "City", "name": "Três Coroas" }, { "@type": "City", "name": "Rolante" }, { "@type": "City", "name": "Riozinho" }],
@@ -149,6 +149,35 @@
   @keyframes pulo { 50% { transform: translateY(-3px); opacity: .5; } }
   .legenda-chat { text-align: center; font-size: .75rem; margin-top: 14px; }
 
+
+  /* prévia: vídeo no hero, chat na frente do chip, vitrine animada */
+  .celular-video { width: min(100%, 300px); padding: 8px; }
+  .celular-video .video-hero { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: 26px; background: #16140f; object-fit: cover; }
+  @media (prefers-reduced-motion: reduce) { .celular-video { animation: none; } }
+  .painel.fluxo { min-height: 520px; }
+  .painel.fluxo { background: radial-gradient(65% 55% at 50% 40%, #2c5a4a99, transparent 72%), var(--painel-escuro); }
+  .chat-frente { position: relative; z-index: 1; display: grid; place-items: center; padding: 20px 0 34px; }
+  .chat-frente .celular { width: min(100%, 300px); transform: none; animation: none; box-shadow: 0 30px 80px #0009; }
+  .chat-frente .conversa { height: 290px; }
+  .agenda-card { position: relative; margin-top: -34px; width: min(92%, 300px); display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: #fffdf8; color: #16140f; box-shadow: 0 18px 40px #0007; opacity: 0; transform: translateY(14px) scale(.97); transition: opacity .5s, transform .5s; }
+  .agenda-card.on { opacity: 1; transform: none; }
+  .agenda-card .ag-ico { flex: none; width: 40px; height: 40px; border-radius: 11px; background: #1f3b33; color: #e0c050; display: grid; place-items: center; }
+  .agenda-card .ag-ico svg { width: 22px; height: 22px; }
+  .agenda-card small { display: block; font: 500 .6rem "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: #6b665c; }
+  .agenda-card b { display: block; font-size: .86rem; margin-top: 2px; }
+  .agenda-card em { display: block; font-style: normal; font-size: .72rem; color: #3f7a3a; margin-top: 2px; font-weight: 600; }
+  @media (max-width: 640px) { .chat-frente { padding-bottom: 64px; } }
+  .navegador .bar span::after { content: ""; display: inline-block; width: 1px; height: .9em; margin-left: 2px; background: currentColor; vertical-align: -1px; animation: cursor 1s steps(1) infinite; }
+  @keyframes cursor { 50% { opacity: 0; } }
+  .vit-monta .t, .vit-monta .l, .vit-monta .b { animation: monta .6s cubic-bezier(.2,.7,.2,1) both; }
+  .vit-monta .l { animation-delay: .15s; } .vit-monta .l.c { animation-delay: .25s; } .vit-monta .l.d { animation-delay: .35s; } .vit-monta .b { animation-delay: .5s; }
+  @keyframes monta { from { opacity: 0; transform: translateY(8px); } }
+  .navegador .corpo .b { animation: chama 2.4s ease-in-out infinite; }
+  @keyframes chama { 50% { box-shadow: 0 0 0 6px #25a55f33; } }
+  @media (prefers-reduced-motion: reduce) { .navegador .bar span::after, .navegador .corpo .b { animation: none; } }
+
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
   /* bento */
   .bento { display: grid; gap: 12px; }
   @media (min-width: 900px) { .bento { grid-template-columns: 1fr 1fr; } }
@@ -195,7 +224,7 @@
   @media (min-width: 720px) { .quatro { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1100px) { .quatro { grid-template-columns: repeat(4, 1fr); } }
   .q { border-radius: 18px; border: 1px solid var(--linha); background: var(--papel); padding: 26px 24px 28px; transition: transform .4s, border-color .4s; }
-  .q:hover { transform: translateY(-4px); border-color: var(--ouro-vivo); }
+  .q:hover { border-color: var(--ouro-vivo); }
   .q .n { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--ouro-fundo); color: var(--ouro); font-weight: 700; margin-bottom: 18px; }
   .q h3 { font-size: 1.3rem; margin-bottom: 8px; }
   .q p { font-size: .92rem; }
@@ -236,6 +265,10 @@
   .mapa .forte { fill: var(--tinta); }
   .mapa .pontilhado { stroke-dasharray: 3 5; opacity: .6; }
   .mapa .cheio { fill: var(--ouro-vivo); stroke: none; }
+  .mapa .frase { font: 500 11px "Space Grotesk", sans-serif; letter-spacing: 0; fill: var(--tinta); }
+  .mapa .mini { font-size: 7px; letter-spacing: .04em; }
+  .mapa .zap { fill: #25a55f; stroke: none; }
+  .mapa .claro { fill: #fff; }
 
   /* projetos */
   .projetos-grade { display: grid; gap: 12px; }
@@ -291,8 +324,11 @@
   .armadilha { position: absolute; left: -9999px; }
   .retorno { font-size: .85rem; min-height: 1.2em; }
   .privacidade { font-size: .74rem; line-height: 1.5; }
-  .contato .ps { margin-top: 22px; padding: 16px 18px; border-left: 2px solid var(--ouro-vivo); background: color-mix(in srgb, var(--ouro-vivo) 7%, transparent); border-radius: 0 12px 12px 0; font-size: .92rem; }
-  .contato .ps strong { color: var(--ouro); }
+  .contato .proximos { margin-top: 26px; padding: 20px 22px; border: 1px solid var(--linha); border-radius: 16px; background: color-mix(in srgb, var(--ouro-vivo) 6%, transparent); }
+  .contato .proximos ol { list-style: none; counter-reset: passo; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
+  .contato .proximos li { counter-increment: passo; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; font-size: .95rem; }
+  .contato .proximos li::before { content: counter(passo); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 600 .78rem "JetBrains Mono", monospace; color: var(--ouro); background: color-mix(in srgb, var(--ouro-vivo) 16%, transparent); }
+  .contato .proximos .garantia { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--linha); font-family: "Fraunces", serif; font-style: italic; font-size: 1.05rem; color: var(--tinta); }
   .retorno.erro { color: #c0392b; }
   .sucesso { text-align: center; padding: 30px 0; }
   .sucesso .selo { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; background: var(--ouro-vivo); color: #16140f; font-size: 1.4rem; font-weight: 700; }
@@ -317,6 +353,69 @@
     .rev, .palavra, .msg { opacity: 1; transform: none; }
     html { scroll-behavior: auto; }
   }
+  /* Página-vídeo (03/10): hero com o vídeo de apresentação 16:9 + copy igual à narração */
+  @media (min-width: 980px) { .hero .conteudo.com-video { grid-template-columns: .9fr 1.1fr; } }
+  .vsl { position: relative; border-radius: 18px; overflow: hidden; background: #16140f; box-shadow: 0 30px 80px -20px #16140f99; border: 1px solid var(--linha); }
+  .vsl video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #16140f; }
+  .vsl .play { position: absolute; inset: 0; display: grid; place-items: end center; padding-bottom: 7%; background: linear-gradient(180deg, transparent 40%, #16140fb3); border: 0; cursor: pointer; color: #fffdf8; font: 500 .8rem "JetBrains Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+  .vsl .play span { display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px 14px 16px; border-radius: 999px; background: #e0c050; color: #16140f; box-shadow: 0 10px 30px #0006; transition: transform .25s; }
+  .vsl .play span::before { content: ""; width: 0; height: 0; border-left: 12px solid #16140f; border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 4px; }
+  .vsl .play:hover span { transform: scale(1.05); }
+  .vsl.tocando .play { display: none; }
+  .legenda-vsl { text-align: center; font-size: .78rem; margin-top: 12px; }
+  .bento-cab { margin: 0 0 22px; max-width: 760px; }
+  /* Ícones 3D (assets/icones3d.js) + cards com profundidade */
+  .ico3d { display: block; width: 104px; height: 104px; margin: -10px 0 8px -12px; }
+  .ico-canto { width: 112px; height: 112px; margin: -14px 0 4px -14px; }
+  @media (min-width: 900px) { .ico-canto { position: absolute; top: 26px; right: 26px; margin: 0; width: 150px; height: 150px; } }
+  @media (max-width: 600px) { .vsl .play { padding-bottom: 5%; } .vsl .play span { padding: 10px 16px 10px 12px; font-size: .68rem; gap: 9px; } }
+  .painel h2, .painel p { position: relative; z-index: 1; }
+  .q, .painel { transform-style: preserve-3d; will-change: transform; }
+  .q .ico3d, .painel .ico3d { transform: translateZ(40px); }
+  .tilt { transition: transform .25s ease-out, border-color .4s, box-shadow .4s !important; }
+  .tilt:hover { box-shadow: 0 30px 60px -30px #16140f55; }
+  .bento-cab h2 { margin-top: 14px; }
+  /* Celular do atendimento (03/10): mockup premium, inclinado em 3D, notificação da agenda desce do topo */
+  .chat-frente { padding: 34px 0 40px; }
+  .cel-palco { position: relative; perspective: 1400px; width: min(100%, 300px); margin: 0 auto; }
+  .cel-palco::before { content: ""; position: absolute; inset: 10% -30% -6%; background: radial-gradient(50% 45% at 50% 45%, #e0c05038, transparent 70%), radial-gradient(40% 30% at 55% 70%, #25d36622, transparent 70%); filter: blur(10px); z-index: -1; }
+  .cel-palco::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: -26px; height: 26px; border-radius: 50%; background: radial-gradient(closest-side, #000a, transparent); filter: blur(6px); z-index: -1; }
+  .chat-frente .celular { width: 100%; padding: 9px; border-radius: 48px; background: linear-gradient(145deg, #4a4740 0%, #1d1b18 22%, #0d0c0a 60%, #2c2a25 100%); box-shadow: inset 0 0 0 1.5px #6b675d55, inset 0 0 0 4px #0b0a08, 0 50px 90px -30px #000, 0 20px 40px -20px #000c; transform: rotateY(-14deg) rotateX(5deg) rotateZ(1deg); animation: cel-flutua 8s ease-in-out infinite; position: relative; }
+  .chat-frente .celular::before { content: ""; position: absolute; right: -3px; top: 22%; width: 3px; height: 64px; border-radius: 2px; background: #3a3732; box-shadow: 0 84px 0 #3a3732; }
+  .chat-frente .celular::after { content: ""; position: absolute; inset: 9px; border-radius: 40px; pointer-events: none; background: linear-gradient(115deg, #ffffff1f 0%, #ffffff08 28%, transparent 40%); z-index: 3; }
+  @keyframes cel-flutua { 0%, 100% { transform: rotateY(-14deg) rotateX(5deg) rotateZ(1deg) translateY(0); } 50% { transform: rotateY(-8deg) rotateX(3deg) rotateZ(0deg) translateY(-10px); } }
+  .chat-frente .tela { position: relative; border-radius: 40px; background-color: #ece5dd; background-image: radial-gradient(#d8cfc3 1px, transparent 1.4px), radial-gradient(#e2dace 1px, transparent 1.4px); background-size: 22px 22px, 22px 22px; background-position: 0 0, 11px 11px; display: flex; flex-direction: column; }
+  .chat-frente .ilha { position: absolute; top: 9px; left: 50%; width: 82px; height: 24px; margin-left: -41px; border-radius: 14px; background: #050504; z-index: 4; }
+  .chat-frente .status { display: flex; justify-content: space-between; align-items: center; padding: 12px 26px 4px; background: #1f3b33; color: #fff; font-size: .72rem; }
+  .chat-frente .status span { display: flex; gap: 5px; align-items: center; }
+  .chat-frente .status .sinal { width: 14px; height: 9px; background: #fff; clip-path: polygon(0 100%, 100% 0, 100% 100%); }
+  .chat-frente .status .bat { width: 20px; height: 10px; border: 1.4px solid #fffc; border-radius: 3px; position: relative; }
+  .chat-frente .status .bat::after { content: ""; position: absolute; inset: 1.5px 5px 1.5px 1.5px; background: #fff; border-radius: 1px; }
+  .chat-frente .topo-chat { padding: 8px 14px 10px 8px; gap: 8px; }
+  .chat-frente .topo-chat .volta { font-size: 1.5rem; line-height: 1; color: #fff; margin-right: -2px; }
+  .chat-frente .topo-chat .av { width: 32px; height: 32px; background: linear-gradient(140deg, #f0d77a, #c9a43a); }
+  .chat-frente .topo-chat .quem { flex: 1; }
+  .chat-frente .topo-chat b { font-size: .8rem; }
+  .chat-frente .topo-chat small { font-size: .64rem; }
+  .chat-frente .acoes { display: flex; gap: 14px; opacity: .9; align-items: center; }
+  .chat-frente .acoes .cam { width: 15px; height: 11px; border: 1.6px solid #fff; border-radius: 3px; position: relative; margin-right: 4px; }
+  .chat-frente .acoes .cam::after { content: ""; position: absolute; right: -7px; top: 1px; border-right: 5px solid #fff; border-top: 3px solid transparent; border-bottom: 3px solid transparent; }
+  .chat-frente .acoes .tel { width: 12px; height: 12px; border: 1.6px solid #fff; border-radius: 2px 9px 2px 9px; transform: rotate(10deg); }
+  .chat-frente .conversa { height: 330px; padding: 12px 10px 8px; gap: 6px; }
+  .chat-frente .msg { font-size: .74rem; padding: 7px 10px 5px; border-radius: 10px; position: relative; box-shadow: 0 1px .5px #0000001f; }
+  .chat-frente .msg:not(.eu) { border-top-left-radius: 2px; }
+  .chat-frente .msg.eu { border-top-right-radius: 2px; background: #d9fdd3; }
+  .chat-frente .msg time { font-size: .58rem; }
+  .chat-frente .digita-barra { display: flex; align-items: center; gap: 8px; padding: 8px 10px 16px; }
+  .chat-frente .digita-barra span { flex: 1; background: #fff; border-radius: 20px; padding: 8px 14px; font-size: .74rem; color: #8a857a; box-shadow: 0 1px .5px #0000001a; }
+  .chat-frente .digita-barra i { width: 32px; height: 32px; border-radius: 50%; background: #25d366; position: relative; flex: none; }
+  .chat-frente .digita-barra i::after { content: ""; position: absolute; left: 12px; top: 9px; width: 8px; height: 12px; border-radius: 5px; background: #fff; }
+  .chat-frente .agenda-card { position: absolute; top: 44px; left: 8%; width: 86%; margin: 0; z-index: 5; padding: 10px 12px; border-radius: 18px; background: #fffdf8ee; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 18px 40px #0006, inset 0 0 0 1px #ffffff80; transform: translateY(-24px) scale(.96); }
+  .chat-frente .agenda-card.on { transform: none; }
+  .chat-frente .agenda-card .ag-ico { width: 36px; height: 36px; border-radius: 10px; }
+  .chat-frente .agenda-card b { font-size: .8rem; }
+  @media (prefers-reduced-motion: reduce) { .chat-frente .celular { animation: none; } }
+  @media (max-width: 640px) { .chat-frente { padding-bottom: 50px; } .chat-frente .celular { transform: rotateY(-8deg) rotateX(3deg); } }
 </style>
 </head>
 <body>
@@ -324,8 +423,8 @@
 <div id="nav">
   <div class="wrap">
     <div class="barra">
-      <a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_64.png" alt="" width="30" height="30"><span>ANIMUS AI STUDIO</span></a>
-      <nav class="links" aria-label="Principal"><a href="#solucao">O que fazemos</a><a href="#processo">Como trabalhamos</a><a href="#projetos">Projetos</a><a href="#duvidas">Dúvidas</a></nav>
+      <a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_circulo_64.png" alt="" width="30" height="30"><span>ANIMUS AI STUDIO</span></a>
+      <nav class="links" aria-label="Principal"><a href="#solucao">O que fazemos</a><a href="#processo">Como funciona</a><a href="#duvidas">Dúvidas</a></nav>
       <div class="acoes-nav">
         <button class="tema" id="tema" type="button" aria-label="Trocar tema claro/escuro">
           <svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -340,28 +439,20 @@
 <header class="hero" id="topo">
   <div class="wrap">
     <div class="moldura">
-      <div class="conteudo">
+      <div class="conteudo com-video">
         <div>
-          <p class="rotulo rev">Taquara e Vale do Paranhana</p>
-          <h1 class="rev d1" id="titulo">Site e atendimento <em>sob medida</em> para o seu negócio</h1>
-          <p class="lead rev d2">Um site que faz o cliente te achar, e um atendimento no WhatsApp que não deixa ele escapar, nem domingo às 23h. Você vê tudo funcionando, com a sua marca, antes de pagar.</p>
+          <p class="rotulo rev">Animus AI Studio · Sob medida</p>
+          <h1 class="rev d1" id="titulo">Toda a parte digital do seu negócio, <em>sob medida</em></h1>
+          <p class="lead rev d2">Site, atendimento no WhatsApp, sistema de gestão e as tarefas que se repetem rodando sozinhas. Cada peça pensada pro seu negócio. Você vê uma demonstração funcionando antes de decidir.</p>
           <a class="btn btn-ouro rev d3" href="#contato">Quero ver funcionando <span class="seta">→</span></a>
-          <div class="garantias rev d3"><span>Demonstração antes de pagar</span><span>Atendimento presencial</span><span>Sem pacote genérico</span></div>
+          <div class="garantias rev d3"><span>Demonstração antes de decidir</span><span>Sem pacote pronto</span><span>Você define as regras</span></div>
         </div>
         <div class="rev d2">
-          <div class="celular" role="img" aria-label="Exemplo de atendimento automático no WhatsApp de uma clínica de estética">
-            <div class="tela">
-              <div class="topo-chat"><div class="av">CE</div><div><b>Clínica Estética</b><small id="status-chat">online</small></div></div>
-              <div class="conversa" id="conversa">
-                <div class="msg">Oi! Vocês têm horário pra limpeza de pele essa semana?<time>23:12</time></div>
-                <div class="msg eu">Oi! Temos sim 😊 Quinta às 14h ou sexta às 10h. Qual fica melhor?<time>23:12</time></div>
-                <div class="msg">Sexta às 10h!<time>23:13</time></div>
-                <div class="msg eu">Pronto, sexta às 10h tá marcada ✅ Te mando um lembrete no dia anterior.<time>23:13</time></div>
-                <div class="digitando" id="digitando"><i></i><i></i><i></i></div>
-              </div>
-            </div>
+          <div class="vsl" id="vsl">
+            <video id="vsl-video" src="assets/animus-apresentacao-720.mp4" poster="assets/animus-apresentacao-poster.jpg" preload="metadata" playsinline aria-label="Vídeo de apresentação da Animus, 1 minuto e 20 segundos, com narração."></video>
+            <button class="play" type="button" id="vsl-play" aria-label="Assistir à apresentação"><span>Assistir agora</span></button>
           </div>
-          <p class="legenda-chat">Exemplo: cliente marcou horário às 23h, sem ninguém acordado.</p>
+          <p class="legenda-vsl">Prefere ler? Está tudo aqui embaixo.</p>
         </div>
       </div>
       <span class="rolar">Role para explorar <i>↓</i></span>
@@ -370,91 +461,102 @@
 </header>
 
 <main>
+  <section class="gargalo">
+    <div class="wrap">
+      <div class="cab">
+        <div class="rev"><span class="rotulo">A cena que você conhece</span><h2 style="margin-top:14px">O cliente chama, <em>e ninguém responde.</em></h2></div>
+        <p class="rev d1">O cliente manda mensagem tarde da noite, pergunta o preço e fica sem resposta. No dia seguinte, ele já foi pra outro lugar. E o resto do negócio mora no caderno, na memória e em dez conversas abertas.</p>
+      </div>
+      <div class="quatro">
+        <div class="q rev"><canvas class="ico3d" data-ico="relogio" aria-hidden="true"></canvas><h3>23h12</h3><p>Mensagem pedindo preço e horário. Ninguém vê até o dia seguinte.</p></div>
+        <div class="q rev d1"><canvas class="ico3d" data-ico="placa" aria-hidden="true"></canvas><h3>Foi pra outro lugar</h3><p>Quando você responde, o cliente já marcou com quem respondeu primeiro.</p></div>
+        <div class="q rev d2"><canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas><h3>Anotado onde mesmo?</h3><p>Pedido, horário e retorno espalhados entre caderno, papel e memória.</p></div>
+        <div class="q rev d3"><canvas class="ico3d" data-ico="conversas" aria-hidden="true"></canvas><h3>Dez conversas abertas</h3><p>Tudo depende de você lembrar de responder, confirmar e cobrar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" style="padding-top:56px"><div class="bento-cab rev"><span class="rotulo">O que a gente constrói</span><h2>Cada peça é pensada pro seu negócio. <em>Não é pacote pronto.</em></h2></div></div>
   <section class="wrap bento" id="solucao" style="padding-top:12px">
     <div class="painel vitrine rev" aria-hidden="true">
       <div class="mini">
         <div class="navegador">
-          <div class="bar"><i></i><i></i><i></i><span>seunegocio.com.br</span></div>
-          <div class="corpo"><div class="t">O seu negócio,<br>do jeito que ele é.</div><div class="l"></div><div class="l c"></div><div class="l d"></div><div class="b">CHAMAR NO WHATSAPP</div></div>
+          <div class="bar"><i></i><i></i><i></i><span id="vit-url">seunegocio.com.br</span></div>
+          <div class="corpo"><div class="t" id="vit-t">O seu negócio,<br>do jeito que ele é.</div><div class="l"></div><div class="l c"></div><div class="l d"></div><div class="b">CHAMAR NO WHATSAPP</div></div>
         </div>
       </div>
     </div>
     <div class="painel escuro rev d1">
-      <span class="rotulo">Site</span>
-      <h2>Uma vitrine que trabalha por você</h2>
-      <p>Não é só um cartão de visita. É o lugar onde quem procura no Google encontra o seu negócio, entende o que você faz e chega até o seu WhatsApp.</p>
+      <canvas class="ico3d ico-canto" data-ico="site" aria-hidden="true"></canvas>
+      <span class="rotulo">01 · Site</span>
+      <h2>O que o cliente vê primeiro</h2>
+      <p>A gente começa pelo que o cliente vê: um site rápido, bonito no celular, que faz quem procura no Google encontrar você e chegar até o seu WhatsApp.</p>
       <ul class="checks"><li>Aparece pra quem procura na sua cidade</li><li>Rápido e bonito no celular</li><li>Cada botão leva pra uma conversa com você</li></ul>
     </div>
     <div class="painel claro rev">
-      <span class="rotulo">Atendimento no WhatsApp</span>
-      <h2>Quem chama é atendido, mesmo quando você não pode</h2>
-      <p>Um atendente treinado no seu negócio responde as perguntas de sempre, marca horário e só passa pra você o que precisa da sua decisão.</p>
-      <ul class="checks"><li>Responde preço, horário e endereço na hora</li><li>Marca, remarca e lembra o cliente do horário</li><li>Passa pra você quando o assunto pede uma pessoa</li></ul>
+      <canvas class="ico3d ico-canto" data-ico="atendimento" aria-hidden="true"></canvas>
+      <span class="rotulo">02 · Atendimento no WhatsApp</span>
+      <h2>Quem chama é atendido</h2>
+      <p>Um atendente no seu WhatsApp responde o que você definiu, marca o horário e passa pra você o que precisa de uma pessoa.</p>
+      <ul class="checks"><li>Responde o que você definiu</li><li>Marca o horário</li><li>Passa pra você o que pede uma pessoa</li></ul>
     </div>
-    <div class="painel escuro fluxo rev d1" aria-hidden="true">
-      <svg class="chip" id="chip" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice">
-        <g class="trilhas"></g>
-        <g class="pinos"></g>
-        <rect class="corpo" x="245" y="125" width="110" height="110" rx="10"/>
-        <rect class="nucleo" x="266" y="146" width="68" height="68" rx="9"/>
-        <g class="grade"></g>
-        <path class="icone" d="M286,168 h28 a5,5 0 0 1 5,5 v14 a5,5 0 0 1 -5,5 h-15 l-7,6 v-6 h-6 a5,5 0 0 1 -5,-5 v-14 a5,5 0 0 1 5,-5 z M293,180 l4,4 l8,-8"/>
-      </svg>
-      <div class="rotulos"><span>GOOGLE · INSTAGRAM · INDICAÇÃO</span><span>AGENDA · CLIENTE · VOCÊ</span></div>
+    <div class="painel escuro fluxo rev d1">
+      
+      <div class="chat-frente"><div class="cel-palco"><div class="celular" role="img" aria-label="Exemplo de atendimento automático no WhatsApp de uma clínica de estética">
+          <div class="tela">
+            <div class="ilha" aria-hidden="true"></div>
+            <div class="status" aria-hidden="true"><b>23:13</b><span><i class="sinal"></i><i class="bat"></i></span></div>
+            <div class="topo-chat"><span class="volta" aria-hidden="true">&lsaquo;</span><div class="av">CE</div><div class="quem"><b>Clínica Estética</b><small id="status-chat">online</small></div><span class="acoes" aria-hidden="true"><i class="cam"></i><i class="tel"></i></span></div>
+            <div class="conversa" id="conversa">
+              <div class="msg">Oi! Vocês têm horário pra limpeza de pele essa semana?<time>23:12</time></div>
+              <div class="msg eu">Oi! Temos sim 😊 Quinta às 14h ou sexta às 10h. Qual fica melhor?<time>23:12</time></div>
+              <div class="msg">Sexta às 10h!<time>23:13</time></div>
+              <div class="msg eu">Pronto, sexta às 10h tá marcada ✅ Te mando um lembrete no dia anterior.<time>23:13</time></div>
+              <div class="digitando" id="digitando"><i></i><i></i><i></i></div>
+            </div>
+            <div class="digita-barra" aria-hidden="true"><span>Mensagem</span><i></i></div>
+          </div>
+        </div>
+        <div class="agenda-card" id="agenda-card"><span class="ag-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/><path d="m9 15 2 2 4-4"/></svg></span><span><small>Agenda · agora</small><b>Sexta, 10h · Limpeza de pele</b><em>✓ Marcado pelo atendente</em></span></div></div></div>
     </div>
-  </section>
-
-  <section class="gargalo">
-    <div class="wrap">
-      <div class="cab">
-        <div class="rev"><span class="rotulo">Antes da tecnologia</span><h2 style="margin-top:14px">Você não compra tecnologia. Compra o fim <em>de uma dor de cabeça.</em></h2></div>
-        <p class="rev d1">A pergunta não é "que ferramenta eu preciso?". É "onde o meu negócio perde cliente, tempo ou dinheiro hoje?". Todo projeto nosso começa por essa resposta, nessa ordem.</p>
-      </div>
-      <div class="quatro">
-        <div class="q rev"><div class="n">1</div><h3>Problema</h3><p>Onde você perde cliente hoje? Mensagem sem resposta, horário desmarcado, ninguém te achando no Google.</p></div>
-        <div class="q rev d1"><div class="n">2</div><h3>O que precisa ser feito</h3><p>Que tarefa precisa acontecer sempre do mesmo jeito, sem depender de você lembrar?</p></div>
-        <div class="q rev d2"><div class="n">3</div><h3>Onde funciona</h3><p>Funciona onde o seu cliente já está: WhatsApp, Google, sua agenda. Ninguém precisa aprender ferramenta nova.</p></div>
-        <div class="q rev d3"><div class="n">4</div><h3>O que muda</h3><p>O que muda depois: resposta mais rápida, menos horário perdido, mais cliente novo chegando.</p></div>
-      </div>
+    <div class="painel escuro rev">
+      <canvas class="ico3d ico-canto" data-ico="sistema" aria-hidden="true"></canvas>
+      <span class="rotulo">03 · Sistema de gestão</span>
+      <h2>Feito pro seu jeito de trabalhar</h2>
+      <p>Por trás, um sistema do seu negócio: clientes, agenda e atendimentos num lugar só. Nada de caderno, memória ou conversa perdida.</p>
+      <ul class="checks"><li>Clientes com histórico</li><li>Agenda organizada</li><li>Atendimentos num lugar só</li></ul>
+    </div>
+    <div class="painel claro rev d1">
+      <canvas class="ico3d ico-canto" data-ico="engrenagem" aria-hidden="true"></canvas>
+      <span class="rotulo">04 · O que se repete</span>
+      <h2>Roda sozinho</h2>
+      <p>As tarefas que se repetem deixam de depender de você lembrar.</p>
+      <ul class="checks"><li>Lembrete de horário pro cliente</li><li>Retorno pra quem não volta faz tempo</li><li>Aviso pra você do que importa no dia</li></ul>
     </div>
   </section>
 
   <section class="processo" id="processo">
     <div class="wrap">
-      <div class="cab rev"><div><span class="rotulo">Como trabalhamos</span><h2 style="margin-top:14px">Primeiro entendemos o seu negócio. A tecnologia vem depois.</h2></div><span class="dica">Role para avançar ↓</span></div>
+      <div class="cab rev"><div><span class="rotulo">Como funciona</span><h2 style="margin-top:14px">E começa simples: <em>uma conversa, uma demonstração, e você decide.</em></h2></div><span class="dica">Role para avançar ↓</span></div>
     </div>
     <div class="fixo-trilho" id="trilho">
       <div class="wrap fixo">
         <ol class="fases">
-          <li class="fase-item ativa"><div class="t"><small>01</small>Conversa</div><p>20 minutos, no seu negócio ou por vídeo. Entendemos como o cliente chega e onde ele se perde.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="0" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>02</small>Desenho</div><p>Definimos o que o site mostra e o que o atendente faz e não faz, com as regras do seu negócio.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="1" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>03</small>Demonstração</div><p>Você vê funcionando, com o seu nome e os seus serviços. Ainda sem pagar nada.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="2" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>04</small>No ar</div><p>Ligamos ao que você já usa: seu WhatsApp, sua agenda, seu endereço na internet. Nada de trocar de ferramenta.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="3" aria-hidden="true"></svg></li>
+          <li class="fase-item ativa"><div class="t"><small>01</small>Conversa</div><p>20 minutos, por vídeo ou pessoalmente. Entendemos como o cliente chega e onde ele se perde.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="0" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>02</small>Desenho</div><p>Definimos quais peças fazem sentido pro seu negócio e as regras de cada uma.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="1" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>03</small>Demonstração</div><p>Você vê uma demonstração funcionando e só então decide. Ainda sem pagar nada.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="2" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>04</small>No ar</div><p>Site publicado, atendente no seu WhatsApp, sistema e rotinas funcionando. Nada de trocar de ferramenta.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="3" aria-hidden="true"></svg></li>
           <li class="fase-item"><div class="t"><small>05</small>Acompanhamento</div><p>Olhamos as conversas reais e ajustamos. O que importa é cliente atendido, não tela bonita.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="4" aria-hidden="true"></svg></li>
         </ol>
         <div class="quadro" aria-hidden="true">
-          <div class="cena ativa"><span class="rotulo">Fase 01 / 05 · Conversa</span><h3>Conversa.</h3><p>Antes de propor qualquer coisa, olhamos o seu negócio de fora, como o cliente vê: Google, redes, WhatsApp. Depois conversamos com você pra achar onde o cliente se perde.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="0"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 02 / 05 · Desenho</span><h3>Desenho.</h3><p>O que o site precisa mostrar, o que o atendente responde sozinho e em que momento a conversa passa pra você. Tudo combinado antes de construir.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="1"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 03 / 05 · Demonstração</span><h3>Demonstração.</h3><p>Montamos uma versão funcionando, com a sua marca, e te mostramos rodando. Se não fizer sentido, você não deve nada.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="2"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 04 / 05 · No ar</span><h3>No ar.</h3><p>Site publicado no seu endereço e atendente ligado no seu WhatsApp e na sua agenda. Sua rotina continua a mesma, só que com menos cliente escapando.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="3"></svg></div>
+          <div class="cena ativa"><span class="rotulo">Fase 01 / 05 · Conversa</span><h3>Conversa.</h3><p>Antes de propor qualquer coisa, olhamos o seu negócio como o cliente vê: Google, redes, WhatsApp. Depois conversamos com você pra achar onde o cliente se perde.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="0"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 02 / 05 · Desenho</span><h3>Desenho.</h3><p>Quais peças entram (site, atendimento, sistema, rotinas), o que cada uma faz sozinha e o que passa pra você. Tudo combinado antes de construir.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="1"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 03 / 05 · Demonstração</span><h3>Demonstração.</h3><p>Te mostramos uma demonstração rodando, do jeito que funciona no dia a dia. Você decide depois de ver, e a demonstração é por nossa conta.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="2"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 04 / 05 · No ar</span><h3>No ar.</h3><p>Site no ar, atendente no seu WhatsApp, sistema e rotinas rodando. Sua rotina continua a mesma, só que com menos cliente escapando.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="3"></svg></div>
           <div class="cena"><span class="rotulo">Fase 05 / 05 · Acompanhamento</span><h3>Acompanhamento.</h3><p>Entregar é o meio. Acompanhamos as primeiras semanas, lemos as conversas de verdade e ajustamos as respostas ao jeito do seu cliente.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="4"></svg></div>
           <div class="progresso"><i class="enche" id="enche"></i><span class="ativa">01 · Conversa</span><span>02 · Desenho</span><span>03 · Demo</span><span>04 · No ar</span><span>05 · Acompanhar</span></div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section id="projetos">
-    <div class="wrap projetos-grade">
-      <div class="projetos-intro rev"><span class="rotulo">Projetos</span><h2>Não mostramos promessa. Mostramos funcionando.</h2><p>Demonstrações que montamos pra negócios reais antes da primeira conversa. Toque e navegue como se fosse o cliente.</p></div>
-      <a class="demo rev d1" href="https://pinscher-barber-pro.vercel.app" target="_blank" rel="noopener">
-        <iframe src="https://pinscher-barber-pro.vercel.app" loading="lazy" tabindex="-1" scrolling="no" title="Demonstração Pinscher Barber"></iframe>
-        <div class="info"><div><small>Barbearia · Taquara/RS</small><b>Pinscher Barber</b></div><span class="play">↗</span></div>
-      </a>
-      <a class="demo rev d2" href="https://vinicius-advogado-pro.vercel.app" target="_blank" rel="noopener">
-        <iframe src="https://vinicius-advogado-pro.vercel.app" loading="lazy" tabindex="-1" scrolling="no" title="Demonstração escritório de advocacia"></iframe>
-        <div class="info"><div><small>Escritório de advocacia</small><b>Silva &amp; Rodrigues</b></div><span class="play">↗</span></div>
-      </a>
     </div>
   </section>
 
@@ -467,10 +569,10 @@
 
   <section class="sobre">
     <div class="wrap">
-      <h2 class="rev">Sobre nós</h2>
+      <h2 class="rev">Aí o seu negócio <em>muda de ritmo.</em></h2>
       <div class="cols">
-        <p class="rev">A Animus nasceu aqui em Taquara. A gente constrói sites, sistemas e automações, e sabe que hoje criar tecnologia ficou rápido. O difícil é saber o que vale construir pro seu negócio, e fazer isso funcionar no dia a dia de quem atende cliente.</p>
-        <p class="rev d1">Por isso a conversa vem antes do código, e a demonstração vem antes do pagamento. A inteligência artificial não fica no comando: ela trabalha dentro das regras que você define, e passa pra você tudo o que pede uma pessoa.</p>
+        <p class="rev">Nenhum cliente sem resposta. Tudo organizado num lugar só: clientes, agenda e atendimentos. E mais venda entrando, mês após mês.</p>
+        <p class="rev d1">A tecnologia trabalha dentro das regras que você define e passa pra você tudo o que pede uma pessoa. O negócio continua sendo seu, só que sem depender de você lembrar de tudo.</p>
       </div>
     </div>
   </section>
@@ -480,11 +582,11 @@
       <h2 class="rev" style="text-align:center">Dúvidas</h2>
       <div class="faq rev d1">
         <details><summary>Preciso pagar para ver a demonstração?</summary><p>Não. A conversa e a demonstração são gratuitas. Você só paga se decidir seguir com o projeto.</p></details>
+        <details><summary>Vocês fazem só site?</summary><p>Não. Fazemos site, atendimento no WhatsApp, sistema de gestão e as tarefas que se repetem rodando sozinhas. Você escolhe as peças que fazem sentido pro seu negócio.</p></details>
         <details><summary>O atendente no WhatsApp responde qualquer coisa?</summary><p>Não, e isso é de propósito. Ele responde o que você definiu (preço, horário, endereço, agendamento) e passa pra você tudo que precisa de uma pessoa. Você vê as conversas quando quiser.</p></details>
         <details><summary>Vou precisar de outro número de WhatsApp?</summary><p>Não necessariamente. Na conversa vemos o que faz mais sentido pro seu caso: usar o número que o cliente já conhece ou separar um número só pro atendimento.</p></details>
-        <details><summary>Vocês atendem só em Taquara?</summary><p>Atendemos presencialmente em Taquara e no Vale do Paranhana. Para outras cidades, a conversa acontece por vídeo.</p></details>
-        <details><summary>Quanto custa?</summary><p>Depende do que entra no seu projeto: só o site, só o atendimento ou os dois juntos. Por isso o valor vem depois da conversa, numa proposta com escopo, prazo e preço fechados.</p></details>
-        <details><summary>E se eu já tiver um site?</summary><p>A gente olha o que você já tem, aproveita o que funciona e mostra na demonstração como ficaria melhor.</p></details>
+                <details><summary>Quanto custa?</summary><p>Depende das peças que entram no seu projeto. Por isso o valor vem depois da conversa, numa proposta com escopo, prazo e preço fechados.</p></details>
+        <details><summary>E se eu já tiver um site?</summary><p>A gente olha o que você já tem, aproveita o que funciona e te mostra o que dá pra melhorar.</p></details>
       </div>
     </div>
   </section>
@@ -494,9 +596,17 @@
       <div class="cartao">
         <div class="rev">
           <span class="rotulo">Vamos conversar</span>
-          <h2>Conte onde o seu negócio perde cliente.</h2>
-          <p>Deixe seu contato. Chamamos você no WhatsApp em horário comercial pra marcar a conversa, sem lista de spam.</p>
-          <p class="ps"><strong>P.S.</strong> A conversa e a demonstração são gratuitas. Você vê o seu site e o seu atendimento funcionando antes de pagar qualquer coisa. Se não fizer sentido, não deve nada.</p>
+          <h2>Deixe seu contato. <em>A gente te chama no WhatsApp.</em></h2>
+          <p>Em horário comercial, pra marcar a conversa. Sem lista de spam.</p>
+          <div class="proximos">
+            <span class="rotulo">Como funciona daqui pra frente</span>
+            <ol>
+              <li><span><b>Te chamamos no WhatsApp</b> em horário comercial.</span></li>
+              <li><span><b>Conversa de 20 minutos</b>, por vídeo ou pessoalmente.</span></li>
+              <li><span><b>Você vê uma demonstração funcionando</b> e só então decide.</span></li>
+            </ol>
+            <p class="garantia">A demonstração é por nossa conta. A gente prefere que você decida vendo.</p>
+          </div>
           <p class="alt">Prefere falar agora? <a href="https://wa.me/5551999250418?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Animus" target="_blank" rel="noopener">Chame no WhatsApp (51) 99925-0418</a></p>
         </div>
         <form id="form" class="rev d1" novalidate>
@@ -518,23 +628,44 @@
 <footer>
   <div class="wrap">
     <div class="topo">
-      <div><a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_64.png" alt="" width="30" height="30">ANIMUS AI STUDIO</a><p class="frase">Site e atendimento sob medida, feitos aqui no Vale.</p></div>
-      <nav class="menu" aria-label="Rodapé"><a href="#solucao">O que fazemos</a><a href="#processo">Como trabalhamos</a><a href="#projetos">Projetos</a><a href="#contato">Contato</a></nav>
+      <div><a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_circulo_64.png" alt="" width="30" height="30">ANIMUS AI STUDIO</a><p class="frase">Toda a parte digital do seu negócio, sob medida.</p></div>
+      <nav class="menu" aria-label="Rodapé"><a href="#solucao">O que fazemos</a><a href="#processo">Como funciona</a><a href="#contato">Contato</a></nav>
     </div>
-    <div class="base"><span>© 2026 Animus AI Studio · Seus dados só são usados pra responder o seu contato (LGPD)</span><span>Taquara/RS · (51) 99925-0418</span></div>
+    <div class="base"><span>© 2026 Animus AI Studio · Seus dados só são usados pra responder o seu contato (LGPD)</span><span>(51) 99925-0418</span></div>
   </div>
 </footer>
 
 <script>
   const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Vídeo de apresentação: botão grande dá play com som; some enquanto toca.
+  const vsl = document.getElementById("vsl"), vslVideo = document.getElementById("vsl-video");
+  document.getElementById("vsl-play").addEventListener("click", () => { vslVideo.play(); });
+  vslVideo.addEventListener("play", () => { vsl.classList.add("tocando"); vslVideo.controls = true; });
+  vslVideo.addEventListener("ended", () => vsl.classList.remove("tocando"));
+  const videoHero = document.querySelector(".video-hero");
+  if (reduz && videoHero) { videoHero.removeAttribute("autoplay"); videoHero.pause(); }
 
   // Tema: alterna e guarda. Sem storage (aba privada), só não lembra.
-  document.getElementById("tema").addEventListener("click", () => {
+  // Troca de tema em onda: um círculo nasce no botão e cobre a página (View Transitions).
+  // Sem suporte ou com animação reduzida, troca na hora.
+  document.getElementById("tema").addEventListener("click", (ev) => {
     const raiz = document.documentElement;
     const atual = raiz.getAttribute("data-tema") || (matchMedia("(prefers-color-scheme: dark)").matches ? "escuro" : "claro");
     const novo = atual === "escuro" ? "claro" : "escuro";
-    raiz.setAttribute("data-tema", novo);
-    try { localStorage.setItem("animus-tema", novo); } catch (e) {}
+    const aplicar = () => {
+      raiz.setAttribute("data-tema", novo);
+      try { localStorage.setItem("animus-tema", novo); } catch (e) {}
+    };
+    if (!document.startViewTransition || reduz) return aplicar();
+    const b = ev.currentTarget.getBoundingClientRect();
+    const x = b.left + b.width / 2, y = b.top + b.height / 2;
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    document.startViewTransition(aplicar).ready.then(() => {
+      raiz.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+        { duration: 700, easing: "cubic-bezier(.65,0,.35,1)", pseudoElement: "::view-transition-new(root)" }
+      );
+    });
   });
 
   // Barra do topo vira pílula com vidro depois do topo.
@@ -570,9 +701,10 @@
   const statusChat = document.getElementById("status-chat");
   const espera = (ms) => new Promise((r) => setTimeout(r, ms));
   async function cicloChat() {
-    if (reduz) { msgs.forEach((m) => m.classList.add("on")); return; }
+    const agendaCard = document.getElementById("agenda-card");
+    if (reduz) { msgs.forEach((m) => m.classList.add("on")); agendaCard?.classList.add("on"); return; }
     for (;;) {
-      msgs.forEach((m) => m.classList.remove("on"));
+      msgs.forEach((m) => m.classList.remove("on")); agendaCard?.classList.remove("on");
       await espera(900);
       for (const m of msgs) {
         if (m.classList.contains("eu")) {
@@ -584,16 +716,33 @@
         m.classList.add("on");
         await espera(1500);
       }
+      agendaCard?.classList.add("on");
       await espera(4200);
     }
   }
-  cicloChat();
+  // Vitrine: o endereço é digitado e o site se monta com outro negócio a cada ciclo.
+  const vitUrl = document.getElementById("vit-url"), vitT = document.getElementById("vit-t"), vitCorpo = vitT?.parentElement;
+  const negocios = [["barbeariacentro.com.br","Barbearia Centro,<br>corte com hora marcada."],["clinicaestetica.com.br","Clínica Estética,<br>sua pele em dia."],["pizzariadovale.com.br","Pizzaria do Vale,<br>peça pelo WhatsApp."],["seunegocio.com.br","O seu negócio,<br>do jeito que ele é."]];
+  async function cicloVitrine() {
+    for (let n = 0; ; n = (n + 1) % negocios.length) {
+      const [url, titulo] = negocios[n];
+      for (let c = 1; c <= url.length; c++) { vitUrl.textContent = url.slice(0, c); await espera(55); }
+      vitCorpo.classList.remove("vit-monta"); void vitCorpo.offsetWidth;
+      vitT.innerHTML = titulo; vitCorpo.classList.add("vit-monta");
+      await espera(3200);
+    }
+  }
+  if (vitUrl && !reduz) { const ioVit = new IntersectionObserver((es) => { if (es[0].isIntersecting) { ioVit.disconnect(); cicloVitrine(); } }, { threshold: 0.4 }); ioVit.observe(vitUrl); }
+  // O chat fica na frente do chip: só começa quando aparece na tela.
+  const ioChat = new IntersectionObserver((es) => { if (es[0].isIntersecting) { ioChat.disconnect(); cicloChat(); } }, { threshold: 0.4 });
+  ioChat.observe(document.getElementById("conversa"));
 
   // Chip do bento: trilhas desenhadas sempre no sentido do fluxo (entrada →
   // núcleo → saída), então o pulso anda na direção certa só com dashoffset.
   (function () {
     const ns = "http://www.w3.org/2000/svg";
     const svg = document.getElementById("chip");
+    if (!svg) return;
     const el = (tag, attrs, pai) => { const n = document.createElementNS(ns, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); pai.append(n); return n; };
     const TRILHAS = [
       // entram pela esquerda e por cima (Google, Instagram, indicação)
@@ -637,16 +786,21 @@
 
   // Diagramas das 5 fases (SVG próprio, mesmo desenho no quadro e no celular).
   const CENAS = [
-    `<circle cx="180" cy="75" r="62" class="pontilhado"/><circle cx="180" cy="75" r="40" class="pontilhado"/><circle cx="180" cy="75" r="16"/><circle cx="180" cy="75" r="3" class="cheio"/>
-     <text x="165" y="104" class="forte">VOCÊ</text><text x="14" y="24">GOOGLE</text><line x1="62" y1="22" x2="135" y2="48" class="pontilhado"/>
-     <text x="276" y="22">WHATSAPP</text><line x1="272" y1="20" x2="222" y2="46" class="pontilhado"/><text x="214" y="144">ONDE O CLIENTE SE PERDE</text><line x1="240" y1="134" x2="214" y2="106" class="pontilhado"/>`,
+    `<rect x="40" y="8" width="280" height="134" rx="12"/>
+     <text x="60" y="32" class="forte">CONVERSA · 20 MIN</text><text x="60" y="46">POR VÍDEO OU PESSOALMENTE</text><line x1="60" y1="56" x2="300" y2="56" class="pontilhado"/>
+     <rect x="60" y="68" width="14" height="14" rx="4"/><path d="M63.5 75l2.5 2.5 4.5-5"/><text x="84" y="79" class="frase">Como o cliente te acha?</text>
+     <rect x="60" y="92" width="14" height="14" rx="4"/><path d="M63.5 99l2.5 2.5 4.5-5"/><text x="84" y="103" class="frase">O que mais te perguntam?</text>
+     <rect x="60" y="116" width="14" height="14" rx="4"/><path d="M63.5 123l2.5 2.5 4.5-5"/><text x="84" y="127" class="frase">Onde você perde cliente?</text>`,
     `<rect x="16" y="20" width="150" height="110" rx="10"/><text x="30" y="42" class="forte">O SITE MOSTRA</text><line x1="30" y1="62" x2="146" y2="62" class="pontilhado"/><line x1="30" y1="80" x2="120" y2="80" class="pontilhado"/><line x1="30" y1="98" x2="136" y2="98" class="pontilhado"/>
      <rect x="194" y="20" width="150" height="110" rx="10"/><text x="208" y="42" class="forte">O ATENDENTE FAZ</text><text x="208" y="66">✓ PREÇO E HORÁRIO</text><text x="208" y="84">✓ AGENDAMENTO</text><text x="208" y="102">→ PASSA PRA VOCÊ</text>`,
     `<rect x="60" y="14" width="240" height="122" rx="10"/><line x1="60" y1="34" x2="300" y2="34"/><circle cx="74" cy="24" r="3" class="cheio"/><circle cx="86" cy="24" r="3" class="cheio"/>
-     <text x="84" y="62" class="forte">SEU NOME AQUI</text><line x1="84" y1="80" x2="250" y2="80" class="pontilhado"/><line x1="84" y1="96" x2="210" y2="96" class="pontilhado"/><rect x="84" y="108" width="84" height="16" rx="8" class="cheio"/><text x="190" y="120">ANTES DE PAGAR</text>`,
-    `<circle cx="180" cy="75" r="26"/><text x="163" y="79" class="forte">SITE</text>
-     <line x1="156" y1="66" x2="80" y2="30"/><line x1="156" y1="84" x2="80" y2="120"/><line x1="204" y1="66" x2="280" y2="30"/><line x1="204" y1="84" x2="280" y2="120"/>
-     <text x="12" y="28">WHATSAPP</text><text x="26" y="132">AGENDA</text><text x="286" y="28">GOOGLE</text><text x="284" y="132">ENDEREÇO</text>`,
+     <text x="84" y="62" class="forte">DEMONSTRAÇÃO</text><line x1="84" y1="80" x2="250" y2="80" class="pontilhado"/><line x1="84" y1="96" x2="210" y2="96" class="pontilhado"/><rect x="84" y="108" width="84" height="16" rx="8" class="cheio"/><text x="190" y="120">ANTES DE DECIDIR</text>`,
+    `<rect x="130" y="4" width="100" height="142" rx="16"/><line x1="166" y1="12" x2="194" y2="12"/>
+     <text x="142" y="30" class="mini">seunegocio.com.br</text><line x1="140" y1="36" x2="220" y2="36" class="pontilhado"/>
+     <text x="142" y="58" class="frase forte">Seu negócio</text><line x1="142" y1="70" x2="216" y2="70" class="pontilhado"/><line x1="142" y1="80" x2="200" y2="80" class="pontilhado"/>
+     <rect x="142" y="94" width="76" height="18" rx="9" class="zap"/><text x="152" y="106" class="mini claro">WHATSAPP</text>
+     <rect x="8" y="30" width="112" height="34" rx="10"/><circle cx="24" cy="47" r="5" class="zap"/><text x="36" y="45" class="frase">WhatsApp</text><text x="36" y="57" class="mini">ONLINE AGORA</text>
+     <rect x="236" y="84" width="120" height="44" rx="10"/><text x="248" y="102" class="frase forte">Seu negócio</text><text x="248" y="118" class="mini">NO GOOGLE · ABERTO AGORA</text>`,
     `<line x1="30" y1="122" x2="340" y2="122"/><line x1="30" y1="18" x2="30" y2="122"/>
      <polyline points="30,110 105,96 180,70 255,50 330,28"/><circle cx="105" cy="96" r="3" class="cheio"/><circle cx="180" cy="70" r="3" class="cheio"/><circle cx="255" cy="50" r="3" class="cheio"/><circle cx="330" cy="28" r="3" class="cheio"/>
      <text x="30" y="140">SEMANA 1</text><text x="164" y="140">MÊS 1</text><text x="296" y="140">MÊS 3</text><text x="40" y="28">CLIENTES ATENDIDOS</text>`,
@@ -725,5 +879,20 @@
   });
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>
+  // Cards inclinam em 3D seguindo o mouse (só com mouse e sem animação reduzida).
+  if (matchMedia("(pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll(".q, .painel:not(.vitrine):not(.fluxo)").forEach((c) => {
+      c.classList.add("tilt");
+      c.addEventListener("pointermove", (e) => {
+        const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        c.style.transform = `perspective(900px) rotateX(${(-y * 7).toFixed(2)}deg) rotateY(${(x * 9).toFixed(2)}deg) translateY(-4px)`;
+      });
+      c.addEventListener("pointerleave", () => (c.style.transform = ""));
+    });
+  }
+</script>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
+<script type="module" src="assets/icones3d.js"></script>
 </body>
 </html>
