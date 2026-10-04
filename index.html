@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://www.animusai.com.br/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.animusai.com.br/assets/og-animus.jpg">
-<link rel="icon" href="assets/penguin_logo_circulo_256.png">
+<link rel="icon" href="assets/penguin_logo_circulo_64.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -35,6 +35,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="preload" as="image" href="assets/animus-apresentacao-poster-960.webp" type="image/webp" fetchpriority="high">
 <script>
   // Tema antes do primeiro paint (evita piscar). Escolha salva > preferência do sistema.
   (function () {
@@ -423,7 +424,7 @@
 <div id="nav">
   <div class="wrap">
     <div class="barra">
-      <a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_circulo_64.png" alt="" width="30" height="30"><span>ANIMUS AI STUDIO</span></a>
+      <a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_circulo_64.webp" alt="" width="30" height="30"><span>ANIMUS AI STUDIO</span></a>
       <nav class="links" aria-label="Principal"><a href="#solucao">O que fazemos</a><a href="#processo">Como funciona</a><a href="#duvidas">Dúvidas</a></nav>
       <div class="acoes-nav">
         <button class="tema" id="tema" type="button" aria-label="Trocar tema claro/escuro">
@@ -449,7 +450,7 @@
         </div>
         <div class="rev d2">
           <div class="vsl" id="vsl">
-            <video id="vsl-video" src="assets/animus-apresentacao-720.mp4" poster="assets/animus-apresentacao-poster.jpg" preload="metadata" playsinline aria-label="Vídeo de apresentação da Animus, 1 minuto e 20 segundos, com narração."></video>
+            <video id="vsl-video" src="assets/animus-apresentacao-720.mp4" poster="assets/animus-apresentacao-poster-960.webp" preload="none" playsinline aria-label="Vídeo de apresentação da Animus, 1 minuto e 20 segundos, com narração."></video>
             <button class="play" type="button" id="vsl-play" aria-label="Assistir à apresentação"><span>Assistir agora</span></button>
           </div>
           <p class="legenda-vsl">Prefere ler? Está tudo aqui embaixo.</p>
@@ -628,7 +629,7 @@
 <footer>
   <div class="wrap">
     <div class="topo">
-      <div><a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_circulo_64.png" alt="" width="30" height="30">ANIMUS AI STUDIO</a><p class="frase">Toda a parte digital do seu negócio, sob medida.</p></div>
+      <div><a class="marca" href="#topo" aria-label="Animus AI Studio, voltar ao topo"><img src="assets/penguin_logo_circulo_64.webp" alt="" width="30" height="30">ANIMUS AI STUDIO</a><p class="frase">Toda a parte digital do seu negócio, sob medida.</p></div>
       <nav class="menu" aria-label="Rodapé"><a href="#solucao">O que fazemos</a><a href="#processo">Como funciona</a><a href="#contato">Contato</a></nav>
     </div>
     <div class="base"><span>© 2026 Animus AI Studio · Seus dados só são usados pra responder o seu contato (LGPD)</span><span>(51) 99925-0418</span></div>
@@ -893,6 +894,10 @@
   }
 </script>
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
-<script type="module" src="assets/icones3d.js"></script>
+<script type="module">
+  // Three.js (~256 KB) só baixa quando os ícones 3D chegam perto da tela.
+  const ico = document.querySelector("canvas[data-ico]");
+  if (ico) new IntersectionObserver((e, o) => { if (e.some((x) => x.isIntersecting)) { o.disconnect(); import("./assets/icones3d.js"); } }, { rootMargin: "600px" }).observe(ico);
+</script>
 </body>
 </html>
