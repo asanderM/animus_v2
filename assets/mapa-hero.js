@@ -7,6 +7,7 @@
 // ("Interessado no apê do Centro") e vira resolvido ("✓ Visita marcada").
 // Segue o tema do site, para fora da tela e, com animação reduzida, fica num quadro parado.
 import * as THREE from "three";
+import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 
 const raiz = document.getElementById("mapa-hero");
 const canvas = document.getElementById("mapa-canvas");
@@ -15,7 +16,7 @@ const card = document.getElementById("mapa-card");
 const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const PALETA = {
-  claro: { fundo: "#f7f5f0", rua: "#fdfcf9", quadra: "#ebe8e1", predio: [0xf1eee8, 0xdedad2], praca: "#e4dccb", parque: "#cfe5bd", arvore: "#9cc98a", tronco: "#b8a98f", vidro: "#3a4452", detalhe: "#d9d4ca", telhado: ["#7da7d9", "#9fd08c"], topo: "#e0c050", carro: [0xf4f4f2, 0x2f3338, 0xc8ccd2, 0xb33a32, 0x3b5f8f] },
+  claro: { fundo: "#f5f3ef", rua: "#ffffff", quadra: "#e9e6e0", predio: [0xf3f1ed, 0xe4e1db], praca: "#e4dccb", parque: "#cfe5bd", arvore: "#9cc98a", tronco: "#b8a98f", vidro: "#3a4452", detalhe: "#d9d4ca", telhado: ["#7da7d9", "#9fd08c"], topo: "#e0c050", carro: [0xf4f4f2, 0x2f3338, 0xc8ccd2, 0xb33a32, 0x3b5f8f] },
   escuro: { fundo: "#141310", rua: "#0f0e0c", quadra: "#211f1b", predio: [0x4d4a43, 0x34322d], praca: "#2a2620", parque: "#1f301d", arvore: "#3f6b3a", tronco: "#4a4034", vidro: "#0b0d10", detalhe: "#57534a", telhado: ["#35557a", "#3e6a37"], topo: "#d4b23a", carro: [0xe8e8e4, 0x9aa3ad, 0x6d747c, 0xff7a6a, 0x8fb3ff] },
 };
 
@@ -55,7 +56,7 @@ const META = (N * P) / 2;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "low-power" });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
 const cena = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(28, 1, 1, 700);
+const camera = new THREE.PerspectiveCamera(34, 1, 1, 700);
 const ceu = new THREE.HemisphereLight(0xffffff, 0xc9c2b2, 1.7);
 const sol = new THREE.DirectionalLight(0xffffff, 1.3);
 sol.position.set(-50, 90, 40);
@@ -147,7 +148,7 @@ for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
   for (const [dx, dz] of [[-2.5, -2.5], [2.5, -2.5], [-2.5, 2.5], [2.5, 2.5]]) {
     if (rnd() < 0.08) continue;
     const dist = Math.hypot(x, z) / META;
-    const h = 1.6 + rnd() * 3.4 + Math.max(0, 1 - dist) ** 2 * rnd() * 13;
+    const h = 2 + rnd() * 4 + Math.max(0, 1 - dist) ** 1.5 * rnd() * 17;
     lotesLivres.push({ x: x + dx, z: z + dz, w: 3.8 + rnd() * 0.6, d: 3.8 + rnd() * 0.6, h });
   }
   // árvores de calçada
@@ -188,19 +189,28 @@ const rotas = Array.from({ length: nCarros }, () => {
   // mão certa: cada sentido na sua faixa
   return { eixoX: rnd() < 0.5, linha: linha + (v > 0 ? 0.65 : -0.65), t: rnd() * 2 * META - META, v, cor: Math.floor(rnd() * 5) };
 });
-const geoCarro = new THREE.BoxGeometry(1.8, 0.42, 0.86).translate(0, 0.42, 0);
-const geoCabine = new THREE.BoxGeometry(1.0, 0.34, 0.74).translate(-0.08, 0.8, 0);
+const geoCarro = new RoundedBoxGeometry(1.9, 0.5, 0.92, 3, 0.2).translate(0, 0.5, 0);
+const geoCabine = new RoundedBoxGeometry(1.08, 0.42, 0.8, 3, 0.18).translate(-0.12, 0.88, 0);
+const geoRoda = new THREE.CylinderGeometry(0.2, 0.2, 0.16, 10).rotateX(Math.PI / 2);
+const geoFarol = new THREE.BoxGeometry(0.06, 0.1, 0.22);
 const carros = new THREE.InstancedMesh(geoCarro, mat.carro, nCarros);
 const cabines = new THREE.InstancedMesh(geoCabine, mat.vidro, nCarros);
-cena.add(carros, cabines);
+const rodas = new THREE.InstancedMesh(geoRoda, mat.pneu = new THREE.MeshLambertMaterial({ color: 0x1d1d1f }), nCarros * 4);
+const farois = new THREE.InstancedMesh(geoFarol, mat.farol = new THREE.MeshLambertMaterial(), nCarros * 2);
+cena.add(carros, cabines, rodas, farois);
+const RODAS = [[0.58, 0.25, 0.42], [0.58, 0.25, -0.42], [-0.58, 0.25, 0.42], [-0.58, 0.25, -0.42]];
+const FAROIS = [[0.95, 0.55, 0.28], [0.95, 0.55, -0.28]];
+const local = new THREE.Matrix4();
 function posicionarCarros() {
   rotas.forEach((r, k) => {
     const ry = r.eixoX ? (r.v > 0 ? 0 : Math.PI) : (r.v > 0 ? -Math.PI / 2 : Math.PI / 2);
     const m = r.eixoX ? matriz(r.t, 0.3, r.linha, 1, 1, 1, ry) : matriz(r.linha, 0.3, r.t, 1, 1, 1, ry);
     carros.setMatrixAt(k, m);
     cabines.setMatrixAt(k, m);
+    RODAS.forEach(([x, y, z], i) => rodas.setMatrixAt(k * 4 + i, local.makeTranslation(x, y, z).premultiply(m)));
+    FAROIS.forEach(([x, y, z], i) => farois.setMatrixAt(k * 2 + i, local.makeTranslation(x, y, z).premultiply(m)));
   });
-  carros.instanceMatrix.needsUpdate = cabines.instanceMatrix.needsUpdate = true;
+  carros.instanceMatrix.needsUpdate = cabines.instanceMatrix.needsUpdate = rodas.instanceMatrix.needsUpdate = farois.instanceMatrix.needsUpdate = true;
 }
 
 // ------------------------------------------------------------- tema
@@ -209,7 +219,7 @@ function aplicarTema() {
   const tema = temaAtual(), p = PALETA[tema], escuro = tema === "escuro";
   const fundo = new THREE.Color(p.fundo);
   renderer.setClearColor(fundo);
-  cena.fog = new THREE.Fog(fundo, 140, celular() ? 240 : 320);
+  cena.fog = new THREE.Fog(fundo, 70, celular() ? 170 : 210);
   for (const k of ["rua", "quadra", "praca", "parque", "arvore", "tronco", "vidro", "detalhe", "topo"]) mat[k].color.set(p[k]);
   mat.telhadoA.color.set(p.telhado[0]);
   mat.telhadoB.color.set(p.telhado[1]);
@@ -220,6 +230,8 @@ function aplicarTema() {
   predios.instanceColor.needsUpdate = true;
   rotas.forEach((r, k) => carros.setColorAt(k, cor.set(p.carro[r.cor])));
   carros.instanceColor.needsUpdate = true;
+  mat.farol.color.set(escuro ? 0xfff2c4 : 0xf4f4f4);
+  mat.farol.emissive.set(escuro ? 0xffe9a0 : 0x000000);
   ceu.intensity = escuro ? 1.25 : 1.7;
   sol.intensity = escuro ? 1.1 : 1.3;
   desenhar();
@@ -306,7 +318,7 @@ function posicionarCamadas() {
 let angulo = 0.55;
 function posicionarCamera() {
   const cel = celular();
-  const r = cel ? 88 : 112, alt = cel ? 92 : 104;
+  const r = cel ? 74 : 82, alt = cel ? 70 : 66;
   camera.position.set(Math.sin(angulo) * r, alt, Math.cos(angulo) * r);
   camera.lookAt(0, 0, 0);
 }
