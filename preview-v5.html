@@ -347,8 +347,18 @@
   /* Montagem: maquete 3D que muda de encaixe por tipo de negócio */
   .montagem { padding-top: 56px; }
   .montagem-grid { display: grid; gap: 28px; align-items: center; }
-  @media (min-width: 980px) { .montagem-grid { grid-template-columns: 1.1fr .9fr; gap: 56px; } }
-  .montagem-palco { position: relative; aspect-ratio: 1 / .82; border-radius: var(--raio); overflow: hidden; border: 1px solid var(--linha); background: radial-gradient(70% 60% at 50% 40%, var(--ouro-fundo), transparent 75%), var(--papel); }
+  .montagem-texto { order: 1; }
+  .montagem-palco { order: 2; }
+  @media (min-width: 980px) {
+    .montagem-grid { gap: 36px; }
+    .montagem-texto { display: grid; grid-template-columns: 1.15fr .85fr; gap: 12px 56px; align-items: end; }
+    .montagem-texto .rotulo, .montagem-texto h2 { grid-column: 1; }
+    .montagem-texto > p, .montagem-texto .checks { grid-column: 2; }
+    .montagem-texto > p { grid-row: 2; }
+    .montagem-texto .checks { grid-row: 3; margin-top: 0; }
+    .montagem-palco { padding: 28px 40px; aspect-ratio: auto; }
+  }
+  .montagem-palco { position: relative; border-radius: var(--raio); overflow: hidden; border: 1px solid var(--linha); background: radial-gradient(70% 60% at 50% 40%, var(--ouro-fundo), transparent 75%), var(--papel); }
   .montagem-palco canvas { display: block; width: 100%; height: 100%; }
   .maquete-rotulos { position: absolute; inset: 0; pointer-events: none; }
   .mq-rot { position: absolute; left: 0; top: 0; font: 600 .68rem/1.2 "Space Grotesk", sans-serif; color: var(--tinta); background: color-mix(in srgb, var(--papel) 90%, transparent); border: 1px solid var(--linha); padding: 5px 9px; border-radius: 100px; white-space: nowrap; box-shadow: 0 6px 16px -10px #0006; opacity: 0; transition: opacity .4s; }
@@ -358,7 +368,7 @@
   .maquete-negocio b { font-family: "Fraunces", serif; font-weight: 400; font-size: 1.25rem; color: var(--ouro); }
   .montagem-texto h2 { margin: 14px 0 16px; }
   @media (max-width: 719px) {
-    .montagem-palco { aspect-ratio: 1 / 1; }
+    .montagem-palco { aspect-ratio: auto; padding: 58px 12px 22px; }
     .mq-rot { font-size: .58rem; padding: 3px 7px; }
     .maquete-negocio { top: auto; bottom: 12px; left: 12px; padding: 7px 11px; }
     .maquete-negocio b { font-size: 1rem; }
@@ -373,7 +383,6 @@
   .feito { border-radius: var(--raio); border: 1px solid var(--linha); background: var(--papel); padding: 18px 18px 26px; display: flex; flex-direction: column; }
   .feito h3 { font-size: 1.25rem; margin-bottom: 6px; }
   .feito p { font-size: .9rem; }
-  .feito .ico3d { margin-top: -38px; position: relative; z-index: 1; }
   .feito-tela { height: 168px; border-radius: 14px; background: var(--fundo); border: 1px solid var(--linha); margin-bottom: 18px; overflow: hidden; position: relative; display: grid; place-items: center; padding: 14px; font: 500 .72rem/1.35 "Space Grotesk", sans-serif; }
   .feito-tela i { font-style: normal; display: block; }
   .ft-chat { width: 100%; display: grid; gap: 6px; }
@@ -402,6 +411,52 @@
   .ft-pix .pago { font-weight: 700; color: #1f7a3a; background: #d9fdd3; border-radius: 100px; padding: 3px 12px; animation: entra 5s 1s infinite; opacity: 0; }
   .ft-pix .baixar { font-size: .66rem; color: var(--ouro); animation: entra 5s 1.8s infinite; opacity: 0; }
   @media (prefers-reduced-motion: reduce) { .feito-tela * { animation: none !important; opacity: 1 !important; } }
+
+  /* Terminal da IA (referência do Alex: painel "TERMINAL · I/O") */
+  .montagem-palco { display: grid; place-items: center; padding: 18px; background: radial-gradient(60% 70% at 28% 50%, var(--ouro-fundo), transparent 70%), var(--papel); }
+  .montagem-palco .maquete-negocio { display: none; }
+  #planta { width: 100%; height: auto; overflow: visible; transition: opacity .45s; }
+  #planta.saindo { opacity: 0; }
+  #planta text { font-family: "JetBrains Mono", monospace; }
+  .tm-canto { fill: none; stroke: var(--ouro-vivo); stroke-width: 1.4; opacity: .7; }
+  .tm-tit { font-size: 9px; font-weight: 700; letter-spacing: .14em; fill: var(--tinta); }
+  .tm-sub { font-size: 6.5px; letter-spacing: .16em; fill: var(--suave); }
+  .tm-ra { fill: none; stroke: color-mix(in srgb, var(--tinta) 35%, transparent); stroke-width: .8; }
+  .tm-pont { stroke-dasharray: 2 4; }
+  .tm-tick { stroke: color-mix(in srgb, var(--tinta) 40%, transparent); stroke-width: .7; }
+  .tm-seg { fill: none; stroke: color-mix(in srgb, var(--ouro-vivo) 55%, var(--papel)); stroke-width: 15; opacity: .55; }
+  .tm-led { fill: var(--tinta); opacity: .55; }
+  .tm-led.a { fill: #e0643b; opacity: 1; animation: pisca 1.8s ease-in-out infinite; }
+  .tm-led.b { fill: #2fb7b0; opacity: 1; animation: pisca 2.4s .6s ease-in-out infinite; }
+  .tm-nucleo { fill: color-mix(in srgb, var(--ouro-vivo) 20%, transparent); stroke: var(--ouro-vivo); stroke-width: 2.2; }
+  .tm-ia { font-size: 15px; font-weight: 700; letter-spacing: .1em; fill: var(--ouro); }
+  .tm-gira { animation: gira 40s linear infinite; }
+  .tm-rev { animation-duration: 26s; animation-direction: reverse; }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  .tm-fio { fill: none; stroke: color-mix(in srgb, var(--tinta) 30%, transparent); stroke-width: .9; }
+  .tm-fluxo { fill: none; stroke: var(--ouro-vivo); stroke-width: 1.4; stroke-dasharray: 10 220; animation: flui 2.6s var(--d) linear infinite; }
+  @keyframes flui { from { stroke-dashoffset: 230; } to { stroke-dashoffset: 0; } }
+  .tm-col { opacity: 0; animation: aparece .5s var(--d) forwards; }
+  .tm-cab { fill: color-mix(in srgb, var(--tinta) 82%, transparent); }
+  .tm-cab-t { font-size: 6.4px; font-weight: 700; letter-spacing: .12em; fill: var(--papel); }
+  .tm-cel { fill: color-mix(in srgb, var(--tinta) 8%, transparent); stroke: color-mix(in srgb, var(--tinta) 22%, transparent); stroke-width: .6; }
+  .tm-cel-t { font-size: 6.6px; fill: var(--tinta); dominant-baseline: middle; }
+  .tm-lin { opacity: 0; animation: aparece .3s var(--d) forwards; }
+  .tm-lin.ok .tm-cel { animation: acende 6s var(--p) ease-in-out infinite; }
+  .tm-lin.alerta .tm-cel { fill: color-mix(in srgb, #e0643b 85%, transparent); stroke: none; }
+  .tm-lin.alerta .tm-cel-t { fill: #fff; font-weight: 700; }
+  @keyframes acende { 0%, 55%, 100% { fill: color-mix(in srgb, var(--tinta) 8%, transparent); } 65%, 90% { fill: color-mix(in srgb, var(--ouro-vivo) 70%, transparent); } }
+  .tm-regua rect { fill: color-mix(in srgb, var(--tinta) 25%, transparent); animation: corre-regua 2.4s var(--d) linear infinite; }
+  @keyframes corre-regua { 0%, 70%, 100% { fill: color-mix(in srgb, var(--tinta) 25%, transparent); } 10%, 30% { fill: var(--ouro-vivo); } }
+  @keyframes aparece { to { opacity: 1; } }
+  #planta.pronto *, #planta.pronto { animation: none !important; }
+  #planta.pronto .tm-col, #planta.pronto .tm-lin { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { #planta * { animation: none !important; } #planta .tm-col, #planta .tm-lin { opacity: 1; } }
+
+  /* Ícone dos cards: ao lado do título, dentro do quadro */
+  .feito .feito-cab { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .feito .feito-cab .ico3d { width: 46px; height: 46px; margin: 0; flex: none; }
+  .feito .feito-cab h3 { margin: 0; }
   /* Pré-diagnóstico: escolhas em pílula, 1 toque cada (v5, 13/10) */
   .escolhas { border: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .escolhas legend { width: 100%; font-size: .8rem; color: var(--suave); margin-bottom: 8px; }
@@ -597,8 +652,7 @@
   <section class="wrap montagem" id="solucao">
     <div class="montagem-grid">
       <div class="montagem-palco rev" aria-hidden="true">
-        <canvas id="maquete-canvas"></canvas>
-        <div class="maquete-rotulos" id="maquete-rotulos"></div>
+        <svg id="planta" viewBox="0 0 640 360" role="img" aria-label="A IA no centro, ligada a cada parte do negócio: atendimento, vendas, agenda e financeiro"></svg>
         <div class="maquete-negocio" id="maquete-negocio"><small>Montado para</small><b>Imobiliária</b></div>
       </div>
       <div class="montagem-texto rev d1">
@@ -617,32 +671,28 @@
         <div class="feito-tela" aria-hidden="true">
           <div class="ft-chat"><i class="b1">Vocês fazem visita sábado?</i><i class="b2 eu">Fazemos sim. Qual imóvel te interessou?</i><i class="b3">O apê do Centro</i><i class="b4 tag">→ Passado pro corretor · interesse alto</i></div>
         </div>
-        <canvas class="ico3d" data-ico="atendimento" aria-hidden="true"></canvas>
-        <h3>Atendente que qualifica no WhatsApp</h3>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="atendimento" aria-hidden="true"></canvas><h3>Atendente que qualifica no WhatsApp</h3></div>
         <p>Conversa com quem chama, entende o que a pessoa precisa e passa pro dono só o que pede decisão.</p>
       </article>
       <article class="feito rev d1">
         <div class="feito-tela" aria-hidden="true">
           <div class="ft-kanban"><div><small>Novo</small><i class="k1">Pizzaria do Vale</i><i class="k2">Studio Bella</i></div><div><small>Pesquisado</small><i class="k3">Clínica Sorriso<em>4,9 · 200 avaliações</em></i></div><div><small>Conversa</small><i class="k4">Pet Amigo</i></div></div>
         </div>
-        <canvas class="ico3d" data-ico="sistema" aria-hidden="true"></canvas>
-        <h3>Painel de prospecção</h3>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="sistema" aria-hidden="true"></canvas><h3>Painel de prospecção</h3></div>
         <p>Junta os contatos, pesquisa cada empresa antes da conversa e mostra quem está pronto pra fechar.</p>
       </article>
       <article class="feito rev d2">
         <div class="feito-tela" aria-hidden="true">
           <div class="ft-doc"><span class="l"></span><span class="l m"></span><span class="l hl"></span><span class="l"></span><span class="l hl c"></span><span class="l m"></span><b class="nota">3 pontos a ajustar</b></div>
         </div>
-        <canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas>
-        <h3>Analista de petições pra advocacia</h3>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas><h3>Analista de petições pra advocacia</h3></div>
         <p>Lê a petição inicial e aponta onde ela pode melhorar. Em teste com um escritório.</p>
       </article>
       <article class="feito rev d3">
         <div class="feito-tela" aria-hidden="true">
           <div class="ft-pix"><svg class="qr" viewBox="-1 -1 23 23" aria-hidden="true"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#16140f"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="14" y="0" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="14" y="4" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="15" y="6" width="1" height="1"/><rect x="16" y="0" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="17" y="0" width="1" height="1"/><rect x="17" y="2" width="1" height="1"/><rect x="17" y="3" width="1" height="1"/><rect x="17" y="4" width="1" height="1"/><rect x="17" y="6" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="20" y="1" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="20" y="5" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="0" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="1" y="14" width="1" height="1"/><rect x="1" y="20" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="2" y="17" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="3" y="16" width="1" height="1"/><rect x="3" y="17" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="4" y="17" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="5" y="14" width="1" height="1"/><rect x="5" y="20" width="1" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="6" y="16" width="1" height="1"/><rect x="6" y="17" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="2" y="12" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="11" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="10" y="12" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="10" y="20" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="11" y="19" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="12" y="7" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="13" y="18" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="14" y="19" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="15" y="19" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="17" y="19" width="1" height="1"/><rect x="18" y="9" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="18" y="15" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/></g></svg><span class="pago">✓ Pago</span><span class="baixar">Baixar material ↓</span></div>
         </div>
-        <canvas class="ico3d" data-ico="engrenagem" aria-hidden="true"></canvas>
-        <h3>Venda com Pix e entrega na hora</h3>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="engrenagem" aria-hidden="true"></canvas><h3>Venda com Pix e entrega na hora</h3></div>
         <p>A pessoa paga na página e já recebe o material, sem ninguém precisar mandar nada.</p>
       </article>
     </div>
@@ -1034,7 +1084,7 @@
 </script>
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
 <script type="module" src="assets/mapa-hero.js"></script>
-<script type="module" src="assets/maquete.js"></script>
+<script defer src="assets/planta.js"></script>
 <script type="module">
   // Three.js (~256 KB) só baixa quando os ícones 3D chegam perto da tela.
   const ico = document.querySelector("canvas[data-ico]");
