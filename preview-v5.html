@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animus AI Studio — O sistema do seu negócio, feito do seu jeito</title>
+<title>Animus AI Studio — Sistemas sob medida com IA para o seu negócio</title>
 <meta name="description" content="Sistema sob medida para o seu negócio: atendimento no WhatsApp, agenda e os controles que hoje ficam em caderno ou planilha. A gente cuida do dia a dia, e você só entra quando precisa decidir.">
 <meta name="geo.region" content="BR-RS">
 <meta name="geo.placename" content="Taquara, Vale do Paranhana">
@@ -326,6 +326,12 @@
   .armadilha { position: absolute; left: -9999px; }
   .retorno { font-size: .85rem; min-height: 1.2em; }
   .privacidade { font-size: .74rem; line-height: 1.5; }
+  .bento-sub { margin-top: 14px; max-width: 60ch; }
+  .ja-feito .feitos { list-style: none; margin-top: 22px; display: grid; gap: 14px; }
+  @media (min-width: 720px) { .ja-feito .feitos { grid-template-columns: 1fr 1fr; gap: 18px 32px; } }
+  .ja-feito .feitos li { padding-left: 18px; border-left: 2px solid var(--ouro-vivo); }
+  .ja-feito .feitos b { display: block; color: var(--painel-escuro-tx); font-size: 1rem; margin-bottom: 4px; }
+  .ja-feito .feitos span { color: color-mix(in srgb, var(--painel-escuro-tx) 70%, transparent); font-size: .9rem; }
   /* Pré-diagnóstico: escolhas em pílula, 1 toque cada (v5, 13/10) */
   .escolhas { border: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .escolhas legend { width: 100%; font-size: .8rem; color: var(--suave); margin-bottom: 8px; }
@@ -503,11 +509,11 @@
       <div class="mapa-card" id="mapa-card" role="status" aria-live="polite"></div>
       <div class="conteudo">
         <div class="texto-hero">
-          <p class="gancho rev">Aqui sou eu sozinho.</p>
-          <h1 class="rev d1" id="titulo">Um sistema feito pro seu negócio, <em>não mais um app pra você aprender</em></h1>
-          <p class="lead rev d2">Site, WhatsApp, agenda e clientes num lugar só, montados em cima do jeito que você já trabalha. A gente cuida; você só entra pra decidir.</p>
+          <p class="gancho rev">“Pode ter alguma ferramenta que a gente possa usar?”</p>
+          <h1 class="rev d1" id="titulo">A ferramenta certa não está num catálogo. <em>A gente constrói a sua, com IA.</em></h1>
+          <p class="lead rev d2">Investigamos onde o seu negócio perde oportunidade e desenvolvemos o sistema em volta disso: atendimento, vendas, gestão, o que fizer sentido.</p>
           <a class="btn btn-ouro rev d3" href="#contato">Quero ver funcionando <span class="seta">→</span></a>
-          <div class="garantias rev d3"><span>Valor fechado antes de começar</span><span>A gente cuida do dia a dia</span><span>Você define as regras</span></div>
+          <div class="garantias rev d3"><span>Desenho por escrito antes de começar</span><span>Valor e prazo fechados</span><span>Quem decide é você</span></div>
         </div>
       </div>
       <span class="rolar">Role para explorar <i>↓</i></span>
@@ -516,22 +522,9 @@
 </header>
 
 <main>
-  <section class="gargalo">
-    <div class="wrap">
-      <div class="cab">
-        <div class="rev"><span class="rotulo">A cena que você conhece</span><h2 style="margin-top:14px">O dia corre, <em>e o que é importante escapa.</em></h2></div>
-        <p class="rev d1">Cliente que chama e fica sem resposta. Horário anotado no papel que some. Orçamento que ninguém lembrou de retomar. Quem pagou e quem ficou devendo, guardado na memória. Não é falta de esforço: é coisa demais espalhada pra uma pessoa só segurar.</p>
-      </div>
-      <div class="quatro">
-        <div class="q rev"><canvas class="ico3d" data-ico="relogio" aria-hidden="true"></canvas><h3>23h12</h3><p>Mensagem pedindo preço e horário. Ninguém vê até o dia seguinte.</p></div>
-        <div class="q rev d1"><canvas class="ico3d" data-ico="placa" aria-hidden="true"></canvas><h3>Foi pra outro lugar</h3><p>Quando você responde, o cliente já marcou com quem respondeu primeiro.</p></div>
-        <div class="q rev d2"><canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas><h3>Anotado onde mesmo?</h3><p>Pedido, horário e retorno espalhados entre caderno, papel e memória.</p></div>
-        <div class="q rev d3"><canvas class="ico3d" data-ico="conversas" aria-hidden="true"></canvas><h3>Dez conversas abertas</h3><p>Tudo depende de você lembrar de responder, confirmar e cobrar.</p></div>
-      </div>
-    </div>
-  </section>
 
-  <div class="wrap" style="padding-top:56px"><div class="bento-cab rev"><span class="rotulo">O que a gente constrói</span><h2>Primeiro a gente entende como o seu negócio funciona. <em>Depois constrói em cima disso.</em></h2></div></div>
+
+  <div class="wrap" style="padding-top:56px"><div class="bento-cab rev"><span class="rotulo">Como a gente começa</span><h2>Você conta como o seu negócio funciona. <em>A gente acha onde ele perde e constrói a solução ali.</em></h2><p class="bento-sub">Abaixo, exemplos do que pode sair daqui. Nada vem de catálogo: o seu sistema nasce do que o seu negócio precisa.</p></div></div>
   <section class="wrap bento" id="solucao" style="padding-top:12px">
     <div class="painel vitrine rev" aria-hidden="true">
       <div class="mini">
@@ -574,6 +567,16 @@
         </div>
         <div class="agenda-card" id="agenda-card"><span class="ag-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/><path d="m9 15 2 2 4-4"/></svg></span><span><small>Agenda · agora</small><b>Sexta, 10h · Limpeza de pele</b><em>✓ Marcado pelo atendente</em></span></div></div></div>
         </div>
+    </div>
+    <div class="painel escuro rev ja-feito" style="grid-column:1/-1">
+      <span class="rotulo">Já construído pela Animus</span>
+      <h2>Sistemas com IA que já estão rodando</h2>
+      <ul class="feitos">
+        <li><b>Atendente que qualifica no WhatsApp</b><span>Conversa com quem chama, entende o que a pessoa precisa e passa pro dono só o que pede decisão.</span></li>
+        <li><b>Painel de prospecção</b><span>Junta os contatos, pesquisa cada empresa antes da conversa e mostra quem está pronto pra fechar.</span></li>
+        <li><b>Analista de petições pra advocacia</b><span>Lê a petição inicial e aponta onde ela pode melhorar. Em teste com um escritório.</span></li>
+        <li><b>Venda com Pix e entrega na hora</b><span>A pessoa paga na página e já recebe o material, sem ninguém precisar mandar nada.</span></li>
+      </ul>
     </div>
     <div class="painel escuro rev">
       <canvas class="ico3d ico-canto" data-ico="sistema" aria-hidden="true"></canvas>
@@ -619,7 +622,7 @@
   <div class="faixa" aria-label="Segmentos que atendemos">
     <span class="rotulo">Para negócios como o seu</span>
     <div class="trilho" id="trilho-seg">
-      <span>Clínicas de estética</span><span>Pizzarias</span><span>Escritórios de advocacia</span><span>Pet shops</span><span>Barbearias</span><span>Restaurantes</span><span>Consultórios</span><span>Cafeterias</span><span>Lojas</span>
+      <span>Imobiliárias</span><span>Escritórios de advocacia</span><span>Clínicas</span><span>Indústrias</span><span>Lojas</span><span>Assistência técnica</span><span>Restaurantes</span><span>Barbearias e salões</span><span>Consultórios</span>
     </div>
   </div>
 
@@ -627,8 +630,8 @@
     <div class="wrap">
       <h2 class="rev">Aí o seu negócio <em>muda de ritmo.</em></h2>
       <div class="cols">
-        <p class="rev">Nenhum cliente sem resposta. Tudo organizado num lugar só: clientes, agenda e atendimentos. E mais venda entrando, mês após mês.</p>
-        <p class="rev d1">A tecnologia trabalha dentro das regras que você define e passa pra você tudo o que pede uma pessoa. O negócio continua sendo seu, só que sem depender de você lembrar de tudo.</p>
+        <p class="rev">Menos coisa dependendo de você lembrar. O que se repete roda sozinho, e o que importa chega organizado num lugar só. E mais venda entrando, mês após mês.</p>
+        <p class="rev d1">A IA trabalha dentro das regras que você define e passa pra você tudo o que pede uma pessoa. O negócio continua sendo seu, com um sistema feito pra ele.</p>
       </div>
     </div>
   </section>
@@ -638,7 +641,8 @@
       <h2 class="rev" style="text-align:center">Dúvidas</h2>
       <div class="faq rev d1">
         <details><summary>A conversa é paga?</summary><p>Não. A conversa é gratuita e sem compromisso. Você só paga se decidir seguir com o projeto.</p></details>
-        <details><summary>Vocês fazem só site?</summary><p>Não. Fazemos site, atendimento no WhatsApp, sistema de gestão e as tarefas que se repetem rodando sozinhas. Você escolhe as peças que fazem sentido pro seu negócio.</p></details>
+        <details><summary>Que tipo de sistema vocês fazem?</summary><p>O que o seu negócio precisar: atendimento e qualificação no WhatsApp, painel de vendas, análise de documentos, venda com Pix, site, agenda. Tudo começa pela investigação; nada sai de catálogo.</p></details>
+        <details><summary>Onde entra a IA?</summary><p>Dentro do sistema, fazendo o que é repetitivo: responder, organizar, analisar e lembrar. O que precisa de decisão vem pra você.</p></details>
         <details><summary>O atendente no WhatsApp responde qualquer coisa?</summary><p>Não, e isso é de propósito. Ele responde o que você definiu (preço, horário, endereço, agendamento) e passa pra você tudo que precisa de uma pessoa. Você vê as conversas quando quiser.</p></details>
         <details><summary>Vou precisar de outro número de WhatsApp?</summary><p>Não necessariamente. Na conversa vemos o que faz mais sentido pro seu caso: usar o número que o cliente já conhece ou separar um número só pro atendimento.</p></details>
                 <details><summary>Quanto custa?</summary><p>Depende das peças que entram no seu projeto. Por isso o valor vem depois da conversa, numa proposta com escopo, prazo e preço fechados.</p></details>
