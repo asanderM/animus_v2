@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Animus AI Studio — O sistema do seu negócio, feito do seu jeito</title>
-<meta name="description" content="Sistema sob medida para o seu negócio: atendimento no WhatsApp, agenda e os controles que hoje ficam em caderno ou planilha. A gente cuida do dia a dia, e você só entra quando precisa decidir.">
+<title>Animus AI Studio — Sistemas sob medida com IA para o seu negócio</title>
+<meta name="description" content="A Animus investiga onde o seu negócio perde oportunidade e desenvolve o sistema com IA em volta disso: atendimento, vendas, gestão. Desenho por escrito, com valor e prazo, antes de começar.">
 <meta name="geo.region" content="BR-RS">
 <meta name="geo.placename" content="Taquara, Vale do Paranhana">
 <link rel="canonical" href="https://www.animusai.com.br/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Animus AI Studio — O sistema do seu negócio, feito do seu jeito">
-<meta property="og:description" content="Atendimento no WhatsApp, agenda e os controles que hoje ficam em caderno ou planilha, num sistema feito pro seu negócio. A gente cuida do dia a dia.">
+<meta property="og:title" content="Animus AI Studio — Sistemas sob medida com IA para o seu negócio">
+<meta property="og:description" content="A ferramenta certa não está num catálogo. A gente investiga o seu negócio e constrói a sua, com IA.">
 <meta property="og:image" content="https://www.animusai.com.br/assets/og-animus.jpg">
 <meta property="og:url" content="https://www.animusai.com.br/">
 <meta name="twitter:card" content="summary_large_image">
@@ -325,11 +325,196 @@
   .armadilha { position: absolute; left: -9999px; }
   .retorno { font-size: .85rem; min-height: 1.2em; }
   .privacidade { font-size: .74rem; line-height: 1.5; }
-  .contato .proximos { margin-top: 26px; padding: 20px 22px; border: 1px solid var(--linha); border-radius: 16px; background: color-mix(in srgb, var(--ouro-vivo) 6%, transparent); }
-  .contato .proximos ol { list-style: none; counter-reset: passo; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; }
-  .contato .proximos li { counter-increment: passo; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; font-size: .95rem; }
-  .contato .proximos li::before { content: counter(passo); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 600 .78rem "JetBrains Mono", monospace; color: var(--ouro); background: color-mix(in srgb, var(--ouro-vivo) 16%, transparent); }
-  .contato .proximos .garantia { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--linha); font-family: "Fraunces", serif; font-style: italic; font-size: 1.05rem; color: var(--tinta); }
+  .bento-sub { margin-top: 14px; max-width: 60ch; }
+  .ja-feito .feitos { list-style: none; margin-top: 22px; display: grid; gap: 14px; }
+  @media (min-width: 720px) { .ja-feito .feitos { grid-template-columns: 1fr 1fr; gap: 18px 32px; } }
+  .ja-feito .feitos li { padding-left: 18px; border-left: 2px solid var(--ouro-vivo); }
+  .ja-feito .feitos b { display: block; color: var(--painel-escuro-tx); font-size: 1rem; margin-bottom: 4px; }
+  .ja-feito .feitos span { color: color-mix(in srgb, var(--painel-escuro-tx) 70%, transparent); font-size: .9rem; }
+
+  /* Traço das fases se desenha quando a fase fica ativa */
+  .mapa .anel { stroke-dasharray: 4 6; opacity: .55; }
+  .mapa .traco { stroke-dasharray: 420; stroke-dashoffset: 420; }
+  .cena.ativa .mapa .traco, .fase-item .mapa-m .traco { animation: desenha 1.6s .2s cubic-bezier(.6,0,.2,1) forwards; }
+  @keyframes desenha { to { stroke-dashoffset: 0; } }
+  .mapa .alerta { stroke: #e0643b; }
+  .mapa .alerta-c { fill: #e0643b; stroke: none; animation: pisca 1.6s ease-in-out infinite; }
+  @keyframes pisca { 50% { opacity: .35; } }
+  .mapa .claro { fill: #16140f; }
+  @media (prefers-reduced-motion: reduce) { .mapa .traco { stroke-dashoffset: 0; animation: none !important; } .mapa .alerta-c { animation: none; } }
+
+  /* Montagem: maquete 3D que muda de encaixe por tipo de negócio */
+  .montagem { padding-top: 56px; }
+  .montagem-grid { display: grid; gap: 28px; align-items: center; }
+  .montagem-texto { order: 1; }
+  .montagem-palco { order: 2; }
+  @media (min-width: 980px) {
+    .montagem-grid { gap: 36px; }
+    .montagem-texto { display: grid; grid-template-columns: 1.15fr .85fr; gap: 12px 56px; align-items: end; }
+    .montagem-texto .rotulo, .montagem-texto h2 { grid-column: 1; }
+    .montagem-texto > p, .montagem-texto .checks { grid-column: 2; }
+    .montagem-texto > p { grid-row: 2; }
+    .montagem-texto .checks { grid-row: 3; margin-top: 0; }
+    .montagem-palco { padding: 28px 40px; aspect-ratio: auto; }
+  }
+  .montagem-palco { position: relative; border-radius: var(--raio); overflow: hidden; border: 1px solid var(--linha); background: radial-gradient(70% 60% at 50% 40%, var(--ouro-fundo), transparent 75%), var(--papel); }
+  .montagem-palco canvas { display: block; width: 100%; height: 100%; }
+  .maquete-rotulos { position: absolute; inset: 0; pointer-events: none; }
+  .mq-rot { position: absolute; left: 0; top: 0; font: 600 .68rem/1.2 "Space Grotesk", sans-serif; color: var(--tinta); background: color-mix(in srgb, var(--papel) 90%, transparent); border: 1px solid var(--linha); padding: 5px 9px; border-radius: 100px; white-space: nowrap; box-shadow: 0 6px 16px -10px #0006; opacity: 0; transition: opacity .4s; }
+  .mq-rot.on { opacity: 1; }
+  .maquete-negocio { position: absolute; left: 18px; top: 18px; padding: 10px 14px; border-radius: 14px; background: color-mix(in srgb, var(--papel) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--linha); }
+  .maquete-negocio small { display: block; font: 500 .58rem "JetBrains Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--suave); }
+  .maquete-negocio b { font-family: "Fraunces", serif; font-weight: 400; font-size: 1.25rem; color: var(--ouro); }
+  .montagem-texto h2 { margin: 14px 0 16px; }
+  @media (max-width: 719px) {
+    .montagem-palco { aspect-ratio: auto; padding: 58px 12px 22px; }
+    .mq-rot { font-size: .58rem; padding: 3px 7px; }
+    .maquete-negocio { top: auto; bottom: 12px; left: 12px; padding: 7px 11px; }
+    .maquete-negocio b { font-size: 1rem; }
+  }
+
+  /* Já construído: cada card com a tela do sistema em miniatura, animada */
+  .feitos-sec { padding-top: 40px; }
+  .feitos-cab { margin-bottom: 26px; }
+  .feitos-cab h2 { margin-top: 12px; }
+  .feitos-grid { display: grid; gap: 12px; }
+  @media (min-width: 760px) { .feitos-grid { grid-template-columns: 1fr 1fr; } }
+  .feito { border-radius: var(--raio); border: 1px solid var(--linha); background: var(--papel); padding: 18px 18px 26px; display: flex; flex-direction: column; }
+  .feito h3 { font-size: 1.25rem; margin-bottom: 6px; }
+  .feito p { font-size: .9rem; }
+  .feito-tela { height: 168px; border-radius: 14px; background: var(--fundo); border: 1px solid var(--linha); margin-bottom: 18px; overflow: hidden; position: relative; display: grid; place-items: center; padding: 14px; font: 500 .72rem/1.35 "Space Grotesk", sans-serif; }
+  .feito-tela i { font-style: normal; display: block; }
+  .ft-chat { width: 100%; display: grid; gap: 6px; }
+  .ft-chat i { max-width: 78%; padding: 6px 10px; border-radius: 10px; background: var(--papel); color: var(--tinta); box-shadow: 0 1px 2px #0001; opacity: 0; animation: entra 8s infinite; }
+  .ft-chat .eu { justify-self: end; background: #d9fdd3; color: #14361d; }
+  .ft-chat .tag { justify-self: center; background: var(--ouro-vivo); color: #16140f; font-weight: 600; font-size: .66rem; }
+  .ft-chat .b2 { animation-delay: .9s; } .ft-chat .b3 { animation-delay: 1.8s; } .ft-chat .b4 { animation-delay: 2.8s; }
+  @keyframes entra { 0% { opacity: 0; transform: translateY(6px); } 6%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  .ft-kanban { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-self: stretch; }
+  .ft-kanban > div { background: color-mix(in srgb, var(--linha) 45%, transparent); border-radius: 10px; padding: 7px; display: grid; gap: 6px; align-content: start; }
+  .ft-kanban small { font: 500 .52rem "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); }
+  .ft-kanban i { background: var(--papel); color: var(--tinta); border-radius: 7px; padding: 6px 7px; font-size: .64rem; box-shadow: 0 1px 2px #0001; }
+  .ft-kanban i em { display: block; font-style: normal; font-size: .56rem; color: var(--ouro); margin-top: 2px; }
+  .ft-kanban .k2 { animation: anda 6s ease-in-out infinite; }
+  @keyframes anda { 0%, 30% { transform: none; } 45%, 85% { transform: translateX(calc(100% + 15px)); } 100% { transform: none; } }
+  .ft-doc { width: 70%; height: 100%; background: var(--papel); border-radius: 8px; padding: 14px 14px; display: grid; gap: 7px; align-content: start; position: relative; box-shadow: 0 6px 16px -10px #0005; }
+  .ft-doc .l { height: 6px; border-radius: 3px; background: var(--linha); }
+  .ft-doc .m { width: 70%; }
+  .ft-doc .hl { background: linear-gradient(90deg, #f3d36b 0 var(--p, 0%), var(--linha) var(--p, 0%)); animation: marca 5s ease-in-out infinite; }
+  .ft-doc .hl.c { animation-delay: .7s; width: 80%; }
+  @keyframes marca { 0%, 15% { --p: 0%; } 40%, 90% { --p: 100%; } 100% { --p: 0%; } }
+  @property --p { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+  .ft-doc .nota { position: absolute; right: -18px; bottom: 12px; background: var(--tinta); color: var(--fundo); font-size: .64rem; padding: 5px 9px; border-radius: 100px; animation: entra 5s 1.6s infinite; opacity: 0; }
+  .ft-pix { display: grid; justify-items: center; gap: 8px; }
+  .ft-pix .qr { width: 78px; height: 78px; border-radius: 8px; box-shadow: 0 0 0 1px var(--linha), 0 6px 16px -10px #0005; shape-rendering: crispEdges; }
+  .ft-pix .pago { font-weight: 700; color: #1f7a3a; background: #d9fdd3; border-radius: 100px; padding: 3px 12px; animation: entra 5s 1s infinite; opacity: 0; }
+  .ft-pix .baixar { font-size: .66rem; color: var(--ouro); animation: entra 5s 1.8s infinite; opacity: 0; }
+  @media (prefers-reduced-motion: reduce) { .feito-tela * { animation: none !important; opacity: 1 !important; } }
+
+  /* Terminal da IA (referência do Alex: painel "TERMINAL · I/O") */
+  .montagem-palco { display: grid; place-items: center; padding: 18px; background: radial-gradient(60% 70% at 28% 50%, var(--ouro-fundo), transparent 70%), var(--papel); }
+  .montagem-palco .maquete-negocio { display: none; }
+  #planta { width: 100%; height: auto; aspect-ratio: 640 / 360; overflow: visible; transition: opacity .45s; }
+  @media (max-width: 559px) { #planta { aspect-ratio: 360 / 520; } }
+  #planta.saindo { opacity: 0; }
+  #planta text { font-family: "JetBrains Mono", monospace; }
+  .tm-canto { fill: none; stroke: var(--ouro-vivo); stroke-width: 1.4; opacity: .7; }
+  .tm-tit { font-size: 9px; font-weight: 700; letter-spacing: .14em; fill: var(--tinta); }
+  .tm-sub { font-size: 6.5px; letter-spacing: .16em; fill: var(--suave); }
+  .tm-ra { fill: none; stroke: color-mix(in srgb, var(--tinta) 35%, transparent); stroke-width: .8; }
+  .tm-pont { stroke-dasharray: 2 4; }
+  .tm-tick { stroke: color-mix(in srgb, var(--tinta) 40%, transparent); stroke-width: .7; }
+  .tm-seg { fill: none; stroke: color-mix(in srgb, var(--ouro-vivo) 55%, var(--papel)); stroke-width: 15; opacity: .55; }
+  .tm-led { fill: var(--tinta); opacity: .55; }
+  .tm-led.a { fill: #e0643b; opacity: 1; animation: pisca 1.8s ease-in-out infinite; }
+  .tm-led.b { fill: #2fb7b0; opacity: 1; animation: pisca 2.4s .6s ease-in-out infinite; }
+  .tm-nucleo { fill: color-mix(in srgb, var(--ouro-vivo) 20%, transparent); stroke: var(--ouro-vivo); stroke-width: 2.2; }
+  .tm-ia { font-size: 15px; font-weight: 700; letter-spacing: .1em; fill: var(--ouro); }
+  .tm-gira { animation: gira 40s linear infinite; }
+  .tm-rev { animation-duration: 26s; animation-direction: reverse; }
+  @keyframes gira { to { transform: rotate(360deg); } }
+  .tm-fio { fill: none; stroke: color-mix(in srgb, var(--tinta) 30%, transparent); stroke-width: .9; }
+  .tm-fluxo { fill: none; stroke: var(--ouro-vivo); stroke-width: 1.4; stroke-dasharray: 10 220; animation: flui 2.6s var(--d) linear infinite; }
+  @keyframes flui { from { stroke-dashoffset: 230; } to { stroke-dashoffset: 0; } }
+  .tm-col { opacity: 0; animation: aparece .5s var(--d) forwards; }
+  .tm-cab { fill: color-mix(in srgb, var(--tinta) 82%, transparent); }
+  .tm-cab-t { font-size: 6.4px; font-weight: 700; letter-spacing: .12em; fill: var(--papel); }
+  .tm-cel { fill: color-mix(in srgb, var(--tinta) 8%, transparent); stroke: color-mix(in srgb, var(--tinta) 22%, transparent); stroke-width: .6; }
+  .tm-cel-t { font-size: 6.6px; fill: var(--tinta); dominant-baseline: middle; }
+  .tm-lin { opacity: 0; animation: aparece .3s var(--d) forwards; }
+  .tm-lin.ok .tm-cel { animation: acende 6s var(--p) ease-in-out infinite; }
+  .tm-lin.alerta .tm-cel { fill: color-mix(in srgb, #e0643b 85%, transparent); stroke: none; }
+  .tm-lin.alerta .tm-cel-t { fill: #fff; font-weight: 700; }
+  @keyframes acende { 0%, 55%, 100% { fill: color-mix(in srgb, var(--tinta) 8%, transparent); } 65%, 90% { fill: color-mix(in srgb, var(--ouro-vivo) 70%, transparent); } }
+  .tm-regua rect { fill: color-mix(in srgb, var(--tinta) 25%, transparent); animation: corre-regua 2.4s var(--d) linear infinite; }
+  @keyframes corre-regua { 0%, 70%, 100% { fill: color-mix(in srgb, var(--tinta) 25%, transparent); } 10%, 30% { fill: var(--ouro-vivo); } }
+  @keyframes aparece { to { opacity: 1; } }
+  #planta.pronto *, #planta.pronto { animation: none !important; }
+  #planta.pronto .tm-col, #planta.pronto .tm-lin { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { #planta * { animation: none !important; } #planta .tm-col, #planta .tm-lin { opacity: 1; } }
+
+  /* Ícone dos cards: ao lado do título, dentro do quadro */
+  .feito .feito-cab { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .feito .feito-cab .ico3d { width: 46px; height: 46px; margin: 0; flex: none; }
+  .feito .feito-cab h3 { margin: 0; }
+  /* Pré-diagnóstico: escolhas em pílula, 1 toque cada (v5, 13/10) */
+  .escolhas { border: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .escolhas legend { width: 100%; font-size: .8rem; color: var(--suave); margin-bottom: 8px; }
+  .escolhas legend small { font-size: .74rem; opacity: .8; }
+  .escolhas label { display: block; position: relative; }
+  .escolhas input { position: absolute; opacity: 0; width: 1px; height: 1px; min-height: 0; }
+  .escolhas span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 100px; border: 1px solid var(--linha); background: var(--fundo); color: var(--tinta); font-size: .88rem; cursor: pointer; transition: background .25s, border-color .25s, color .25s; }
+  .escolhas input:checked + span { background: var(--ouro-vivo); border-color: var(--ouro-vivo); color: #16140f; font-weight: 600; }
+  .escolhas input:focus-visible + span { box-shadow: 0 0 0 4px color-mix(in srgb, var(--ouro-vivo) 30%, transparent); }
+
+  /* Mapa vivo no topo (v5): cidade 3D em código, segue o tema. */
+  .moldura-mapa { background: var(--papel); align-items: stretch; }
+  .mapa-hero { position: absolute; inset: 0; z-index: 0; }
+  .mapa-hero canvas { display: block; width: 100%; height: 100%; }
+  .mapa-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, var(--papel) 0%, var(--papel) 34%, color-mix(in srgb, var(--papel) 70%, transparent) 46%, transparent 62%); }
+  .moldura-mapa h1 { font-size: clamp(2.3rem, 4.6vw, 4.3rem); }
+  .moldura-mapa .conteudo { pointer-events: none; align-self: center; }
+  .moldura-mapa .conteudo a, .moldura-mapa .conteudo button { pointer-events: auto; }
+  .texto-hero { max-width: 600px; }
+  @media (min-width: 980px) { .moldura-mapa .conteudo { grid-template-columns: 1fr; } }
+  .mapa-pins { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .pin { position: absolute; left: 0; top: 0; pointer-events: auto; border: 0; background: none; padding: 0; cursor: pointer; display: flex; align-items: center; gap: 6px; transform: translate(-50%, -100%); will-change: transform; }
+  .pin .ico { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; background: var(--c); border: 2.5px solid #fff; box-shadow: 0 6px 14px -4px #0006; transition: transform .25s; }
+  .pin:hover .ico, .pin.ativo .ico { transform: scale(1.18); }
+  .pin .nome { font: 600 .72rem/1.15 "Space Grotesk", sans-serif; color: var(--c-txt, #5a4a10); text-shadow: 0 0 3px var(--papel), 0 0 3px var(--papel), 0 0 6px var(--papel); white-space: nowrap; max-width: 130px; text-align: left; }
+  .balao { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translate(-30%, 6px) scale(.9); transform-origin: 20% 100%; opacity: 0; pointer-events: none; white-space: nowrap; font: 500 .74rem/1.3 "Space Grotesk", sans-serif; color: #1c1b17; background: #fff; padding: 7px 11px; border-radius: 12px 12px 12px 3px; box-shadow: 0 10px 24px -8px #0006; transition: opacity .35s, transform .35s, background .3s; }
+  .balao.on { opacity: 1; transform: translate(-30%, 0) scale(1); }
+  .pin.direita .balao { left: auto; right: 50%; transform: translate(30%, 6px) scale(.9); transform-origin: 80% 100%; border-radius: 12px 12px 3px 12px; }
+  .pin.direita .balao.on { transform: translate(30%, 0) scale(1); }
+  .balao.ok { background: #d9fdd3; color: #14532d; font-weight: 600; }
+  .pin-ref { pointer-events: none; }
+  .pin-ref .ico { width: 22px; height: 22px; font-size: 11px; font-weight: 800; color: #fff; border-width: 2px; }
+  .pin-ref .nome { font-size: .64rem; font-weight: 500; color: color-mix(in srgb, var(--c) 75%, var(--tinta)); }
+  .rua-nome { position: absolute; left: 0; top: 0; font: 600 .58rem/1 "Space Grotesk", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--suave) 75%, transparent); white-space: nowrap; pointer-events: none; will-change: transform; }
+  .mapa-bussola { position: absolute; z-index: 2; right: 18px; top: 18px; width: 44px; height: 44px; border-radius: 50%; background: color-mix(in srgb, var(--papel) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--linha); box-shadow: 0 6px 16px -8px #0005; display: grid; place-items: center; }
+  .mapa-bussola .agulha { width: 100%; height: 100%; display: grid; place-items: center; position: relative; }
+  .mapa-bussola .agulha::before { content: ""; position: absolute; top: 4px; left: 50%; margin-left: -4px; border: 4px solid transparent; border-bottom: 7px solid #e0443b; border-top: 0; }
+  .mapa-bussola b { font: 700 .8rem "Space Grotesk", sans-serif; color: var(--tinta); }
+  .mapa-card { position: absolute; z-index: 3; right: 18px; bottom: 18px; width: min(320px, calc(100% - 36px)); padding: 14px 16px; border-radius: 18px; background: color-mix(in srgb, var(--papel) 86%, transparent); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--linha); box-shadow: var(--sombra); opacity: 0; transform: translateY(10px); transition: opacity .35s, transform .35s; pointer-events: none; }
+  :root[data-tema="escuro"] .pin .nome { --c-txt: #f1e4b0; }
+  @media (prefers-color-scheme: dark) { :root:not([data-tema="claro"]) .pin .nome { --c-txt: #f1e4b0; } }
+  .mapa-card.on { opacity: 1; transform: none; }
+  .mapa-card b { display: block; font-size: 1rem; color: var(--tinta); }
+  .mapa-card small { display: block; font: 500 .62rem "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); margin: 2px 0 8px; }
+  .mapa-card p { font-size: .82rem; margin: 0; }
+  .mapa-card p em { font-style: normal; color: #2f7a3a; font-weight: 600; }
+  :root[data-tema="escuro"] .mapa-card p em { color: #7fd38a; }
+  @media (prefers-color-scheme: dark) { :root:not([data-tema="claro"]) .mapa-card p em { color: #7fd38a; } }
+  @media (max-width: 979px) {
+    .moldura-mapa { min-height: 0; display: flex; flex-direction: column; }
+    .mapa-hero { position: relative; inset: auto; order: 2; height: 420px; margin-top: -40px; }
+    .mapa-hero::after { background: linear-gradient(180deg, var(--papel) 0%, transparent 28%); }
+    .moldura-mapa .conteudo { order: 1; padding-bottom: 8px; }
+    .mapa-card { bottom: 14px; right: 14px; }
+    .moldura-mapa .rolar { display: none; }
+  }
+  /* 02 · atendimento: o celular do chat saiu do topo e mora aqui */
+  @media (min-width: 980px) { .painel-atende { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; } }
   .retorno.erro { color: #c0392b; }
   .sucesso { text-align: center; padding: 30px 0; }
   .sucesso .selo { width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 14px; display: grid; place-items: center; background: var(--ouro-vivo); color: #16140f; font-size: 1.4rem; font-weight: 700; }
@@ -368,9 +553,9 @@
   .legenda-vsl { text-align: center; font-size: .78rem; margin-top: 12px; }
   .bento-cab { margin: 0 0 22px; max-width: 760px; }
   /* Ícones 3D (assets/icones3d.js) + cards com profundidade */
-  .ico3d { display: block; width: 104px; height: 104px; margin: -10px 0 8px -12px; }
-  .ico-canto { width: 112px; height: 112px; margin: -14px 0 4px -14px; }
-  @media (min-width: 900px) { .ico-canto { position: absolute; top: 26px; right: 26px; margin: 0; width: 150px; height: 150px; } }
+  .ico3d { display: block; width: 58px; height: 58px; margin: 0 0 10px -6px; }
+  .ico-canto { width: 64px; height: 64px; margin: 0 0 6px -6px; }
+  @media (min-width: 900px) { .ico-canto { position: absolute; top: 28px; right: 28px; margin: 0; width: 76px; height: 76px; } }
   @media (max-width: 600px) { .vsl .play { padding-bottom: 5%; } .vsl .play span { padding: 10px 16px 10px 12px; font-size: .68rem; gap: 9px; } }
   .painel h2, .painel p { position: relative; z-index: 1; }
   .q, .painel { transform-style: preserve-3d; will-change: transform; }
@@ -441,32 +626,19 @@
 
 <header class="hero" id="topo">
   <div class="wrap">
-    <div class="moldura">
-      <div class="conteudo com-video">
-        <div>
-          <p class="gancho rev">A automática respondeu. <b>E a conversa ficou em aberto.</b></p>
-          <h1 class="rev d1" id="titulo">O sistema do seu negócio, <em>feito do seu jeito</em></h1>
-          <p class="lead rev d2">Pra quando você está sozinho atendendo e o WhatsApp não para: a conversa continua, o horário cai na sua agenda e você só entra pra decidir.</p>
+    <div class="moldura moldura-mapa">
+      <div class="mapa-hero" id="mapa-hero">
+        <canvas id="mapa-canvas" aria-hidden="true"></canvas>
+        <div class="mapa-pins" id="mapa-pins"></div>
+      </div>
+      <div class="mapa-card" id="mapa-card" role="status" aria-live="polite"></div>
+      <div class="conteudo">
+        <div class="texto-hero">
+          <p class="gancho rev">“Pode ter alguma ferramenta que a gente possa usar?”</p>
+          <h1 class="rev d1" id="titulo">A ferramenta certa não está num catálogo. <em>A gente constrói a sua, com IA.</em></h1>
+          <p class="lead rev d2">Investigamos onde o seu negócio perde oportunidade e desenvolvemos o sistema em volta disso: atendimento, vendas, gestão, o que fizer sentido.</p>
           <a class="btn btn-ouro rev d3" href="#contato">Quero ver funcionando <span class="seta">→</span></a>
-          <div class="garantias rev d3"><span>Valor fechado antes de começar</span><span>A gente cuida do dia a dia</span><span>Você define as regras</span></div>
-        </div>
-        <div class="rev d2">
-<div class="chat-frente"><div class="cel-palco"><div class="celular" role="img" aria-label="Exemplo de atendimento automático no WhatsApp de uma clínica de estética">
-          <div class="tela">
-            <div class="ilha" aria-hidden="true"></div>
-            <div class="status" aria-hidden="true"><b>23:13</b><span><i class="sinal"></i><i class="bat"></i></span></div>
-            <div class="topo-chat"><span class="volta" aria-hidden="true">&lsaquo;</span><div class="av">CE</div><div class="quem"><b>Clínica Estética</b><small id="status-chat">online</small></div><span class="acoes" aria-hidden="true"><i class="cam"></i><i class="tel"></i></span></div>
-            <div class="conversa" id="conversa">
-              <div class="msg">Oi! Vocês têm horário pra limpeza de pele essa semana?<time>23:12</time></div>
-              <div class="msg eu">Oi! Temos sim 😊 Quinta às 14h ou sexta às 10h. Qual fica melhor?<time>23:12</time></div>
-              <div class="msg">Sexta às 10h!<time>23:13</time></div>
-              <div class="msg eu">Pronto, sexta às 10h tá marcada ✅ Te mando um lembrete no dia anterior.<time>23:13</time></div>
-              <div class="digitando" id="digitando"><i></i><i></i><i></i></div>
-            </div>
-            <div class="digita-barra" aria-hidden="true"><span>Mensagem</span><i></i></div>
-          </div>
-        </div>
-        <div class="agenda-card" id="agenda-card"><span class="ag-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/><path d="m9 15 2 2 4-4"/></svg></span><span><small>Agenda · agora</small><b>Sexta, 10h · Limpeza de pele</b><em>✓ Marcado pelo atendente</em></span></div></div></div>
+          <div class="garantias rev d3"><span>Desenho por escrito antes de começar</span><span>Valor e prazo fechados</span><span>Quem decide é você</span></div>
         </div>
       </div>
       <span class="rolar">Role para explorar <i>↓</i></span>
@@ -475,81 +647,77 @@
 </header>
 
 <main>
-  <section class="gargalo">
-    <div class="wrap">
-      <div class="cab">
-        <div class="rev"><span class="rotulo">A cena que você conhece</span><h2 style="margin-top:14px">O dia corre, <em>e o que é importante escapa.</em></h2></div>
-        <p class="rev d1">Cliente que chama e fica sem resposta. Horário anotado no papel que some. Orçamento que ninguém lembrou de retomar. Quem pagou e quem ficou devendo, guardado na memória. Não é falta de esforço: é coisa demais espalhada pra uma pessoa só segurar.</p>
+
+
+  <section class="wrap montagem" id="solucao">
+    <div class="montagem-grid">
+      <div class="montagem-palco rev" aria-hidden="true">
+        <svg id="planta" viewBox="0 0 640 360" role="img" aria-label="A IA no centro, ligada a cada parte do negócio: atendimento, vendas, agenda e financeiro"></svg>
+        <div class="maquete-negocio" id="maquete-negocio"><small>Montado para</small><b>Imobiliária</b></div>
       </div>
-      <div class="quatro">
-        <div class="q rev"><canvas class="ico3d" data-ico="relogio" aria-hidden="true"></canvas><h3>23h12</h3><p>Mensagem pedindo preço e horário. Ninguém vê até o dia seguinte.</p></div>
-        <div class="q rev d1"><canvas class="ico3d" data-ico="placa" aria-hidden="true"></canvas><h3>Foi pra outro lugar</h3><p>Quando você responde, o cliente já marcou com quem respondeu primeiro.</p></div>
-        <div class="q rev d2"><canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas><h3>Anotado onde mesmo?</h3><p>Pedido, horário e retorno espalhados entre caderno, papel e memória.</p></div>
-        <div class="q rev d3"><canvas class="ico3d" data-ico="conversas" aria-hidden="true"></canvas><h3>Dez conversas abertas</h3><p>Tudo depende de você lembrar de responder, confirmar e cobrar.</p></div>
+      <div class="montagem-texto rev d1">
+        <span class="rotulo">Como a gente começa</span>
+        <h2>Você conta como o seu negócio funciona. <em>A gente acha onde ele perde e constrói a solução ali.</em></h2>
+        <p>Nada vem de catálogo. Cada negócio recebe as peças que fazem sentido pro jeito dele trabalhar, com a IA no meio fazendo o que é repetitivo e passando pra você o que pede decisão.</p>
+        <ul class="checks"><li>As peças nascem do problema, não de um pacote</li><li>Funciona com o que você já usa</li><li>Você decide o que roda sozinho</li></ul>
       </div>
     </div>
   </section>
 
-  <div class="wrap" style="padding-top:56px"><div class="bento-cab rev"><span class="rotulo">O que a gente constrói</span><h2>Primeiro a gente mapeia a sua operação. <em>Depois constrói em cima dela.</em></h2></div></div>
-  <section class="wrap bento" id="solucao" style="padding-top:12px">
-    <div class="painel vitrine rev" aria-hidden="true">
-      <div class="mini">
-        <div class="navegador">
-          <div class="bar"><i></i><i></i><i></i><span id="vit-url">seunegocio.com.br</span></div>
-          <div class="corpo"><div class="t" id="vit-t">O seu negócio,<br>do jeito que ele é.</div><div class="l"></div><div class="l c"></div><div class="l d"></div><div class="b">CHAMAR NO WHATSAPP</div></div>
+  <section class="wrap feitos-sec">
+    <div class="feitos-cab rev"><span class="rotulo">Já construído pela Animus</span><h2>Sistemas com IA <em>que já estão rodando</em></h2></div>
+    <div class="feitos-grid">
+      <article class="feito rev">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-chat"><i class="b1">Vocês fazem visita sábado?</i><i class="b2 eu">Fazemos sim. Qual imóvel te interessou?</i><i class="b3">O apê do Centro</i><i class="b4 tag">→ Passado pro corretor · interesse alto</i></div>
         </div>
-      </div>
-    </div>
-    <div class="painel escuro rev d1">
-      <canvas class="ico3d ico-canto" data-ico="site" aria-hidden="true"></canvas>
-      <span class="rotulo">01 · Site</span>
-      <h2>O que o cliente vê primeiro</h2>
-      <p>A gente começa pelo que o cliente vê: um site rápido, bonito no celular, que faz quem procura no Google encontrar você e chegar até o seu WhatsApp.</p>
-      <ul class="checks"><li>Aparece pra quem procura na sua cidade</li><li>Rápido e bonito no celular</li><li>Cada botão leva pra uma conversa com você</li></ul>
-    </div>
-    <div class="painel claro rev" style="grid-column:1/-1">
-      <canvas class="ico3d ico-canto" data-ico="atendimento" aria-hidden="true"></canvas>
-      <span class="rotulo">02 · Atendimento no WhatsApp</span>
-      <h2>Quem chama é atendido</h2>
-      <p>Um atendente no seu WhatsApp responde o que você definiu, marca o horário e passa pra você o que precisa de uma pessoa.</p>
-      <ul class="checks"><li>Responde o que você definiu</li><li>Marca o horário</li><li>Passa pra você o que pede uma pessoa</li></ul>
-    </div>
-    <div class="painel escuro rev">
-      <canvas class="ico3d ico-canto" data-ico="sistema" aria-hidden="true"></canvas>
-      <span class="rotulo">03 · Sistema de gestão</span>
-      <h2>Feito pro seu jeito de trabalhar</h2>
-      <p>Por trás, um sistema do seu negócio: clientes, agenda e atendimentos num lugar só. Nada de caderno, memória ou conversa perdida.</p>
-      <ul class="checks"><li>Clientes com histórico</li><li>Agenda organizada</li><li>Atendimentos num lugar só</li></ul>
-    </div>
-    <div class="painel claro rev d1">
-      <canvas class="ico3d ico-canto" data-ico="engrenagem" aria-hidden="true"></canvas>
-      <span class="rotulo">04 · O que se repete</span>
-      <h2>Roda sozinho</h2>
-      <p>As tarefas que se repetem deixam de depender de você lembrar.</p>
-      <ul class="checks"><li>Lembrete de horário pro cliente</li><li>Retorno pra quem não volta faz tempo</li><li>Aviso pra você do que importa no dia</li></ul>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="atendimento" aria-hidden="true"></canvas><h3>Atendente que qualifica no WhatsApp</h3></div>
+        <p>Conversa com quem chama, entende o que a pessoa precisa e passa pro dono só o que pede decisão.</p>
+      </article>
+      <article class="feito rev d1">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-kanban"><div><small>Novo</small><i class="k1">Pizzaria do Vale</i><i class="k2">Studio Bella</i></div><div><small>Pesquisado</small><i class="k3">Clínica Sorriso<em>4,9 · 200 avaliações</em></i></div><div><small>Conversa</small><i class="k4">Pet Amigo</i></div></div>
+        </div>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="sistema" aria-hidden="true"></canvas><h3>Painel de prospecção</h3></div>
+        <p>Junta os contatos, pesquisa cada empresa antes da conversa e mostra quem está pronto pra fechar.</p>
+      </article>
+      <article class="feito rev d2">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-doc"><span class="l"></span><span class="l m"></span><span class="l hl"></span><span class="l"></span><span class="l hl c"></span><span class="l m"></span><b class="nota">3 pontos a ajustar</b></div>
+        </div>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas><h3>Analista de petições pra advocacia</h3></div>
+        <p>Lê a petição inicial e aponta onde ela pode melhorar. Em teste com um escritório.</p>
+      </article>
+      <article class="feito rev d3">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-pix"><svg class="qr" viewBox="-1 -1 23 23" aria-hidden="true"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#16140f"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="14" y="0" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="14" y="4" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="15" y="6" width="1" height="1"/><rect x="16" y="0" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="17" y="0" width="1" height="1"/><rect x="17" y="2" width="1" height="1"/><rect x="17" y="3" width="1" height="1"/><rect x="17" y="4" width="1" height="1"/><rect x="17" y="6" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="20" y="1" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="20" y="5" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="0" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="1" y="14" width="1" height="1"/><rect x="1" y="20" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="2" y="17" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="3" y="16" width="1" height="1"/><rect x="3" y="17" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="4" y="17" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="5" y="14" width="1" height="1"/><rect x="5" y="20" width="1" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="6" y="16" width="1" height="1"/><rect x="6" y="17" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="2" y="12" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="11" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="10" y="12" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="10" y="20" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="11" y="19" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="12" y="7" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="13" y="18" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="14" y="19" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="15" y="19" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="17" y="19" width="1" height="1"/><rect x="18" y="9" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="18" y="15" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/></g></svg><span class="pago">✓ Pago</span><span class="baixar">Baixar material ↓</span></div>
+        </div>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="engrenagem" aria-hidden="true"></canvas><h3>Venda com Pix e entrega na hora</h3></div>
+        <p>A pessoa paga na página e já recebe o material, sem ninguém precisar mandar nada.</p>
+      </article>
     </div>
   </section>
 
   <section class="processo" id="processo">
     <div class="wrap">
-      <div class="cab rev"><div><span class="rotulo">Como funciona</span><h2 style="margin-top:14px">Começa com uma conversa. <em>Você sai dela sabendo o que vamos resolver, quanto custa e em quanto tempo.</em></h2></div><span class="dica">Role para avançar ↓</span></div>
+      <div class="cab rev"><div><span class="rotulo">Como funciona</span><h2 style="margin-top:14px">Primeiro entendemos o negócio. <em>A tecnologia vem depois.</em></h2></div><span class="dica">Role para avançar ↓</span></div>
     </div>
     <div class="fixo-trilho" id="trilho">
       <div class="wrap fixo">
         <ol class="fases">
-          <li class="fase-item ativa"><div class="t"><small>01</small>Conversa</div><p>20 minutos, por vídeo ou pessoalmente. Entendemos como o cliente chega e onde ele se perde.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="0" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>02</small>Desenho</div><p>Definimos quais peças fazem sentido pro seu negócio e as regras de cada uma.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="1" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>03</small>Proposta</div><p>Valor e prazo fechados, por escrito, antes de começar. Sem surpresa no meio.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="2" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>04</small>No ar</div><p>Site publicado, atendente no seu WhatsApp, sistema e rotinas funcionando. Nada de trocar de ferramenta.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="3" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>05</small>Acompanhamento</div><p>Olhamos as conversas reais e ajustamos. O que importa é cliente atendido, não tela bonita.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="4" aria-hidden="true"></svg></li>
+          <li class="fase-item ativa"><div class="t"><small>01</small>Diagnóstico</div><p>Entendemos o seu mercado, o seu negócio e onde a IA realmente faz diferença pra ele.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="0" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>02</small>Investigação</div><p>Seguimos o trabalho de ponta a ponta e achamos onde ele perde tempo, cliente e dinheiro.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="1" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>03</small>A planta</div><p>O que vai ser construído, em quanto tempo e quanto custa. Por escrito, antes de começar.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="2" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>04</small>Construção</div><p>Construímos ligado ao que você já usa. Ninguém precisa trocar de ferramenta.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="3" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>05</small>Acompanhamento</div><p>Medimos o uso real e ajustamos. O que importa é o ganho no dia a dia, não tela bonita.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="4" aria-hidden="true"></svg></li>
         </ol>
         <div class="quadro" aria-hidden="true">
-          <div class="cena ativa"><span class="rotulo">Fase 01 / 05 · Conversa</span><h3>Conversa.</h3><p>Antes de propor qualquer coisa, mapeamos como o trabalho anda hoje, do primeiro contato do cliente até a entrega, e achamos onde ele mais trava.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="0"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 02 / 05 · Desenho</span><h3>Desenho.</h3><p>Quais peças entram (site, atendimento, sistema, rotinas), o que cada uma faz sozinha e o que passa pra você. Tudo combinado antes de construir.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="1"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 03 / 05 · Proposta</span><h3>Proposta.</h3><p>Você recebe por escrito o que entra, quanto custa e quando fica pronto. Só começamos com o seu sim. Daí pra frente, a gente cuida; você só é chamado quando algo precisa da sua decisão.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="2"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 04 / 05 · No ar</span><h3>No ar.</h3><p>Site no ar, atendente no seu WhatsApp, sistema e rotinas rodando. Sua rotina continua a mesma, só que com menos cliente escapando.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="3"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 05 / 05 · Acompanhamento</span><h3>Acompanhamento.</h3><p>Entregar é o meio. Acompanhamos as primeiras semanas, lemos as conversas de verdade e ajustamos as respostas ao jeito do seu cliente.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="4"></svg></div>
-          <div class="progresso"><i class="enche" id="enche"></i><span class="ativa">01 · Conversa</span><span>02 · Desenho</span><span>03 · Proposta</span><span>04 · No ar</span><span>05 · Acompanhar</span></div>
+          <div class="cena ativa"><span class="rotulo">Fase 01 / 05 · Diagnóstico</span><h3>Diagnóstico.</h3><p>Começamos de cima: como o seu negócio funciona, quem é o seu cliente, o que a concorrência faz e onde a IA muda o jogo pra você. É o que separa moda de vantagem de verdade.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="0"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 02 / 05 · Investigação</span><h3>Investigação.</h3><p>Depois descemos ao dia a dia: do primeiro contato do cliente até a entrega. Onde repete, onde espera, onde alguém esquece. O ponto que trava sai do achismo e aparece no mapa, com nome.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="1"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 03 / 05 · A planta</span><h3>A planta.</h3><p>Transformamos a investigação em planta: as peças do sistema, o prazo, o valor e o resultado esperado. Você aprova tudo por escrito antes da primeira linha de código, sem surpresa no meio.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="2"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 04 / 05 · Construção</span><h3>Construção.</h3><p>WhatsApp, planilhas, agenda, site: o sistema chega onde o trabalho já acontece. A IA entra no meio fazendo o repetitivo, e o que pede decisão continua com você.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="3"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 05 / 05 · Acompanhamento</span><h3>Acompanhamento.</h3><p>Entregar é o meio. Acompanhamos as primeiras semanas, olhamos o uso de verdade, ajustamos com a rotina da equipe e medimos o ganho onde importa: tempo devolvido e cliente atendido.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="4"></svg></div>
+          <div class="progresso"><i class="enche" id="enche"></i><span class="ativa">01 · Diagnóstico</span><span>02 · Investigação</span><span>03 · Planta</span><span>04 · Construção</span><span>05 · Acompanhar</span></div>
         </div>
       </div>
     </div>
@@ -558,7 +726,7 @@
   <div class="faixa" aria-label="Segmentos que atendemos">
     <span class="rotulo">Para negócios como o seu</span>
     <div class="trilho" id="trilho-seg">
-      <span>Clínicas de estética</span><span>Pizzarias</span><span>Escritórios de advocacia</span><span>Pet shops</span><span>Barbearias</span><span>Restaurantes</span><span>Consultórios</span><span>Cafeterias</span><span>Lojas</span>
+      <span>Imobiliárias</span><span>Escritórios de advocacia</span><span>Clínicas</span><span>Indústrias</span><span>Lojas</span><span>Assistência técnica</span><span>Restaurantes</span><span>Barbearias e salões</span><span>Consultórios</span>
     </div>
   </div>
 
@@ -566,8 +734,54 @@
     <div class="wrap">
       <h2 class="rev">Aí o seu negócio <em>muda de ritmo.</em></h2>
       <div class="cols">
-        <p class="rev">Nenhum cliente sem resposta. Tudo organizado num lugar só: clientes, agenda e atendimentos. E mais venda entrando, mês após mês.</p>
-        <p class="rev d1">A tecnologia trabalha dentro das regras que você define e passa pra você tudo o que pede uma pessoa. O negócio continua sendo seu, só que sem depender de você lembrar de tudo.</p>
+        <p class="rev">Menos coisa dependendo de você lembrar. O que se repete roda sozinho, e o que importa chega organizado num lugar só. E mais venda entrando, mês após mês.</p>
+        <p class="rev d1">A IA trabalha dentro das regras que você define e passa pra você tudo o que pede uma pessoa. O negócio continua sendo seu, com um sistema feito pra ele.</p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="contato" id="contato">
+    <div class="wrap">
+      <div class="cartao">
+        <div class="rev">
+          <span class="rotulo">Vamos conversar</span>
+          <h2>Você conta como é o seu dia. <em>A gente devolve o desenho do sistema.</em></h2>
+          <p>Por escrito, com valor e prazo fechados, antes de você decidir qualquer coisa. Resposta pelo WhatsApp em até 1 dia útil.</p>
+          <p class="alt">Prefere falar agora? <a href="https://wa.me/5551993203344?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Animus" target="_blank" rel="noopener">Chame no WhatsApp (51) 99320-3344</a></p>
+        </div>
+        <form id="form" class="rev d1" novalidate>
+          <label>Seu nome<input name="nome" autocomplete="name" required minlength="2" maxlength="80"></label>
+          <label>Nome do negócio<input name="negocio" autocomplete="organization" required minlength="2" maxlength="100"></label>
+          <label>WhatsApp com DDD<input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(51) 99999-9999" required></label>
+          <fieldset class="escolhas"><legend>Que tipo de negócio?</legend>
+            <label><input type="radio" name="tipo" value="Barbearia/salão"><span>Barbearia ou salão</span></label>
+            <label><input type="radio" name="tipo" value="Clínica/consultório"><span>Clínica ou consultório</span></label>
+            <label><input type="radio" name="tipo" value="Restaurante/pizzaria"><span>Restaurante ou pizzaria</span></label>
+            <label><input type="radio" name="tipo" value="Loja"><span>Loja</span></label>
+            <label><input type="radio" name="tipo" value="Escritório"><span>Escritório</span></label>
+            <label><input type="radio" name="tipo" value="Outro"><span>Outro</span></label>
+          </fieldset>
+          <fieldset class="escolhas"><legend>Como o cliente chega até você hoje? <small>(pode marcar mais de um)</small></legend>
+            <label><input type="checkbox" name="chega" value="WhatsApp"><span>WhatsApp</span></label>
+            <label><input type="checkbox" name="chega" value="Instagram"><span>Instagram</span></label>
+            <label><input type="checkbox" name="chega" value="Google"><span>Google</span></label>
+            <label><input type="checkbox" name="chega" value="Indicação"><span>Indicação</span></label>
+            <label><input type="checkbox" name="chega" value="Passa na frente"><span>Passa na frente</span></label>
+          </fieldset>
+          <fieldset class="escolhas"><legend>Quem responde o WhatsApp?</legend>
+            <label><input type="radio" name="responde" value="Eu mesmo"><span>Eu mesmo</span></label>
+            <label><input type="radio" name="responde" value="Alguém da equipe"><span>Alguém da equipe</span></label>
+            <label><input type="radio" name="responde" value="Ninguém consegue na hora"><span>Ninguém consegue na hora</span></label>
+          </fieldset>
+          <label>O que mais toma o seu tempo hoje? (opcional)<textarea name="problema" maxlength="400" placeholder="Ex.: fico respondendo horário o dia inteiro"></textarea></label>
+          <div class="armadilha" aria-hidden="true"><label>Não preencha<input name="site" tabindex="-1" autocomplete="off"></label></div>
+          <label class="aceite"><input type="checkbox" name="aceite" required><span>Aceito ser contatado pela Animus no WhatsApp sobre este pedido.</span></label>
+          <p class="privacidade">Seu nome e WhatsApp são usados só pra responder este pedido. Não vendemos nem repassamos seus dados. Quer que a gente apague? É só pedir no WhatsApp.</p>
+          <button class="btn btn-ouro" type="submit">Quero o desenho do meu sistema <span class="seta">→</span></button>
+          <p class="retorno" id="retorno" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </div>
   </section>
@@ -577,44 +791,12 @@
       <h2 class="rev" style="text-align:center">Dúvidas</h2>
       <div class="faq rev d1">
         <details><summary>A conversa é paga?</summary><p>Não. A conversa é gratuita e sem compromisso. Você só paga se decidir seguir com o projeto.</p></details>
-        <details><summary>Vocês fazem só site?</summary><p>Não. Fazemos site, atendimento no WhatsApp, sistema de gestão e as tarefas que se repetem rodando sozinhas. Você escolhe as peças que fazem sentido pro seu negócio.</p></details>
+        <details><summary>Que tipo de sistema vocês fazem?</summary><p>O que o seu negócio precisar: atendimento e qualificação no WhatsApp, painel de vendas, análise de documentos, venda com Pix, site, agenda. Tudo começa pela investigação; nada sai de catálogo.</p></details>
+        <details><summary>Onde entra a IA?</summary><p>Dentro do sistema, fazendo o que é repetitivo: responder, organizar, analisar e lembrar. O que precisa de decisão vem pra você.</p></details>
         <details><summary>O atendente no WhatsApp responde qualquer coisa?</summary><p>Não, e isso é de propósito. Ele responde o que você definiu (preço, horário, endereço, agendamento) e passa pra você tudo que precisa de uma pessoa. Você vê as conversas quando quiser.</p></details>
         <details><summary>Vou precisar de outro número de WhatsApp?</summary><p>Não necessariamente. Na conversa vemos o que faz mais sentido pro seu caso: usar o número que o cliente já conhece ou separar um número só pro atendimento.</p></details>
                 <details><summary>Quanto custa?</summary><p>Depende das peças que entram no seu projeto. Por isso o valor vem depois da conversa, numa proposta com escopo, prazo e preço fechados.</p></details>
         <details><summary>E se eu já tiver um site?</summary><p>A gente olha o que você já tem, aproveita o que funciona e te mostra o que dá pra melhorar.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="contato" id="contato">
-    <div class="wrap">
-      <div class="cartao">
-        <div class="rev">
-          <span class="rotulo">Vamos conversar</span>
-          <h2>Deixe seu contato. <em>A gente te chama no WhatsApp.</em></h2>
-          <p>Em horário comercial, pra marcar a conversa. Sem lista de spam.</p>
-          <div class="proximos">
-            <span class="rotulo">Como funciona daqui pra frente</span>
-            <ol>
-              <li><span><b>Te chamamos no WhatsApp</b> em horário comercial.</span></li>
-              <li><span><b>Conversa de 20 minutos</b>, por vídeo ou pessoalmente.</span></li>
-              <li><span><b>Você recebe a proposta com valor e prazo</b> e só então decide.</span></li>
-            </ol>
-            <p class="garantia">A conversa é gratuita e sem compromisso.</p>
-          </div>
-          <p class="alt">Prefere falar agora? <a href="https://wa.me/5551993203344?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Animus" target="_blank" rel="noopener">Chame no WhatsApp (51) 99320-3344</a></p>
-        </div>
-        <form id="form" class="rev d1" novalidate>
-          <label>Seu nome<input name="nome" autocomplete="name" required minlength="2" maxlength="80"></label>
-          <label>Nome do negócio<input name="negocio" autocomplete="organization" required minlength="2" maxlength="100"></label>
-          <label>WhatsApp com DDD<input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(51) 99999-9999" required></label>
-          <label>O que você quer resolver? (opcional)<textarea name="problema" maxlength="600" placeholder="Ex.: perco cliente porque demoro pra responder no WhatsApp"></textarea></label>
-          <div class="armadilha" aria-hidden="true"><label>Não preencha<input name="site" tabindex="-1" autocomplete="off"></label></div>
-          <label class="aceite"><input type="checkbox" name="aceite" required><span>Aceito ser contatado pela Animus no WhatsApp sobre este pedido.</span></label>
-          <p class="privacidade">Seu nome e WhatsApp são usados só pra responder este pedido. Não vendemos nem repassamos seus dados. Quer que a gente apague? É só pedir no WhatsApp.</p>
-          <button class="btn btn-ouro" type="submit">Quero ver funcionando <span class="seta">→</span></button>
-          <p class="retorno" id="retorno" role="status" aria-live="polite"></p>
-        </form>
       </div>
     </div>
   </section>
@@ -725,7 +907,8 @@
   if (vitUrl && !reduz) { const ioVit = new IntersectionObserver((es) => { if (es[0].isIntersecting) { ioVit.disconnect(); cicloVitrine(); } }, { threshold: 0.4 }); ioVit.observe(vitUrl); }
   // O chat fica na frente do chip: só começa quando aparece na tela.
   const ioChat = new IntersectionObserver((es) => { if (es[0].isIntersecting) { ioChat.disconnect(); cicloChat(); } }, { threshold: 0.4 });
-  ioChat.observe(document.getElementById("conversa"));
+  const conversaEl = document.getElementById("conversa");
+  if (conversaEl) ioChat.observe(conversaEl);
 
   // Chip do bento: trilhas desenhadas sempre no sentido do fluxo (entrada →
   // núcleo → saída), então o pulso anda na direção certa só com dashoffset.
@@ -776,24 +959,33 @@
 
   // Diagramas das 5 fases (SVG próprio, mesmo desenho no quadro e no celular).
   const CENAS = [
-    `<rect x="40" y="8" width="280" height="134" rx="12"/>
-     <text x="60" y="32" class="forte">CONVERSA · 20 MIN</text><text x="60" y="46">POR VÍDEO OU PESSOALMENTE</text><line x1="60" y1="56" x2="300" y2="56" class="pontilhado"/>
-     <rect x="60" y="68" width="14" height="14" rx="4"/><path d="M63.5 75l2.5 2.5 4.5-5"/><text x="84" y="79" class="frase">Como o cliente te acha?</text>
-     <rect x="60" y="92" width="14" height="14" rx="4"/><path d="M63.5 99l2.5 2.5 4.5-5"/><text x="84" y="103" class="frase">O que mais te perguntam?</text>
-     <rect x="60" y="116" width="14" height="14" rx="4"/><path d="M63.5 123l2.5 2.5 4.5-5"/><text x="84" y="127" class="frase">Onde você perde cliente?</text>`,
-    `<rect x="16" y="20" width="150" height="110" rx="10"/><text x="30" y="42" class="forte">O SITE MOSTRA</text><line x1="30" y1="62" x2="146" y2="62" class="pontilhado"/><line x1="30" y1="80" x2="120" y2="80" class="pontilhado"/><line x1="30" y1="98" x2="136" y2="98" class="pontilhado"/>
-     <rect x="194" y="20" width="150" height="110" rx="10"/><text x="208" y="42" class="forte">O ATENDENTE FAZ</text><text x="208" y="66">✓ PREÇO E HORÁRIO</text><text x="208" y="84">✓ AGENDAMENTO</text><text x="208" y="102">→ PASSA PRA VOCÊ</text>`,
-    `<rect x="60" y="14" width="240" height="122" rx="10"/><line x1="60" y1="34" x2="300" y2="34"/><circle cx="74" cy="24" r="3" class="cheio"/><circle cx="86" cy="24" r="3" class="cheio"/>
-     <text x="84" y="62" class="forte">PROPOSTA</text><line x1="84" y1="80" x2="250" y2="80" class="pontilhado"/><line x1="84" y1="96" x2="210" y2="96" class="pontilhado"/><rect x="84" y="108" width="84" height="16" rx="8" class="cheio"/><text x="190" y="120">VALOR E PRAZO</text>`,
-    `<rect x="130" y="4" width="100" height="142" rx="16"/><line x1="166" y1="12" x2="194" y2="12"/>
-     <text x="142" y="30" class="mini">seunegocio.com.br</text><line x1="140" y1="36" x2="220" y2="36" class="pontilhado"/>
-     <text x="142" y="58" class="frase forte">Seu negócio</text><line x1="142" y1="70" x2="216" y2="70" class="pontilhado"/><line x1="142" y1="80" x2="200" y2="80" class="pontilhado"/>
-     <rect x="142" y="94" width="76" height="18" rx="9" class="zap"/><text x="152" y="106" class="mini claro">WHATSAPP</text>
-     <rect x="8" y="30" width="112" height="34" rx="10"/><circle cx="24" cy="47" r="5" class="zap"/><text x="36" y="45" class="frase">WhatsApp</text><text x="36" y="57" class="mini">ONLINE AGORA</text>
-     <rect x="236" y="84" width="120" height="44" rx="10"/><text x="248" y="102" class="frase forte">Seu negócio</text><text x="248" y="118" class="mini">NO GOOGLE · ABERTO AGORA</text>`,
+    `<circle cx="180" cy="72" r="62" class="anel"/><circle cx="180" cy="72" r="38" class="anel"/><circle cx="180" cy="72" r="12" class="cheio"/>
+     <text x="180" y="76" text-anchor="middle" class="mini claro">VOCÊ</text>
+     <line x1="180" y1="10" x2="180" y2="34" class="pontilhado"/><text x="196" y="22">CLIENTE</text>
+     <line x1="118" y1="72" x2="142" y2="72" class="pontilhado"/><text x="20" y="76">CONCORRÊNCIA</text>
+     <line x1="218" y1="72" x2="242" y2="72" class="pontilhado"/><text x="252" y="76">MERCADO</text>
+     <path d="M226 116 l18 14" class="traco"/><text x="248" y="140" class="forte">ONDE A IA ENTRA</text>`,
+    `<rect x="8" y="52" width="70" height="30" rx="8"/><text x="43" y="71" text-anchor="middle">CONTATO</text>
+     <rect x="92" y="52" width="92" height="30" rx="8"/><text x="138" y="71" text-anchor="middle">ATENDIMENTO</text>
+     <rect x="196" y="52" width="70" height="30" rx="8" class="alerta"/><text x="231" y="71" text-anchor="middle" class="forte">PROPOSTA</text>
+     <rect x="288" y="52" width="64" height="30" rx="8"/><text x="320" y="71" text-anchor="middle">ENTREGA</text>
+     <path d="M78 67 H92 M184 67 H196 M266 67 H288" class="traco"/>
+     <circle cx="231" cy="30" r="9" class="alerta-c"/><text x="231" y="34" text-anchor="middle" class="mini claro">!</text>
+     <text x="196" y="110" class="forte">AQUI SE PERDE CLIENTE</text><text x="196" y="124">ORÇAMENTO SEM RETORNO</text>`,
+    `<rect x="70" y="8" width="220" height="134" rx="10"/><text x="88" y="30" class="forte">A PLANTA</text><line x1="88" y1="38" x2="272" y2="38" class="pontilhado"/>
+     <text x="88" y="58">ESCOPO</text><line x1="160" y1="55" x2="272" y2="55" class="traco"/>
+     <text x="88" y="78">PRAZO</text><line x1="160" y1="75" x2="240" y2="75" class="traco"/>
+     <text x="88" y="98">VALOR</text><line x1="160" y1="95" x2="226" y2="95" class="traco"/>
+     <rect x="88" y="110" width="124" height="20" rx="10" class="cheio"/><text x="150" y="124" text-anchor="middle" class="mini claro">APROVADO POR ESCRITO</text>`,
+    `<circle cx="180" cy="75" r="26" class="cheio"/><text x="180" y="79" text-anchor="middle" class="mini claro">SISTEMA + IA</text>
+     <path d="M156 64 L80 30 M156 86 L80 120 M204 64 L280 30 M204 86 L280 120" class="traco"/>
+     <rect x="20" y="16" width="70" height="26" rx="13"/><text x="55" y="33" text-anchor="middle">WHATSAPP</text>
+     <rect x="20" y="108" width="70" height="26" rx="13"/><text x="55" y="125" text-anchor="middle">PLANILHAS</text>
+     <rect x="270" y="16" width="70" height="26" rx="13"/><text x="305" y="33" text-anchor="middle">AGENDA</text>
+     <rect x="270" y="108" width="70" height="26" rx="13"/><text x="305" y="125" text-anchor="middle">SITE</text>`,
     `<line x1="30" y1="122" x2="340" y2="122"/><line x1="30" y1="18" x2="30" y2="122"/>
-     <polyline points="30,110 105,96 180,70 255,50 330,28"/><circle cx="105" cy="96" r="3" class="cheio"/><circle cx="180" cy="70" r="3" class="cheio"/><circle cx="255" cy="50" r="3" class="cheio"/><circle cx="330" cy="28" r="3" class="cheio"/>
-     <text x="30" y="140">SEMANA 1</text><text x="164" y="140">MÊS 1</text><text x="296" y="140">MÊS 3</text><text x="40" y="28">CLIENTES ATENDIDOS</text>`,
+     <polyline points="30,112 105,100 180,74 255,52 330,30" class="traco"/><circle cx="105" cy="100" r="3" class="cheio"/><circle cx="180" cy="74" r="3" class="cheio"/><circle cx="255" cy="52" r="3" class="cheio"/><circle cx="330" cy="30" r="3" class="cheio"/>
+     <text x="30" y="140">SEMANA 1</text><text x="164" y="140">MÊS 1</text><text x="296" y="140">MÊS 3</text><text x="40" y="28">TEMPO DEVOLVIDO POR SEMANA</text>`,
   ];
   document.querySelectorAll("svg[data-cena]").forEach((s) => (s.innerHTML = CENAS[+s.dataset.cena]));
 
@@ -838,7 +1030,15 @@
   const abertoEm = Date.now();
   form.addEventListener("submit", async (ev) => {
     ev.preventDefault();
-    const d = Object.fromEntries(new FormData(form));
+    const fd = new FormData(form);
+    const d = Object.fromEntries(fd);
+    // Marcadores do pré-diagnóstico vão juntos no campo de texto da RPC (sem migração, até 600 caracteres).
+    const marcadores = [
+      d.tipo && `Tipo: ${d.tipo}`,
+      fd.getAll("chega").length && `Chega por: ${fd.getAll("chega").join(", ")}`,
+      d.responde && `Quem responde: ${d.responde}`,
+      (d.problema || "").trim() && `Dor: ${d.problema.trim()}`,
+    ].filter(Boolean).join(" · ").slice(0, 600);
     const digitos = (d.whatsapp || "").replace(/\D/g, "");
     retorno.className = "retorno erro";
     if ((d.nome || "").trim().length < 2) return (retorno.textContent = "Coloque seu nome.");
@@ -854,12 +1054,12 @@
         method: "POST",
         headers: { "Content-Type": "application/json", apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` },
         body: JSON.stringify({
-          p_nome: d.nome, p_negocio: d.negocio, p_whatsapp: d.whatsapp, p_problema: d.problema || "",
+          p_nome: d.nome, p_negocio: d.negocio, p_whatsapp: d.whatsapp, p_problema: marcadores,
           p_consentimento: true, p_ms_preenchimento: Date.now() - abertoEm, p_armadilha: d.site || "",
         }),
       });
       if (!r.ok) throw new Error(await r.text());
-      form.innerHTML = `<div class="sucesso"><div class="selo">✓</div><h3>Recebido, ${d.nome.trim().split(" ")[0].replace(/[<>&"]/g, "")}.</h3><p>Vamos te chamar no WhatsApp em horário comercial pra marcar a conversa.</p></div>`;
+      form.innerHTML = `<div class="sucesso"><div class="selo">✓</div><h3>Recebido, ${d.nome.trim().split(" ")[0].replace(/[<>&"]/g, "")}.</h3><p>Em até 1 dia útil a gente te chama no WhatsApp pra entender o resto do seu dia e montar o desenho.</p></div>`;
     } catch (e) {
       console.error(e);
       botao.disabled = false;
@@ -883,6 +1083,8 @@
   }
 </script>
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
+<script type="module" src="assets/mapa-hero.js"></script>
+<script defer src="assets/planta.js"></script>
 <script type="module">
   // Three.js (~256 KB) só baixa quando os ícones 3D chegam perto da tela.
   const ico = document.querySelector("canvas[data-ico]");

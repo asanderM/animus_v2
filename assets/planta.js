@@ -41,7 +41,7 @@
 
   function desenhar(idx) {
     const n = NEGOCIOS[idx];
-    const vertical = svg.parentElement.clientWidth > 0 && svg.parentElement.clientWidth < 520;
+    const vertical = innerWidth < 560; // mesmo corte do CSS (aspect-ratio), pra não pular layout
     const W = vertical ? 360 : 640, H = vertical ? 520 : 360;
     const cols = vertical ? n.cols.slice(0, 2) : n.cols; // no celular, 2 colunas legíveis em vez de 4 miúdas
     svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
@@ -118,7 +118,7 @@
     setTimeout(() => { svg.classList.remove("saindo"); idx = (idx + 1) % NEGOCIOS.length; desenhar(idx); ciclo(); }, 450);
   }, 7000);
   new IntersectionObserver((es) => (rodando = es[0].isIntersecting)).observe(svg);
-  let estreito = svg.parentElement.clientWidth < 520;
-  new ResizeObserver(() => { const e = svg.parentElement.clientWidth < 520; if (e !== estreito) { estreito = e; desenhar(idx); } }).observe(svg.parentElement);
+  let estreito = innerWidth < 560;
+  new ResizeObserver(() => { const e = innerWidth < 560; if (e !== estreito) { estreito = e; desenhar(idx); } }).observe(svg.parentElement);
   ciclo();
 })();

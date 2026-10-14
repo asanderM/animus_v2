@@ -242,7 +242,7 @@ function criarPin(info, l, ativo) {
   const b = document.createElement(ativo ? "button" : "span");
   b.className = ativo ? "pin" : "pin pin-ref";
   b.style.setProperty("--c", info.cor);
-  if (ativo) { b.type = "button"; b.setAttribute("aria-label", `${info.nome}, exemplo`); }
+  if (ativo) b.type = "button";
   b.innerHTML = `<span class="ico">${info.ico}</span><span class="nome">${info.nome}</span>${ativo ? '<span class="balao"></span>' : ""}`;
   camadaPins.append(b);
   return { el: b, balao: b.querySelector(".balao"), info, alvo: new THREE.Vector3(l.x, 0.3 + l.h + 0.5, l.z), feitas: 3 + Math.floor(rnd() * 6) };
