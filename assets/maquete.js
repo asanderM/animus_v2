@@ -128,6 +128,9 @@ function iniciar() {
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
+    const d = w < 520 ? 17.5 : 22; // no celular a câmera chega mais perto pra peça não virar miniatura
+    camera.position.set(d, d, d);
+    camera.lookAt(0, 0, 0);
     camera.updateProjectionMatrix();
   }
 

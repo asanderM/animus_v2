@@ -357,6 +357,12 @@
   .maquete-negocio small { display: block; font: 500 .58rem "JetBrains Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--suave); }
   .maquete-negocio b { font-family: "Fraunces", serif; font-weight: 400; font-size: 1.25rem; color: var(--ouro); }
   .montagem-texto h2 { margin: 14px 0 16px; }
+  @media (max-width: 719px) {
+    .montagem-palco { aspect-ratio: 1 / 1; }
+    .mq-rot { font-size: .58rem; padding: 3px 7px; }
+    .maquete-negocio { top: auto; bottom: 12px; left: 12px; padding: 7px 11px; }
+    .maquete-negocio b { font-size: 1rem; }
+  }
 
   /* Já construído: cada card com a tela do sistema em miniatura, animada */
   .feitos-sec { padding-top: 40px; }
