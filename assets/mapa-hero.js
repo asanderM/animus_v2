@@ -1,8 +1,11 @@
-// Mapa vivo do topo (home v5, 13/10/2026). Cidade 3D feita em código, no estilo do
-// Apple Maps: quadras claras, prédios, parques, carros andando. Seis negócios fictícios
-// recebem mensagem e respondem sozinhos ("Tem horário amanhã?" → "✓ Marcado").
-// Segue o tema do site (claro/escuro). Para quando sai da tela. Com animação reduzida,
-// desenha 1 quadro parado com os balões já respondidos.
+// Mapa vivo do topo (home v5, 13/10/2026), no estilo do Apple Maps 3D (referência:
+// Downloads/download (1).jpg). Cidade feita em código:
+// - prédios com recuo, em X e em L, escurecendo na base;
+// - praça central, parques, árvores de rua e carros estilo Tesla;
+// - nomes de rua, pins de referência (P, farmácia, escola) e bússola.
+// Seis negócios fictícios mostram o sistema de cada um trabalhando: o balão chega
+// ("Interessado no apê do Centro") e vira resolvido ("✓ Visita marcada").
+// Segue o tema do site, para fora da tela e, com animação reduzida, fica num quadro parado.
 import * as THREE from "three";
 
 const raiz = document.getElementById("mapa-hero");
@@ -12,18 +15,27 @@ const card = document.getElementById("mapa-card");
 const reduz = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const PALETA = {
-  claro: { fundo: "#fffdf8", rua: "#fbfaf6", quadra: "#ebe7dd", predio: [0xf6f3ec, 0xe9e4d8], parque: "#d5e6c2", arvore: "#9fc58a", topo: "#e0c050", carro: [0x4a6fa5, 0xc94f3d, 0x3d3a34, 0xe8e4da, 0x6b8f71] },
-  escuro: { fundo: "#141310", rua: "#100f0d", quadra: "#26241f", predio: [0x4a463d, 0x3a3730], parque: "#20301e", arvore: "#3d6a38", topo: "#d4b23a", carro: [0x8fb3ff, 0xff8f7a, 0xf1ece1, 0xd4b23a, 0x9ad3a5] },
+  claro: { fundo: "#f7f5f0", rua: "#fdfcf9", quadra: "#ebe8e1", predio: [0xf1eee8, 0xdedad2], praca: "#e4dccb", parque: "#cfe5bd", arvore: "#9cc98a", tronco: "#b8a98f", vidro: "#3a4452", detalhe: "#d9d4ca", telhado: ["#7da7d9", "#9fd08c"], topo: "#e0c050", carro: [0xf4f4f2, 0x2f3338, 0xc8ccd2, 0xb33a32, 0x3b5f8f] },
+  escuro: { fundo: "#141310", rua: "#0f0e0c", quadra: "#211f1b", predio: [0x4d4a43, 0x34322d], praca: "#2a2620", parque: "#1f301d", arvore: "#3f6b3a", tronco: "#4a4034", vidro: "#0b0d10", detalhe: "#57534a", telhado: ["#35557a", "#3e6a37"], topo: "#d4b23a", carro: [0xe8e8e4, 0x9aa3ad, 0x6d747c, 0xff7a6a, 0x8fb3ff] },
 };
 
+// O que cada sistema resolve sozinho (exemplos, não são clientes).
 const NEGOCIOS = [
-  { nome: "Barbearia Navalha", tipo: "Barbearia", ico: "✂️", cor: "#e0c050", pede: "Tem horário amanhã?", ok: "✓ Marcado · amanhã 15h" },
-  { nome: "Pizzaria Forno Velho", tipo: "Pizzaria", ico: "🍕", cor: "#f08a4b", pede: "Ainda dá pra pedir?", ok: "✓ Pedido anotado · 40 min" },
-  { nome: "Clínica Sorriso", tipo: "Clínica odontológica", ico: "🦷", cor: "#6fb7e8", pede: "Tem avaliação essa semana?", ok: "✓ Marcado · quinta 14h" },
-  { nome: "Studio Bella", tipo: "Salão de beleza", ico: "💇", cor: "#e58fb5", pede: "Faz escova sábado?", ok: "✓ Marcado · sábado 9h" },
-  { nome: "Pet Amigo", tipo: "Pet shop", ico: "🐾", cor: "#8cc98a", pede: "Banho pro Thor amanhã?", ok: "✓ Marcado · amanhã 10h" },
-  { nome: "Silva Advocacia", tipo: "Escritório", ico: "⚖️", cor: "#a99be8", pede: "Consigo falar com o doutor?", ok: "✓ Retorno marcado · 16h" },
+  { nome: "Imobiliária Horizonte", tipo: "Imobiliária", ico: "🏠", cor: "#3f8fd8", pede: "Interessado no apê do Centro", ok: "✓ Visita marcada · sáb 10h" },
+  { nome: "Barbearia Navalha", tipo: "Barbearia", ico: "✂️", cor: "#d9a521", pede: "Tem horário amanhã?", ok: "✓ Marcado · amanhã 15h" },
+  { nome: "Silva Advocacia", tipo: "Escritório de advocacia", ico: "⚖️", cor: "#8a6fd6", pede: "Petição nova pra revisar", ok: "✓ Analisada · 3 pontos a ajustar" },
+  { nome: "Pizzaria Forno Velho", tipo: "Pizzaria", ico: "🍕", cor: "#e8743b", pede: "Pedido pelo site", ok: "✓ Pago no Pix · saiu pra entrega" },
+  { nome: "Clínica Sorriso", tipo: "Clínica odontológica", ico: "🦷", cor: "#2fa7a0", pede: "Paciente sem voltar há 6 meses", ok: "✓ Lembrete de retorno enviado" },
+  { nome: "Ponto Certo", tipo: "Loja", ico: "🛍️", cor: "#d6548a", pede: "Orçamento pedido às 22h", ok: "✓ Orçamento enviado" },
 ];
+// Pins de referência (só cenário, como no Apple Maps).
+const REFERENCIAS = [
+  { nome: "Estacionamento", ico: "P", cor: "#2f6fe0" },
+  { nome: "Farmácia", ico: "✚", cor: "#e0443b" },
+  { nome: "Escola Municipal", ico: "🎓", cor: "#9a6b3f" },
+  { nome: "Café da Esquina", ico: "☕", cor: "#e08a2c" },
+];
+const RUAS = ["Av. Central", "Rua das Flores", "Rua XV de Novembro", "Rua do Comércio"];
 
 function temaAtual() {
   const t = document.documentElement.getAttribute("data-tema");
@@ -32,170 +44,230 @@ function temaAtual() {
 }
 
 // Aleatório com semente: a cidade sai igual em toda visita.
-let semente = 7;
+let semente = 11;
 const rnd = () => ((semente = (semente * 16807) % 2147483647) - 1) / 2147483646;
 
 const celular = () => innerWidth < 980;
 const N = celular() ? 7 : 11; // quadras por lado
-const P = 13; // passo da quadra: 10 de quadra + 3 de rua
+const P = 13; // passo: 10 de quadra + 3 de rua
 const META = (N * P) / 2;
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "low-power" });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: "low-power" });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
 const cena = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(30, 1, 1, 600);
+const camera = new THREE.PerspectiveCamera(28, 1, 1, 700);
+const ceu = new THREE.HemisphereLight(0xffffff, 0xc9c2b2, 1.7);
+const sol = new THREE.DirectionalLight(0xffffff, 1.3);
+sol.position.set(-50, 90, 40);
+cena.add(ceu, sol);
 
-cena.add(new THREE.HemisphereLight(0xffffff, 0xb9b2a2, 1.6));
-const sol = new THREE.DirectionalLight(0xffffff, 1.5);
-sol.position.set(-40, 80, 30);
-cena.add(sol);
+const mat = {};
+for (const k of ["rua", "quadra", "praca", "parque", "arvore", "tronco", "vidro", "detalhe", "topo", "telhadoA", "telhadoB"]) mat[k] = new THREE.MeshLambertMaterial();
+mat.predio = new THREE.MeshLambertMaterial({ vertexColors: true });
+mat.carro = new THREE.MeshLambertMaterial();
 
-const mat = {
-  rua: new THREE.MeshLambertMaterial(),
-  quadra: new THREE.MeshLambertMaterial(),
-  parque: new THREE.MeshLambertMaterial(),
-  predio: new THREE.MeshLambertMaterial(),
-  arvore: new THREE.MeshLambertMaterial(),
-  topo: new THREE.MeshLambertMaterial(),
-  carro: new THREE.MeshLambertMaterial(),
-};
+// Caixa com "sombra de contato": vértices de baixo mais escuros, como o Apple Maps.
+function caixaAO(escuroBase = 0.74) {
+  const g = new THREE.BoxGeometry(1, 1, 1);
+  g.translate(0, 0.5, 0);
+  const pos = g.attributes.position, cores = [];
+  for (let i = 0; i < pos.count; i++) { const c = escuroBase + (1 - escuroBase) * pos.getY(i); cores.push(c, c, c); }
+  g.setAttribute("color", new THREE.Float32BufferAttribute(cores, 3));
+  return g;
+}
+const caixa = new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0);
+const tmp = new THREE.Object3D();
+function matriz(x, y, z, sx, sy, sz, ry = 0) {
+  tmp.position.set(x, y, z); tmp.scale.set(sx, sy, sz); tmp.rotation.set(0, ry, 0); tmp.updateMatrix();
+  return tmp.matrix.clone();
+}
+function instanciar(geo, material, lista) {
+  const m = new THREE.InstancedMesh(geo, material, Math.max(1, lista.length));
+  lista.forEach((mt, k) => m.setMatrixAt(k, mt));
+  m.count = lista.length;
+  cena.add(m);
+  return m;
+}
 
-const chao = new THREE.Mesh(new THREE.PlaneGeometry(N * P * 3, N * P * 3), mat.rua);
+const chao = new THREE.Mesh(new THREE.PlaneGeometry(N * P * 4, N * P * 4), mat.rua);
 chao.rotation.x = -Math.PI / 2;
 cena.add(chao);
 
-// Quadras, parques e lotes.
-const placa = new THREE.BoxGeometry(10, 0.3, 10);
-const lotes = [];
-const parques = [];
+// ------------------------------------------------------------- a cidade
+const placas = { quadra: [], parque: [], praca: [] };
+const blocos = []; // prédios: { m: matriz, tom }
+const detalhes = [], arvores = [], troncos = [], telhadosA = [], telhadosB = [];
+const lotesLivres = [];
+const centro = [Math.floor(N / 2), Math.floor(N / 2) - 1]; // quadra da praça
+
+function predio(x, z, w, d, h) {
+  const tipo = rnd();
+  const tom = rnd();
+  if (h > 9 && tipo < 0.5) { // torre com recuo
+    const base = 2 + rnd() * 2;
+    blocos.push({ m: matriz(x, 0.3, z, w, base, d), tom });
+    blocos.push({ m: matriz(x, 0.3 + base, z, w * 0.72, h - base, d * 0.72), tom });
+    blocos.push({ m: matriz(x, 0.3 + h, z, w * 0.42, 1.2 + rnd() * 2, d * 0.42), tom });
+  } else if (tipo < 0.62) { // em X, como os da imagem
+    blocos.push({ m: matriz(x, 0.3, z, w, h, d * 0.4), tom });
+    blocos.push({ m: matriz(x, 0.3, z, w * 0.4, h, d), tom });
+  } else if (tipo < 0.78) { // em L
+    blocos.push({ m: matriz(x - w * 0.18, 0.3, z, w * 0.64, h, d), tom });
+    blocos.push({ m: matriz(x + w * 0.18, 0.3, z - d * 0.22, w * 0.64, h * 0.7, d * 0.56), tom });
+  } else {
+    blocos.push({ m: matriz(x, 0.3, z, w, h, d), tom });
+  }
+  // máquinas no telhado
+  if (rnd() < 0.55) detalhes.push(matriz(x + (rnd() - 0.5) * w * 0.4, 0.3 + h, z + (rnd() - 0.5) * d * 0.3, 0.7, 0.35, 0.5));
+}
+
+function arvore(x, z, s) {
+  troncos.push(matriz(x, 0.3, z, 0.18, 0.9 * s, 0.18));
+  arvores.push(matriz(x, 0.3 + 1.25 * s, z, 0.85 * s, 0.95 * s, 0.85 * s));
+}
+
 for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
   const x = (i - (N - 1) / 2) * P, z = (j - (N - 1) / 2) * P;
-  const ehParque = rnd() < 0.11;
-  const m = new THREE.Mesh(placa, ehParque ? mat.parque : mat.quadra);
-  m.position.set(x, 0.15, z);
-  cena.add(m);
-  if (ehParque) { parques.push([x, z]); continue; }
-  for (const [dx, dz] of [[-2.5, -2.5], [2.5, -2.5], [-2.5, 2.5], [2.5, 2.5]]) {
-    if (rnd() < 0.12) continue;
-    const dist = Math.hypot(x, z) / META;
-    const alto = 1.5 + rnd() * 3.5 + Math.max(0, 1 - dist) ** 2 * rnd() * 11;
-    lotes.push({ x: x + dx, z: z + dz, w: 3.6 + rnd() * 0.8, d: 3.6 + rnd() * 0.8, h: alto, tom: rnd() });
+  if (i === centro[0] && j === centro[1]) { // praça com 2 prédios baixos de telhado colorido
+    placas.praca.push(matriz(x, 0, z, 10, 0.32, 10));
+    blocos.push({ m: matriz(x + 2.4, 0.3, z - 1.2, 4.2, 2.6, 6.5), tom: 0.2 });
+    telhadosA.push(matriz(x + 2.4, 2.92, z - 1.2, 3.8, 0.12, 6.1));
+    blocos.push({ m: matriz(x - 2.6, 0.3, z + 2.6, 4, 2, 4), tom: 0.3 });
+    telhadosB.push(matriz(x - 2.6, 2.32, z + 2.6, 3.6, 0.12, 3.6));
+    placas.parque.push(matriz(x - 2.6, 0.02, z - 2.8, 3.8, 0.33, 3));
+    for (let k = 0; k < 4; k++) arvore(x - 4 + k * 1.1, z - 4.4, 0.6);
+    continue;
   }
+  if (rnd() < 0.1) { // parque
+    placas.parque.push(matriz(x, 0, z, 10, 0.32, 10));
+    for (let k = 0; k < 10; k++) arvore(x - 4 + rnd() * 8, z - 4 + rnd() * 8, 0.8 + rnd() * 0.6);
+    continue;
+  }
+  placas.quadra.push(matriz(x, 0, z, 10, 0.3, 10));
+  for (const [dx, dz] of [[-2.5, -2.5], [2.5, -2.5], [-2.5, 2.5], [2.5, 2.5]]) {
+    if (rnd() < 0.08) continue;
+    const dist = Math.hypot(x, z) / META;
+    const h = 1.6 + rnd() * 3.4 + Math.max(0, 1 - dist) ** 2 * rnd() * 13;
+    lotesLivres.push({ x: x + dx, z: z + dz, w: 3.8 + rnd() * 0.6, d: 3.8 + rnd() * 0.6, h });
+  }
+  // árvores de calçada
+  if (rnd() < 0.45) { const lado = rnd() < 0.5 ? -5.6 : 5.6; for (let k = -1; k <= 1; k++) arvore(x + k * 3.2, z + lado, 0.55); }
+  if (rnd() < 0.3) { const lado = rnd() < 0.5 ? -5.6 : 5.6; for (let k = -1; k <= 1; k++) arvore(x + lado, z + k * 3.2, 0.55); }
 }
 
-// Negócios: lotes baixos, perto do centro e espalhados.
-const perto = lotes.filter((l) => Math.hypot(l.x, l.z) < META * 0.55).sort(() => rnd() - 0.5);
-const escolhidos = [];
+// Negócios e referências: lotes perto do centro, espalhados.
+const perto = lotesLivres.filter((l) => Math.hypot(l.x, l.z) < META * 0.6).sort(() => rnd() - 0.5);
+const escolhidos = [], refs = [];
 for (const l of perto) {
-  if (escolhidos.length === NEGOCIOS.length) break;
-  if (escolhidos.every((e) => Math.hypot(e.x - l.x, e.z - l.z) > P * 1.4)) { l.h = 2.6 + rnd(); l.negocio = true; escolhidos.push(l); }
+  const longe = (lista, dmin) => lista.every((e) => Math.hypot(e.x - l.x, e.z - l.z) > dmin);
+  if (escolhidos.length < NEGOCIOS.length && longe(escolhidos, P * 1.3)) { l.h = 2.4 + rnd() * 1.2; l.negocio = true; escolhidos.push(l); }
+  else if (refs.length < REFERENCIAS.length && longe(escolhidos, P * 0.8) && longe(refs, P * 1.5)) { l.h = Math.min(l.h, 4); refs.push(l); }
+}
+for (const l of lotesLivres) {
+  if (l.negocio) blocos.push({ m: matriz(l.x, 0.3, l.z, l.w, l.h, l.d), tom: 0.1 });
+  else predio(l.x, l.z, l.w, l.d, l.h);
 }
 
-const caixa = new THREE.BoxGeometry(1, 1, 1);
-caixa.translate(0, 0.5, 0);
-const predios = new THREE.InstancedMesh(caixa, mat.predio, lotes.length);
-const tmp = new THREE.Object3D();
-lotes.forEach((l, k) => {
-  tmp.position.set(l.x, 0.3, l.z);
-  tmp.scale.set(l.w, l.h, l.d);
-  tmp.updateMatrix();
-  predios.setMatrixAt(k, tmp.matrix);
-});
-cena.add(predios);
+const geoAO = caixaAO();
+const predios = instanciar(geoAO, mat.predio, blocos.map((b) => b.m));
+instanciar(caixa, mat.quadra, placas.quadra);
+instanciar(caixa, mat.parque, placas.parque);
+instanciar(caixa, mat.praca, placas.praca);
+instanciar(caixa, mat.detalhe, detalhes);
+instanciar(caixa, mat.telhadoA, telhadosA);
+instanciar(caixa, mat.telhadoB, telhadosB);
+instanciar(new THREE.CylinderGeometry(1, 1, 1, 5).translate(0, 0.5, 0), mat.tronco, troncos);
+instanciar(new THREE.IcosahedronGeometry(1, 1), mat.arvore, arvores);
+instanciar(caixa, mat.topo, escolhidos.map((l) => matriz(l.x, 0.3 + l.h, l.z, l.w * 0.98, 0.22, l.d * 0.98)));
 
-// Telhado dourado nos negócios.
-const telhados = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 0.25, 1), mat.topo, escolhidos.length);
-escolhidos.forEach((l, k) => {
-  tmp.position.set(l.x, 0.3 + l.h + 0.12, l.z);
-  tmp.scale.set(l.w * 0.98, 1, l.d * 0.98);
-  tmp.updateMatrix();
-  telhados.setMatrixAt(k, tmp.matrix);
-});
-cena.add(telhados);
-
-// Árvores nos parques.
-const copa = new THREE.IcosahedronGeometry(1, 0);
-const nArv = parques.length * 9;
-const arvores = new THREE.InstancedMesh(copa, mat.arvore, Math.max(1, nArv));
-let a = 0;
-for (const [x, z] of parques) for (let k = 0; k < 9; k++) {
-  const s = 0.9 + rnd() * 0.7;
-  tmp.position.set(x - 3.5 + (k % 3) * 3.5 + rnd() - 0.5, 0.3 + s, z - 3.5 + Math.floor(k / 3) * 3.5 + rnd() - 0.5);
-  tmp.scale.set(s, s * 1.1, s);
-  tmp.rotation.set(rnd(), rnd(), 0);
-  tmp.updateMatrix();
-  arvores.setMatrixAt(a++, tmp.matrix);
-}
-tmp.rotation.set(0, 0, 0);
-arvores.count = a;
-cena.add(arvores);
-
-// Carros: andam nas ruas (entre as quadras) e dão a volta.
-const nCarros = celular() ? 12 : 26;
-const carros = new THREE.InstancedMesh(new THREE.BoxGeometry(1.5, 0.7, 0.8), mat.carro, nCarros);
-const corCarro = new THREE.Color();
+// ------------------------------------------------------------- carros estilo Tesla
+const nCarros = celular() ? 14 : 30;
 const rotas = Array.from({ length: nCarros }, () => {
-  const linha = (Math.floor(rnd() * N) - (N - 1) / 2) * P + P / 2 * (rnd() < 0.5 ? 1 : -1);
-  return { eixoX: rnd() < 0.5, linha: linha + (rnd() < 0.5 ? 0.7 : -0.7), t: rnd() * 2 * META - META, v: (4 + rnd() * 4) * (rnd() < 0.5 ? 1 : -1), cor: Math.floor(rnd() * 5) };
+  const linha = (Math.floor(rnd() * N) - (N - 1) / 2) * P + (P / 2) * (rnd() < 0.5 ? 1 : -1);
+  const v = (3.5 + rnd() * 4) * (rnd() < 0.5 ? 1 : -1);
+  // mão certa: cada sentido na sua faixa
+  return { eixoX: rnd() < 0.5, linha: linha + (v > 0 ? 0.65 : -0.65), t: rnd() * 2 * META - META, v, cor: Math.floor(rnd() * 5) };
 });
-cena.add(carros);
-
+const geoCarro = new THREE.BoxGeometry(1.8, 0.42, 0.86).translate(0, 0.42, 0);
+const geoCabine = new THREE.BoxGeometry(1.0, 0.34, 0.74).translate(-0.08, 0.8, 0);
+const carros = new THREE.InstancedMesh(geoCarro, mat.carro, nCarros);
+const cabines = new THREE.InstancedMesh(geoCabine, mat.vidro, nCarros);
+cena.add(carros, cabines);
 function posicionarCarros() {
   rotas.forEach((r, k) => {
-    if (r.eixoX) { tmp.position.set(r.t, 0.65, r.linha); tmp.rotation.y = 0; } else { tmp.position.set(r.linha, 0.65, r.t); tmp.rotation.y = Math.PI / 2; }
-    tmp.scale.set(1, 1, 1);
-    tmp.updateMatrix();
-    carros.setMatrixAt(k, tmp.matrix);
+    const ry = r.eixoX ? (r.v > 0 ? 0 : Math.PI) : (r.v > 0 ? -Math.PI / 2 : Math.PI / 2);
+    const m = r.eixoX ? matriz(r.t, 0.3, r.linha, 1, 1, 1, ry) : matriz(r.linha, 0.3, r.t, 1, 1, 1, ry);
+    carros.setMatrixAt(k, m);
+    cabines.setMatrixAt(k, m);
   });
-  carros.instanceMatrix.needsUpdate = true;
+  carros.instanceMatrix.needsUpdate = cabines.instanceMatrix.needsUpdate = true;
 }
 
+// ------------------------------------------------------------- tema
+const cor = new THREE.Color();
 function aplicarTema() {
-  const p = PALETA[temaAtual()];
+  const tema = temaAtual(), p = PALETA[tema], escuro = tema === "escuro";
   const fundo = new THREE.Color(p.fundo);
   renderer.setClearColor(fundo);
-  cena.fog = new THREE.Fog(fundo, 130, celular() ? 230 : 300);
-  mat.rua.color.set(p.rua);
-  mat.quadra.color.set(p.quadra);
-  mat.parque.color.set(p.parque);
-  mat.arvore.color.set(p.arvore);
-  mat.topo.color.set(p.topo);
-  mat.topo.emissive.set(temaAtual() === "escuro" ? p.topo : 0x000000);
+  cena.fog = new THREE.Fog(fundo, 140, celular() ? 240 : 320);
+  for (const k of ["rua", "quadra", "praca", "parque", "arvore", "tronco", "vidro", "detalhe", "topo"]) mat[k].color.set(p[k]);
+  mat.telhadoA.color.set(p.telhado[0]);
+  mat.telhadoB.color.set(p.telhado[1]);
+  mat.topo.emissive.set(escuro ? p.topo : 0x000000);
   mat.topo.emissiveIntensity = 0.35;
   const c0 = new THREE.Color(p.predio[0]), c1 = new THREE.Color(p.predio[1]);
-  lotes.forEach((l, k) => predios.setColorAt(k, corCarro.copy(c0).lerp(c1, l.tom)));
+  blocos.forEach((b, k) => predios.setColorAt(k, cor.copy(c0).lerp(c1, b.tom)));
   predios.instanceColor.needsUpdate = true;
-  rotas.forEach((r, k) => carros.setColorAt(k, corCarro.set(p.carro[r.cor])));
+  rotas.forEach((r, k) => carros.setColorAt(k, cor.set(p.carro[r.cor])));
   carros.instanceColor.needsUpdate = true;
-  const escuro = temaAtual() === "escuro";
-  cena.children.filter((c) => c.isHemisphereLight)[0].intensity = escuro ? 1.3 : 1.6;
-  sol.intensity = escuro ? 1.2 : 1.5;
+  ceu.intensity = escuro ? 1.25 : 1.7;
+  sol.intensity = escuro ? 1.1 : 1.3;
   desenhar();
 }
 
-// Pins em HTML por cima do canvas (texto nítido e clicável).
-const pins = escolhidos.map((l, k) => {
-  const n = NEGOCIOS[k];
-  const b = document.createElement("button");
-  b.type = "button";
-  b.className = "pin";
-  b.style.setProperty("--c", n.cor);
-  b.setAttribute("aria-label", `${n.nome}, exemplo de negócio`);
-  b.innerHTML = `<span class="ico">${n.ico}</span><span class="nome">${n.nome}</span><span class="balao"></span>`;
+// ------------------------------------------------------------- camada HTML (pins, ruas, bússola)
+function criarPin(info, l, ativo) {
+  const b = document.createElement(ativo ? "button" : "span");
+  b.className = ativo ? "pin" : "pin pin-ref";
+  b.style.setProperty("--c", info.cor);
+  if (ativo) { b.type = "button"; b.setAttribute("aria-label", `${info.nome}, exemplo`); }
+  b.innerHTML = `<span class="ico">${info.ico}</span><span class="nome">${info.nome}</span>${ativo ? '<span class="balao"></span>' : ""}`;
   camadaPins.append(b);
-  const estado = { el: b, balao: b.querySelector(".balao"), negocio: n, alvo: new THREE.Vector3(l.x, 0.3 + l.h + 0.4, l.z), respondidas: 2 + Math.floor(rnd() * 4) };
-  b.addEventListener("pointerenter", () => mostrarCard(estado));
-  b.addEventListener("focus", () => mostrarCard(estado));
-  b.addEventListener("click", () => mostrarCard(estado));
-  b.addEventListener("pointerleave", () => esconderCard());
-  return estado;
+  return { el: b, balao: b.querySelector(".balao"), info, alvo: new THREE.Vector3(l.x, 0.3 + l.h + 0.5, l.z), feitas: 3 + Math.floor(rnd() * 6) };
+}
+const pins = escolhidos.map((l, k) => criarPin(NEGOCIOS[k], l, true));
+const pinsRef = refs.map((l, k) => criarPin(REFERENCIAS[k], l, false));
+for (const p of pins) {
+  p.el.addEventListener("pointerenter", () => mostrarCard(p));
+  p.el.addEventListener("focus", () => mostrarCard(p));
+  p.el.addEventListener("click", () => mostrarCard(p));
+  p.el.addEventListener("pointerleave", esconderCard);
+}
+
+// Nomes de rua: ficam deitados no sentido da rua.
+const ruas = RUAS.map((nome, k) => {
+  const el = document.createElement("span");
+  el.className = "rua-nome";
+  el.textContent = nome;
+  camadaPins.append(el);
+  const linha = ((k % 2 ? 1 : -1) * (Math.floor(k / 2) + 0.5)) * P;
+  const eixoX = k % 2 === 0;
+  const a = eixoX ? new THREE.Vector3(-P * 0.9, 0.3, linha) : new THREE.Vector3(linha, 0.3, -P * 0.9);
+  const b = eixoX ? new THREE.Vector3(P * 0.9, 0.3, linha) : new THREE.Vector3(linha, 0.3, P * 0.9);
+  return { el, a, b };
 });
+
+const bussola = document.createElement("div");
+bussola.className = "mapa-bussola";
+bussola.innerHTML = '<span class="agulha"><b>N</b></span>';
+raiz.append(bussola);
+const agulha = bussola.firstChild;
 
 let cardTimer;
 function mostrarCard(s) {
   clearTimeout(cardTimer);
   pins.forEach((p) => p.el.classList.toggle("ativo", p === s));
-  card.innerHTML = `<b>${s.negocio.nome}</b><small>${s.negocio.tipo} · exemplo</small><p>${s.respondidas} conversas fora do horário · <em>todas respondidas</em></p>`;
+  card.innerHTML = `<b>${s.info.nome}</b><small>${s.info.tipo} · exemplo</small><p>${s.feitas} pedidos resolvidos hoje · <em>sem parar o atendimento</em></p>`;
   card.classList.add("on");
   cardTimer = setTimeout(esconderCard, 4500);
 }
@@ -204,63 +276,73 @@ function esconderCard() {
   card.classList.remove("on");
 }
 
-const v = new THREE.Vector3();
-function posicionarPins() {
-  const w = canvas.clientWidth, h = canvas.clientHeight;
-  for (const p of pins) {
-    v.copy(p.alvo).project(camera);
-    const x = (v.x * 0.5 + 0.5) * w, y = (-v.y * 0.5 + 0.5) * h;
-    const fora = v.z > 1 || x < (celular() ? 20 : w * 0.46) || x > w - 20 || y < 40 || y > h - 10;
+const v = new THREE.Vector3(), v2 = new THREE.Vector3();
+function tela(vec) {
+  v.copy(vec).project(camera);
+  return { x: (v.x * 0.5 + 0.5) * canvas.clientWidth, y: (-v.y * 0.5 + 0.5) * canvas.clientHeight, atras: v.z > 1 };
+}
+function posicionarCamadas() {
+  const w = canvas.clientWidth, h = canvas.clientHeight, minX = celular() ? 16 : w * 0.46;
+  for (const p of [...pins, ...pinsRef]) {
+    const s = tela(p.alvo);
+    const fora = s.atras || s.x < minX || s.x > w - 16 || s.y < 40 || s.y > h - 10;
     p.el.style.visibility = fora ? "hidden" : "visible";
-    p.el.classList.toggle("direita", x > w * 0.6); // balão abre pra esquerda perto da borda
-    p.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-15px, -100%)`;
+    p.el.classList.toggle("direita", s.x > w * 0.6);
+    p.el.style.transform = `translate(${s.x.toFixed(1)}px, ${s.y.toFixed(1)}px) translate(-15px, -100%)`;
   }
+  for (const r of ruas) {
+    const a = tela(r.a), b = tela(r.b);
+    let ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+    if (ang > 90) ang -= 180; else if (ang < -90) ang += 180;
+    const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    const fora = a.atras || b.atras || mx < minX + 30 || mx > w - 30 || my < 30 || my > h - 20;
+    r.el.style.visibility = fora ? "hidden" : "visible";
+    r.el.style.transform = `translate(${mx.toFixed(1)}px, ${my.toFixed(1)}px) translate(-50%, -50%) rotate(${ang.toFixed(1)}deg)`;
+  }
+  agulha.style.transform = `rotate(${(angulo * 180 / Math.PI).toFixed(1)}deg)`;
 }
 
-// Câmera inclinada, girando devagar em volta do centro.
-let angulo = 0.6;
+// ------------------------------------------------------------- câmera e quadro
+let angulo = 0.55;
 function posicionarCamera() {
   const cel = celular();
-  const r = cel ? 92 : 118, alt = cel ? 96 : 112;
+  const r = cel ? 88 : 112, alt = cel ? 92 : 104;
   camera.position.set(Math.sin(angulo) * r, alt, Math.cos(angulo) * r);
   camera.lookAt(0, 0, 0);
 }
-
 function redimensionar() {
   const w = raiz.clientWidth, h = raiz.clientHeight;
   if (!w || !h) return;
   renderer.setSize(w, h, false);
   camera.aspect = w / h;
-  // No desktop o texto fica à esquerda: empurra a cidade pra direita.
+  // No desktop o texto fica à esquerda: a cidade vai pra direita.
   if (!celular()) camera.setViewOffset(w, h, -w * 0.24, h * 0.04, w, h); else camera.clearViewOffset();
   camera.updateProjectionMatrix();
   desenhar();
 }
-
 function desenhar() {
   posicionarCamera();
   posicionarCarros();
   renderer.render(cena, camera);
-  posicionarPins();
+  posicionarCamadas();
 }
 
-// Mensagens: um negócio por vez recebe e responde.
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 let rodando = false;
-async function cicloMensagens() {
+async function cicloBaloes() {
   for (let k = 0; ; k = (k + 1) % pins.length) {
     while (!rodando) await espera(400);
     const p = pins[k];
-    p.balao.textContent = p.negocio.pede;
+    p.balao.textContent = p.info.pede;
     p.balao.classList.remove("ok");
     p.balao.classList.add("on");
-    await espera(1700);
-    p.balao.textContent = p.negocio.ok;
+    await espera(1800);
+    p.balao.textContent = p.info.ok;
     p.balao.classList.add("ok");
-    p.respondidas++;
-    await espera(2200);
+    p.feitas++;
+    await espera(2300);
     p.balao.classList.remove("on");
-    await espera(500);
+    await espera(450);
   }
 }
 
@@ -269,7 +351,7 @@ function quadro(agora) {
   const dt = Math.min(0.05, (agora - ultimo) / 1000);
   ultimo = agora;
   if (rodando) {
-    angulo += dt * 0.035;
+    angulo += dt * 0.03;
     for (const r of rotas) {
       r.t += r.v * dt;
       if (r.t > META) r.t = -META; else if (r.t < -META) r.t = META;
@@ -285,12 +367,11 @@ new MutationObserver(aplicarTema).observe(document.documentElement, { attributes
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", aplicarTema);
 
 if (reduz) {
-  // Quadro parado: cada negócio mostra a resposta já dada.
   redimensionar();
-  pins.slice(0, 3).forEach((p) => { p.balao.textContent = p.negocio.ok; p.balao.classList.add("on", "ok"); });
+  pins.slice(0, 3).forEach((p) => { p.balao.textContent = p.info.ok; p.balao.classList.add("on", "ok"); });
 } else {
   new IntersectionObserver((es) => (rodando = es[0].isIntersecting && !document.hidden)).observe(raiz);
   document.addEventListener("visibilitychange", () => (rodando = !document.hidden && raiz.getBoundingClientRect().bottom > 0));
   requestAnimationFrame(quadro);
-  cicloMensagens();
+  cicloBaloes();
 }
