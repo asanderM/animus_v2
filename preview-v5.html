@@ -332,6 +332,70 @@
   .ja-feito .feitos li { padding-left: 18px; border-left: 2px solid var(--ouro-vivo); }
   .ja-feito .feitos b { display: block; color: var(--painel-escuro-tx); font-size: 1rem; margin-bottom: 4px; }
   .ja-feito .feitos span { color: color-mix(in srgb, var(--painel-escuro-tx) 70%, transparent); font-size: .9rem; }
+
+  /* Traço das fases se desenha quando a fase fica ativa */
+  .mapa .anel { stroke-dasharray: 4 6; opacity: .55; }
+  .mapa .traco { stroke-dasharray: 420; stroke-dashoffset: 420; }
+  .cena.ativa .mapa .traco, .fase-item .mapa-m .traco { animation: desenha 1.6s .2s cubic-bezier(.6,0,.2,1) forwards; }
+  @keyframes desenha { to { stroke-dashoffset: 0; } }
+  .mapa .alerta { stroke: #e0643b; }
+  .mapa .alerta-c { fill: #e0643b; stroke: none; animation: pisca 1.6s ease-in-out infinite; }
+  @keyframes pisca { 50% { opacity: .35; } }
+  .mapa .claro { fill: #16140f; }
+  @media (prefers-reduced-motion: reduce) { .mapa .traco { stroke-dashoffset: 0; animation: none !important; } .mapa .alerta-c { animation: none; } }
+
+  /* Montagem: maquete 3D que muda de encaixe por tipo de negócio */
+  .montagem { padding-top: 56px; }
+  .montagem-grid { display: grid; gap: 28px; align-items: center; }
+  @media (min-width: 980px) { .montagem-grid { grid-template-columns: 1.1fr .9fr; gap: 56px; } }
+  .montagem-palco { position: relative; aspect-ratio: 1 / .82; border-radius: var(--raio); overflow: hidden; border: 1px solid var(--linha); background: radial-gradient(70% 60% at 50% 40%, var(--ouro-fundo), transparent 75%), var(--papel); }
+  .montagem-palco canvas { display: block; width: 100%; height: 100%; }
+  .maquete-rotulos { position: absolute; inset: 0; pointer-events: none; }
+  .mq-rot { position: absolute; left: 0; top: 0; font: 600 .68rem/1.2 "Space Grotesk", sans-serif; color: var(--tinta); background: color-mix(in srgb, var(--papel) 90%, transparent); border: 1px solid var(--linha); padding: 5px 9px; border-radius: 100px; white-space: nowrap; box-shadow: 0 6px 16px -10px #0006; opacity: 0; transition: opacity .4s; }
+  .mq-rot.on { opacity: 1; }
+  .maquete-negocio { position: absolute; left: 18px; top: 18px; padding: 10px 14px; border-radius: 14px; background: color-mix(in srgb, var(--papel) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--linha); }
+  .maquete-negocio small { display: block; font: 500 .58rem "JetBrains Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--suave); }
+  .maquete-negocio b { font-family: "Fraunces", serif; font-weight: 400; font-size: 1.25rem; color: var(--ouro); }
+  .montagem-texto h2 { margin: 14px 0 16px; }
+
+  /* Já construído: cada card com a tela do sistema em miniatura, animada */
+  .feitos-sec { padding-top: 40px; }
+  .feitos-cab { margin-bottom: 26px; }
+  .feitos-cab h2 { margin-top: 12px; }
+  .feitos-grid { display: grid; gap: 12px; }
+  @media (min-width: 760px) { .feitos-grid { grid-template-columns: 1fr 1fr; } }
+  .feito { border-radius: var(--raio); border: 1px solid var(--linha); background: var(--papel); padding: 18px 18px 26px; display: flex; flex-direction: column; }
+  .feito h3 { font-size: 1.25rem; margin-bottom: 6px; }
+  .feito p { font-size: .9rem; }
+  .feito .ico3d { margin-top: -38px; position: relative; z-index: 1; }
+  .feito-tela { height: 168px; border-radius: 14px; background: var(--fundo); border: 1px solid var(--linha); margin-bottom: 18px; overflow: hidden; position: relative; display: grid; place-items: center; padding: 14px; font: 500 .72rem/1.35 "Space Grotesk", sans-serif; }
+  .feito-tela i { font-style: normal; display: block; }
+  .ft-chat { width: 100%; display: grid; gap: 6px; }
+  .ft-chat i { max-width: 78%; padding: 6px 10px; border-radius: 10px; background: var(--papel); color: var(--tinta); box-shadow: 0 1px 2px #0001; opacity: 0; animation: entra 8s infinite; }
+  .ft-chat .eu { justify-self: end; background: #d9fdd3; color: #14361d; }
+  .ft-chat .tag { justify-self: center; background: var(--ouro-vivo); color: #16140f; font-weight: 600; font-size: .66rem; }
+  .ft-chat .b2 { animation-delay: .9s; } .ft-chat .b3 { animation-delay: 1.8s; } .ft-chat .b4 { animation-delay: 2.8s; }
+  @keyframes entra { 0% { opacity: 0; transform: translateY(6px); } 6%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  .ft-kanban { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-self: stretch; }
+  .ft-kanban > div { background: color-mix(in srgb, var(--linha) 45%, transparent); border-radius: 10px; padding: 7px; display: grid; gap: 6px; align-content: start; }
+  .ft-kanban small { font: 500 .52rem "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); }
+  .ft-kanban i { background: var(--papel); color: var(--tinta); border-radius: 7px; padding: 6px 7px; font-size: .64rem; box-shadow: 0 1px 2px #0001; }
+  .ft-kanban i em { display: block; font-style: normal; font-size: .56rem; color: var(--ouro); margin-top: 2px; }
+  .ft-kanban .k2 { animation: anda 6s ease-in-out infinite; }
+  @keyframes anda { 0%, 30% { transform: none; } 45%, 85% { transform: translateX(calc(100% + 15px)); } 100% { transform: none; } }
+  .ft-doc { width: 70%; height: 100%; background: var(--papel); border-radius: 8px; padding: 14px 14px; display: grid; gap: 7px; align-content: start; position: relative; box-shadow: 0 6px 16px -10px #0005; }
+  .ft-doc .l { height: 6px; border-radius: 3px; background: var(--linha); }
+  .ft-doc .m { width: 70%; }
+  .ft-doc .hl { background: linear-gradient(90deg, #f3d36b 0 var(--p, 0%), var(--linha) var(--p, 0%)); animation: marca 5s ease-in-out infinite; }
+  .ft-doc .hl.c { animation-delay: .7s; width: 80%; }
+  @keyframes marca { 0%, 15% { --p: 0%; } 40%, 90% { --p: 100%; } 100% { --p: 0%; } }
+  @property --p { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+  .ft-doc .nota { position: absolute; right: -18px; bottom: 12px; background: var(--tinta); color: var(--fundo); font-size: .64rem; padding: 5px 9px; border-radius: 100px; animation: entra 5s 1.6s infinite; opacity: 0; }
+  .ft-pix { display: grid; justify-items: center; gap: 8px; }
+  .ft-pix .qr { width: 78px; height: 78px; border-radius: 8px; box-shadow: 0 0 0 1px var(--linha), 0 6px 16px -10px #0005; shape-rendering: crispEdges; }
+  .ft-pix .pago { font-weight: 700; color: #1f7a3a; background: #d9fdd3; border-radius: 100px; padding: 3px 12px; animation: entra 5s 1s infinite; opacity: 0; }
+  .ft-pix .baixar { font-size: .66rem; color: var(--ouro); animation: entra 5s 1.8s infinite; opacity: 0; }
+  @media (prefers-reduced-motion: reduce) { .feito-tela * { animation: none !important; opacity: 1 !important; } }
   /* Pré-diagnóstico: escolhas em pílula, 1 toque cada (v5, 13/10) */
   .escolhas { border: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .escolhas legend { width: 100%; font-size: .8rem; color: var(--suave); margin-bottom: 8px; }
@@ -428,9 +492,9 @@
   .legenda-vsl { text-align: center; font-size: .78rem; margin-top: 12px; }
   .bento-cab { margin: 0 0 22px; max-width: 760px; }
   /* Ícones 3D (assets/icones3d.js) + cards com profundidade */
-  .ico3d { display: block; width: 104px; height: 104px; margin: -10px 0 8px -12px; }
-  .ico-canto { width: 112px; height: 112px; margin: -14px 0 4px -14px; }
-  @media (min-width: 900px) { .ico-canto { position: absolute; top: 26px; right: 26px; margin: 0; width: 150px; height: 150px; } }
+  .ico3d { display: block; width: 58px; height: 58px; margin: 0 0 10px -6px; }
+  .ico-canto { width: 64px; height: 64px; margin: 0 0 6px -6px; }
+  @media (min-width: 900px) { .ico-canto { position: absolute; top: 28px; right: 28px; margin: 0; width: 76px; height: 76px; } }
   @media (max-width: 600px) { .vsl .play { padding-bottom: 5%; } .vsl .play span { padding: 10px 16px 10px 12px; font-size: .68rem; gap: 9px; } }
   .painel h2, .painel p { position: relative; z-index: 1; }
   .q, .painel { transform-style: preserve-3d; will-change: transform; }
@@ -524,96 +588,80 @@
 <main>
 
 
-  <div class="wrap" style="padding-top:56px"><div class="bento-cab rev"><span class="rotulo">Como a gente começa</span><h2>Você conta como o seu negócio funciona. <em>A gente acha onde ele perde e constrói a solução ali.</em></h2><p class="bento-sub">Abaixo, exemplos do que pode sair daqui. Nada vem de catálogo: o seu sistema nasce do que o seu negócio precisa.</p></div></div>
-  <section class="wrap bento" id="solucao" style="padding-top:12px">
-    <div class="painel vitrine rev" aria-hidden="true">
-      <div class="mini">
-        <div class="navegador">
-          <div class="bar"><i></i><i></i><i></i><span id="vit-url">seunegocio.com.br</span></div>
-          <div class="corpo"><div class="t" id="vit-t">O seu negócio,<br>do jeito que ele é.</div><div class="l"></div><div class="l c"></div><div class="l d"></div><div class="b">CHAMAR NO WHATSAPP</div></div>
-        </div>
+  <section class="wrap montagem" id="solucao">
+    <div class="montagem-grid">
+      <div class="montagem-palco rev" aria-hidden="true">
+        <canvas id="maquete-canvas"></canvas>
+        <div class="maquete-rotulos" id="maquete-rotulos"></div>
+        <div class="maquete-negocio" id="maquete-negocio"><small>Montado para</small><b>Imobiliária</b></div>
+      </div>
+      <div class="montagem-texto rev d1">
+        <span class="rotulo">Como a gente começa</span>
+        <h2>Você conta como o seu negócio funciona. <em>A gente acha onde ele perde e constrói a solução ali.</em></h2>
+        <p>Nada vem de catálogo. Cada negócio recebe as peças que fazem sentido pro jeito dele trabalhar, com a IA no meio fazendo o que é repetitivo e passando pra você o que pede decisão.</p>
+        <ul class="checks"><li>As peças nascem do problema, não de um pacote</li><li>Funciona com o que você já usa</li><li>Você decide o que roda sozinho</li></ul>
       </div>
     </div>
-    <div class="painel escuro rev d1">
-      <canvas class="ico3d ico-canto" data-ico="site" aria-hidden="true"></canvas>
-      <span class="rotulo">01 · Site</span>
-      <h2>O que o cliente vê primeiro</h2>
-      <p>A gente começa pelo que o cliente vê: um site rápido, bonito no celular, que faz quem procura no Google encontrar você e chegar até o seu WhatsApp.</p>
-      <ul class="checks"><li>Aparece pra quem procura na sua cidade</li><li>Rápido e bonito no celular</li><li>Cada botão leva pra uma conversa com você</li></ul>
-    </div>
-    <div class="painel claro rev painel-atende" style="grid-column:1/-1">
-      <div>
-      <canvas class="ico3d ico-canto" data-ico="atendimento" aria-hidden="true"></canvas>
-      <span class="rotulo">02 · Atendimento no WhatsApp</span>
-      <h2>Quem chama é atendido</h2>
-      <p>Um atendente no seu WhatsApp responde o que você definiu, marca o horário e passa pra você o que precisa de uma pessoa.</p>
-      <ul class="checks"><li>Responde o que você definiu</li><li>Marca o horário</li><li>Passa pra você o que pede uma pessoa</li></ul>
-      </div>
-        <div>
-<div class="chat-frente"><div class="cel-palco"><div class="celular" role="img" aria-label="Exemplo de atendimento automático no WhatsApp de uma clínica de estética">
-          <div class="tela">
-            <div class="ilha" aria-hidden="true"></div>
-            <div class="status" aria-hidden="true"><b>23:13</b><span><i class="sinal"></i><i class="bat"></i></span></div>
-            <div class="topo-chat"><span class="volta" aria-hidden="true">&lsaquo;</span><div class="av">CE</div><div class="quem"><b>Clínica Estética</b><small id="status-chat">online</small></div><span class="acoes" aria-hidden="true"><i class="cam"></i><i class="tel"></i></span></div>
-            <div class="conversa" id="conversa">
-              <div class="msg">Oi! Vocês têm horário pra limpeza de pele essa semana?<time>23:12</time></div>
-              <div class="msg eu">Oi! Temos sim 😊 Quinta às 14h ou sexta às 10h. Qual fica melhor?<time>23:12</time></div>
-              <div class="msg">Sexta às 10h!<time>23:13</time></div>
-              <div class="msg eu">Pronto, sexta às 10h tá marcada ✅ Te mando um lembrete no dia anterior.<time>23:13</time></div>
-              <div class="digitando" id="digitando"><i></i><i></i><i></i></div>
-            </div>
-            <div class="digita-barra" aria-hidden="true"><span>Mensagem</span><i></i></div>
-          </div>
+  </section>
+
+  <section class="wrap feitos-sec">
+    <div class="feitos-cab rev"><span class="rotulo">Já construído pela Animus</span><h2>Sistemas com IA <em>que já estão rodando</em></h2></div>
+    <div class="feitos-grid">
+      <article class="feito rev">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-chat"><i class="b1">Vocês fazem visita sábado?</i><i class="b2 eu">Fazemos sim. Qual imóvel te interessou?</i><i class="b3">O apê do Centro</i><i class="b4 tag">→ Passado pro corretor · interesse alto</i></div>
         </div>
-        <div class="agenda-card" id="agenda-card"><span class="ag-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/><path d="m9 15 2 2 4-4"/></svg></span><span><small>Agenda · agora</small><b>Sexta, 10h · Limpeza de pele</b><em>✓ Marcado pelo atendente</em></span></div></div></div>
+        <canvas class="ico3d" data-ico="atendimento" aria-hidden="true"></canvas>
+        <h3>Atendente que qualifica no WhatsApp</h3>
+        <p>Conversa com quem chama, entende o que a pessoa precisa e passa pro dono só o que pede decisão.</p>
+      </article>
+      <article class="feito rev d1">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-kanban"><div><small>Novo</small><i class="k1">Pizzaria do Vale</i><i class="k2">Studio Bella</i></div><div><small>Pesquisado</small><i class="k3">Clínica Sorriso<em>4,9 · 200 avaliações</em></i></div><div><small>Conversa</small><i class="k4">Pet Amigo</i></div></div>
         </div>
-    </div>
-    <div class="painel escuro rev ja-feito" style="grid-column:1/-1">
-      <span class="rotulo">Já construído pela Animus</span>
-      <h2>Sistemas com IA que já estão rodando</h2>
-      <ul class="feitos">
-        <li><b>Atendente que qualifica no WhatsApp</b><span>Conversa com quem chama, entende o que a pessoa precisa e passa pro dono só o que pede decisão.</span></li>
-        <li><b>Painel de prospecção</b><span>Junta os contatos, pesquisa cada empresa antes da conversa e mostra quem está pronto pra fechar.</span></li>
-        <li><b>Analista de petições pra advocacia</b><span>Lê a petição inicial e aponta onde ela pode melhorar. Em teste com um escritório.</span></li>
-        <li><b>Venda com Pix e entrega na hora</b><span>A pessoa paga na página e já recebe o material, sem ninguém precisar mandar nada.</span></li>
-      </ul>
-    </div>
-    <div class="painel escuro rev">
-      <canvas class="ico3d ico-canto" data-ico="sistema" aria-hidden="true"></canvas>
-      <span class="rotulo">03 · Sistema de gestão</span>
-      <h2>Feito pro seu jeito de trabalhar</h2>
-      <p>Por trás, um sistema do seu negócio: clientes, agenda e atendimentos num lugar só. Nada de caderno, memória ou conversa perdida.</p>
-      <ul class="checks"><li>Clientes com histórico</li><li>Agenda organizada</li><li>Atendimentos num lugar só</li></ul>
-    </div>
-    <div class="painel claro rev d1">
-      <canvas class="ico3d ico-canto" data-ico="engrenagem" aria-hidden="true"></canvas>
-      <span class="rotulo">04 · O que se repete</span>
-      <h2>Roda sozinho</h2>
-      <p>As tarefas que se repetem deixam de depender de você lembrar.</p>
-      <ul class="checks"><li>Lembrete de horário pro cliente</li><li>Retorno pra quem não volta faz tempo</li><li>Aviso pra você do que importa no dia</li></ul>
+        <canvas class="ico3d" data-ico="sistema" aria-hidden="true"></canvas>
+        <h3>Painel de prospecção</h3>
+        <p>Junta os contatos, pesquisa cada empresa antes da conversa e mostra quem está pronto pra fechar.</p>
+      </article>
+      <article class="feito rev d2">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-doc"><span class="l"></span><span class="l m"></span><span class="l hl"></span><span class="l"></span><span class="l hl c"></span><span class="l m"></span><b class="nota">3 pontos a ajustar</b></div>
+        </div>
+        <canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas>
+        <h3>Analista de petições pra advocacia</h3>
+        <p>Lê a petição inicial e aponta onde ela pode melhorar. Em teste com um escritório.</p>
+      </article>
+      <article class="feito rev d3">
+        <div class="feito-tela" aria-hidden="true">
+          <div class="ft-pix"><svg class="qr" viewBox="-1 -1 23 23" aria-hidden="true"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#16140f"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="14" y="0" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="14" y="4" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="15" y="6" width="1" height="1"/><rect x="16" y="0" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="17" y="0" width="1" height="1"/><rect x="17" y="2" width="1" height="1"/><rect x="17" y="3" width="1" height="1"/><rect x="17" y="4" width="1" height="1"/><rect x="17" y="6" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="20" y="1" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="20" y="5" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="0" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="1" y="14" width="1" height="1"/><rect x="1" y="20" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="2" y="17" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="3" y="16" width="1" height="1"/><rect x="3" y="17" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="4" y="17" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="5" y="14" width="1" height="1"/><rect x="5" y="20" width="1" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="6" y="16" width="1" height="1"/><rect x="6" y="17" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="2" y="12" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="11" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="10" y="12" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="10" y="20" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="11" y="19" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="12" y="7" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="13" y="18" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="14" y="19" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="15" y="19" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="17" y="19" width="1" height="1"/><rect x="18" y="9" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="18" y="15" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/></g></svg><span class="pago">✓ Pago</span><span class="baixar">Baixar material ↓</span></div>
+        </div>
+        <canvas class="ico3d" data-ico="engrenagem" aria-hidden="true"></canvas>
+        <h3>Venda com Pix e entrega na hora</h3>
+        <p>A pessoa paga na página e já recebe o material, sem ninguém precisar mandar nada.</p>
+      </article>
     </div>
   </section>
 
   <section class="processo" id="processo">
     <div class="wrap">
-      <div class="cab rev"><div><span class="rotulo">Como funciona</span><h2 style="margin-top:14px">Começa por como o seu dia funciona. <em>Você recebe por escrito o que vamos resolver, quanto custa e em quanto tempo.</em></h2></div><span class="dica">Role para avançar ↓</span></div>
+      <div class="cab rev"><div><span class="rotulo">Como funciona</span><h2 style="margin-top:14px">Primeiro entendemos o negócio. <em>A tecnologia vem depois.</em></h2></div><span class="dica">Role para avançar ↓</span></div>
     </div>
     <div class="fixo-trilho" id="trilho">
       <div class="wrap fixo">
         <ol class="fases">
-          <li class="fase-item ativa"><div class="t"><small>01</small>Conversa</div><p>Você conta como é o seu dia. Entendemos como o cliente chega e onde ele se perde.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="0" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>02</small>Desenho</div><p>Definimos quais peças fazem sentido pro seu negócio e as regras de cada uma.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="1" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>03</small>Proposta</div><p>Valor e prazo fechados, por escrito, antes de começar. Sem surpresa no meio.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="2" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>04</small>No ar</div><p>Site publicado, atendente no seu WhatsApp, sistema e rotinas funcionando. Nada de trocar de ferramenta.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="3" aria-hidden="true"></svg></li>
-          <li class="fase-item"><div class="t"><small>05</small>Acompanhamento</div><p>Olhamos as conversas reais e ajustamos. O que importa é cliente atendido, não tela bonita.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="4" aria-hidden="true"></svg></li>
+          <li class="fase-item ativa"><div class="t"><small>01</small>Diagnóstico</div><p>Entendemos o seu mercado, o seu negócio e onde a IA realmente faz diferença pra ele.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="0" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>02</small>Investigação</div><p>Seguimos o trabalho de ponta a ponta e achamos onde ele perde tempo, cliente e dinheiro.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="1" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>03</small>A planta</div><p>O que vai ser construído, em quanto tempo e quanto custa. Por escrito, antes de começar.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="2" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>04</small>Construção</div><p>Construímos ligado ao que você já usa. Ninguém precisa trocar de ferramenta.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="3" aria-hidden="true"></svg></li>
+          <li class="fase-item"><div class="t"><small>05</small>Acompanhamento</div><p>Medimos o uso real e ajustamos. O que importa é o ganho no dia a dia, não tela bonita.</p><svg class="mapa mapa-m" viewBox="0 0 360 150" data-cena="4" aria-hidden="true"></svg></li>
         </ol>
         <div class="quadro" aria-hidden="true">
-          <div class="cena ativa"><span class="rotulo">Fase 01 / 05 · Conversa</span><h3>Conversa.</h3><p>Antes de propor qualquer coisa, mapeamos como o trabalho anda hoje, do primeiro contato do cliente até a entrega, e achamos onde ele mais trava.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="0"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 02 / 05 · Desenho</span><h3>Desenho.</h3><p>Quais peças entram (site, atendimento, sistema, rotinas), o que cada uma faz sozinha e o que passa pra você. Tudo combinado antes de construir.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="1"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 03 / 05 · Proposta</span><h3>Proposta.</h3><p>Você recebe por escrito o que entra, quanto custa e quando fica pronto. Só começamos com o seu sim. Daí pra frente, a gente cuida; você só é chamado quando algo precisa da sua decisão.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="2"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 04 / 05 · No ar</span><h3>No ar.</h3><p>Site no ar, atendente no seu WhatsApp, sistema e rotinas rodando. Sua rotina continua a mesma, só que com menos cliente escapando.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="3"></svg></div>
-          <div class="cena"><span class="rotulo">Fase 05 / 05 · Acompanhamento</span><h3>Acompanhamento.</h3><p>Entregar é o meio. Acompanhamos as primeiras semanas, lemos as conversas de verdade e ajustamos as respostas ao jeito do seu cliente.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="4"></svg></div>
-          <div class="progresso"><i class="enche" id="enche"></i><span class="ativa">01 · Conversa</span><span>02 · Desenho</span><span>03 · Proposta</span><span>04 · No ar</span><span>05 · Acompanhar</span></div>
+          <div class="cena ativa"><span class="rotulo">Fase 01 / 05 · Diagnóstico</span><h3>Diagnóstico.</h3><p>Começamos de cima: como o seu negócio funciona, quem é o seu cliente, o que a concorrência faz e onde a IA muda o jogo pra você. É o que separa moda de vantagem de verdade.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="0"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 02 / 05 · Investigação</span><h3>Investigação.</h3><p>Depois descemos ao dia a dia: do primeiro contato do cliente até a entrega. Onde repete, onde espera, onde alguém esquece. O ponto que trava sai do achismo e aparece no mapa, com nome.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="1"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 03 / 05 · A planta</span><h3>A planta.</h3><p>Transformamos a investigação em planta: as peças do sistema, o prazo, o valor e o resultado esperado. Você aprova tudo por escrito antes da primeira linha de código, sem surpresa no meio.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="2"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 04 / 05 · Construção</span><h3>Construção.</h3><p>WhatsApp, planilhas, agenda, site: o sistema chega onde o trabalho já acontece. A IA entra no meio fazendo o repetitivo, e o que pede decisão continua com você.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="3"></svg></div>
+          <div class="cena"><span class="rotulo">Fase 05 / 05 · Acompanhamento</span><h3>Acompanhamento.</h3><p>Entregar é o meio. Acompanhamos as primeiras semanas, olhamos o uso de verdade, ajustamos com a rotina da equipe e medimos o ganho onde importa: tempo devolvido e cliente atendido.</p><svg class="mapa" viewBox="0 0 360 150" data-cena="4"></svg></div>
+          <div class="progresso"><i class="enche" id="enche"></i><span class="ativa">01 · Diagnóstico</span><span>02 · Investigação</span><span>03 · Planta</span><span>04 · Construção</span><span>05 · Acompanhar</span></div>
         </div>
       </div>
     </div>
@@ -636,20 +684,7 @@
     </div>
   </section>
 
-  <section id="duvidas" style="padding-top:20px">
-    <div class="wrap">
-      <h2 class="rev" style="text-align:center">Dúvidas</h2>
-      <div class="faq rev d1">
-        <details><summary>A conversa é paga?</summary><p>Não. A conversa é gratuita e sem compromisso. Você só paga se decidir seguir com o projeto.</p></details>
-        <details><summary>Que tipo de sistema vocês fazem?</summary><p>O que o seu negócio precisar: atendimento e qualificação no WhatsApp, painel de vendas, análise de documentos, venda com Pix, site, agenda. Tudo começa pela investigação; nada sai de catálogo.</p></details>
-        <details><summary>Onde entra a IA?</summary><p>Dentro do sistema, fazendo o que é repetitivo: responder, organizar, analisar e lembrar. O que precisa de decisão vem pra você.</p></details>
-        <details><summary>O atendente no WhatsApp responde qualquer coisa?</summary><p>Não, e isso é de propósito. Ele responde o que você definiu (preço, horário, endereço, agendamento) e passa pra você tudo que precisa de uma pessoa. Você vê as conversas quando quiser.</p></details>
-        <details><summary>Vou precisar de outro número de WhatsApp?</summary><p>Não necessariamente. Na conversa vemos o que faz mais sentido pro seu caso: usar o número que o cliente já conhece ou separar um número só pro atendimento.</p></details>
-                <details><summary>Quanto custa?</summary><p>Depende das peças que entram no seu projeto. Por isso o valor vem depois da conversa, numa proposta com escopo, prazo e preço fechados.</p></details>
-        <details><summary>E se eu já tiver um site?</summary><p>A gente olha o que você já tem, aproveita o que funciona e te mostra o que dá pra melhorar.</p></details>
-      </div>
-    </div>
-  </section>
+
 
   <section class="contato" id="contato">
     <div class="wrap">
@@ -691,6 +726,21 @@
           <button class="btn btn-ouro" type="submit">Quero o desenho do meu sistema <span class="seta">→</span></button>
           <p class="retorno" id="retorno" role="status" aria-live="polite"></p>
         </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="duvidas" style="padding-top:20px">
+    <div class="wrap">
+      <h2 class="rev" style="text-align:center">Dúvidas</h2>
+      <div class="faq rev d1">
+        <details><summary>A conversa é paga?</summary><p>Não. A conversa é gratuita e sem compromisso. Você só paga se decidir seguir com o projeto.</p></details>
+        <details><summary>Que tipo de sistema vocês fazem?</summary><p>O que o seu negócio precisar: atendimento e qualificação no WhatsApp, painel de vendas, análise de documentos, venda com Pix, site, agenda. Tudo começa pela investigação; nada sai de catálogo.</p></details>
+        <details><summary>Onde entra a IA?</summary><p>Dentro do sistema, fazendo o que é repetitivo: responder, organizar, analisar e lembrar. O que precisa de decisão vem pra você.</p></details>
+        <details><summary>O atendente no WhatsApp responde qualquer coisa?</summary><p>Não, e isso é de propósito. Ele responde o que você definiu (preço, horário, endereço, agendamento) e passa pra você tudo que precisa de uma pessoa. Você vê as conversas quando quiser.</p></details>
+        <details><summary>Vou precisar de outro número de WhatsApp?</summary><p>Não necessariamente. Na conversa vemos o que faz mais sentido pro seu caso: usar o número que o cliente já conhece ou separar um número só pro atendimento.</p></details>
+                <details><summary>Quanto custa?</summary><p>Depende das peças que entram no seu projeto. Por isso o valor vem depois da conversa, numa proposta com escopo, prazo e preço fechados.</p></details>
+        <details><summary>E se eu já tiver um site?</summary><p>A gente olha o que você já tem, aproveita o que funciona e te mostra o que dá pra melhorar.</p></details>
       </div>
     </div>
   </section>
@@ -801,7 +851,8 @@
   if (vitUrl && !reduz) { const ioVit = new IntersectionObserver((es) => { if (es[0].isIntersecting) { ioVit.disconnect(); cicloVitrine(); } }, { threshold: 0.4 }); ioVit.observe(vitUrl); }
   // O chat fica na frente do chip: só começa quando aparece na tela.
   const ioChat = new IntersectionObserver((es) => { if (es[0].isIntersecting) { ioChat.disconnect(); cicloChat(); } }, { threshold: 0.4 });
-  ioChat.observe(document.getElementById("conversa"));
+  const conversaEl = document.getElementById("conversa");
+  if (conversaEl) ioChat.observe(conversaEl);
 
   // Chip do bento: trilhas desenhadas sempre no sentido do fluxo (entrada →
   // núcleo → saída), então o pulso anda na direção certa só com dashoffset.
@@ -852,24 +903,33 @@
 
   // Diagramas das 5 fases (SVG próprio, mesmo desenho no quadro e no celular).
   const CENAS = [
-    `<rect x="40" y="8" width="280" height="134" rx="12"/>
-     <text x="60" y="32" class="forte">COMO É O SEU DIA</text><text x="60" y="46">PELO WHATSAPP, DO SEU JEITO</text><line x1="60" y1="56" x2="300" y2="56" class="pontilhado"/>
-     <rect x="60" y="68" width="14" height="14" rx="4"/><path d="M63.5 75l2.5 2.5 4.5-5"/><text x="84" y="79" class="frase">Como o cliente te acha?</text>
-     <rect x="60" y="92" width="14" height="14" rx="4"/><path d="M63.5 99l2.5 2.5 4.5-5"/><text x="84" y="103" class="frase">O que mais te perguntam?</text>
-     <rect x="60" y="116" width="14" height="14" rx="4"/><path d="M63.5 123l2.5 2.5 4.5-5"/><text x="84" y="127" class="frase">Onde você perde cliente?</text>`,
-    `<rect x="16" y="20" width="150" height="110" rx="10"/><text x="30" y="42" class="forte">O SITE MOSTRA</text><line x1="30" y1="62" x2="146" y2="62" class="pontilhado"/><line x1="30" y1="80" x2="120" y2="80" class="pontilhado"/><line x1="30" y1="98" x2="136" y2="98" class="pontilhado"/>
-     <rect x="194" y="20" width="150" height="110" rx="10"/><text x="208" y="42" class="forte">O ATENDENTE FAZ</text><text x="208" y="66">✓ PREÇO E HORÁRIO</text><text x="208" y="84">✓ AGENDAMENTO</text><text x="208" y="102">→ PASSA PRA VOCÊ</text>`,
-    `<rect x="60" y="14" width="240" height="122" rx="10"/><line x1="60" y1="34" x2="300" y2="34"/><circle cx="74" cy="24" r="3" class="cheio"/><circle cx="86" cy="24" r="3" class="cheio"/>
-     <text x="84" y="62" class="forte">PROPOSTA</text><line x1="84" y1="80" x2="250" y2="80" class="pontilhado"/><line x1="84" y1="96" x2="210" y2="96" class="pontilhado"/><rect x="84" y="108" width="84" height="16" rx="8" class="cheio"/><text x="190" y="120">VALOR E PRAZO</text>`,
-    `<rect x="130" y="4" width="100" height="142" rx="16"/><line x1="166" y1="12" x2="194" y2="12"/>
-     <text x="142" y="30" class="mini">seunegocio.com.br</text><line x1="140" y1="36" x2="220" y2="36" class="pontilhado"/>
-     <text x="142" y="58" class="frase forte">Seu negócio</text><line x1="142" y1="70" x2="216" y2="70" class="pontilhado"/><line x1="142" y1="80" x2="200" y2="80" class="pontilhado"/>
-     <rect x="142" y="94" width="76" height="18" rx="9" class="zap"/><text x="152" y="106" class="mini claro">WHATSAPP</text>
-     <rect x="8" y="30" width="112" height="34" rx="10"/><circle cx="24" cy="47" r="5" class="zap"/><text x="36" y="45" class="frase">WhatsApp</text><text x="36" y="57" class="mini">ONLINE AGORA</text>
-     <rect x="236" y="84" width="120" height="44" rx="10"/><text x="248" y="102" class="frase forte">Seu negócio</text><text x="248" y="118" class="mini">NO GOOGLE · ABERTO AGORA</text>`,
+    `<circle cx="180" cy="72" r="62" class="anel"/><circle cx="180" cy="72" r="38" class="anel"/><circle cx="180" cy="72" r="12" class="cheio"/>
+     <text x="180" y="76" text-anchor="middle" class="mini claro">VOCÊ</text>
+     <line x1="180" y1="10" x2="180" y2="34" class="pontilhado"/><text x="196" y="22">CLIENTE</text>
+     <line x1="118" y1="72" x2="142" y2="72" class="pontilhado"/><text x="20" y="76">CONCORRÊNCIA</text>
+     <line x1="218" y1="72" x2="242" y2="72" class="pontilhado"/><text x="252" y="76">MERCADO</text>
+     <path d="M226 116 l18 14" class="traco"/><text x="248" y="140" class="forte">ONDE A IA ENTRA</text>`,
+    `<rect x="8" y="52" width="70" height="30" rx="8"/><text x="43" y="71" text-anchor="middle">CONTATO</text>
+     <rect x="92" y="52" width="92" height="30" rx="8"/><text x="138" y="71" text-anchor="middle">ATENDIMENTO</text>
+     <rect x="196" y="52" width="70" height="30" rx="8" class="alerta"/><text x="231" y="71" text-anchor="middle" class="forte">PROPOSTA</text>
+     <rect x="288" y="52" width="64" height="30" rx="8"/><text x="320" y="71" text-anchor="middle">ENTREGA</text>
+     <path d="M78 67 H92 M184 67 H196 M266 67 H288" class="traco"/>
+     <circle cx="231" cy="30" r="9" class="alerta-c"/><text x="231" y="34" text-anchor="middle" class="mini claro">!</text>
+     <text x="196" y="110" class="forte">AQUI SE PERDE CLIENTE</text><text x="196" y="124">ORÇAMENTO SEM RETORNO</text>`,
+    `<rect x="70" y="8" width="220" height="134" rx="10"/><text x="88" y="30" class="forte">A PLANTA</text><line x1="88" y1="38" x2="272" y2="38" class="pontilhado"/>
+     <text x="88" y="58">ESCOPO</text><line x1="160" y1="55" x2="272" y2="55" class="traco"/>
+     <text x="88" y="78">PRAZO</text><line x1="160" y1="75" x2="240" y2="75" class="traco"/>
+     <text x="88" y="98">VALOR</text><line x1="160" y1="95" x2="226" y2="95" class="traco"/>
+     <rect x="88" y="110" width="124" height="20" rx="10" class="cheio"/><text x="150" y="124" text-anchor="middle" class="mini claro">APROVADO POR ESCRITO</text>`,
+    `<circle cx="180" cy="75" r="26" class="cheio"/><text x="180" y="79" text-anchor="middle" class="mini claro">SISTEMA + IA</text>
+     <path d="M156 64 L80 30 M156 86 L80 120 M204 64 L280 30 M204 86 L280 120" class="traco"/>
+     <rect x="20" y="16" width="70" height="26" rx="13"/><text x="55" y="33" text-anchor="middle">WHATSAPP</text>
+     <rect x="20" y="108" width="70" height="26" rx="13"/><text x="55" y="125" text-anchor="middle">PLANILHAS</text>
+     <rect x="270" y="16" width="70" height="26" rx="13"/><text x="305" y="33" text-anchor="middle">AGENDA</text>
+     <rect x="270" y="108" width="70" height="26" rx="13"/><text x="305" y="125" text-anchor="middle">SITE</text>`,
     `<line x1="30" y1="122" x2="340" y2="122"/><line x1="30" y1="18" x2="30" y2="122"/>
-     <polyline points="30,110 105,96 180,70 255,50 330,28"/><circle cx="105" cy="96" r="3" class="cheio"/><circle cx="180" cy="70" r="3" class="cheio"/><circle cx="255" cy="50" r="3" class="cheio"/><circle cx="330" cy="28" r="3" class="cheio"/>
-     <text x="30" y="140">SEMANA 1</text><text x="164" y="140">MÊS 1</text><text x="296" y="140">MÊS 3</text><text x="40" y="28">CLIENTES ATENDIDOS</text>`,
+     <polyline points="30,112 105,100 180,74 255,52 330,30" class="traco"/><circle cx="105" cy="100" r="3" class="cheio"/><circle cx="180" cy="74" r="3" class="cheio"/><circle cx="255" cy="52" r="3" class="cheio"/><circle cx="330" cy="30" r="3" class="cheio"/>
+     <text x="30" y="140">SEMANA 1</text><text x="164" y="140">MÊS 1</text><text x="296" y="140">MÊS 3</text><text x="40" y="28">TEMPO DEVOLVIDO POR SEMANA</text>`,
   ];
   document.querySelectorAll("svg[data-cena]").forEach((s) => (s.innerHTML = CENAS[+s.dataset.cena]));
 
@@ -968,6 +1028,7 @@
 </script>
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
 <script type="module" src="assets/mapa-hero.js"></script>
+<script type="module" src="assets/maquete.js"></script>
 <script type="module">
   // Three.js (~256 KB) só baixa quando os ícones 3D chegam perto da tela.
   const ico = document.querySelector("canvas[data-ico]");
