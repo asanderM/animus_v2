@@ -390,13 +390,6 @@
   .ft-chat .tag { justify-self: center; background: var(--ouro-vivo); color: #16140f; font-weight: 600; font-size: .66rem; }
   .ft-chat .b2 { animation-delay: .9s; } .ft-chat .b3 { animation-delay: 1.8s; } .ft-chat .b4 { animation-delay: 2.8s; }
   @keyframes entra { 0% { opacity: 0; transform: translateY(6px); } 6%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-  .ft-kanban { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-self: stretch; }
-  .ft-kanban > div { background: color-mix(in srgb, var(--linha) 45%, transparent); border-radius: 10px; padding: 7px; display: grid; gap: 6px; align-content: start; }
-  .ft-kanban small { font: 500 .52rem "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--suave); }
-  .ft-kanban i { background: var(--papel); color: var(--tinta); border-radius: 7px; padding: 6px 7px; font-size: .64rem; box-shadow: 0 1px 2px #0001; }
-  .ft-kanban i em { display: block; font-style: normal; font-size: .56rem; color: var(--ouro); margin-top: 2px; }
-  .ft-kanban .k2 { animation: anda 6s ease-in-out infinite; }
-  @keyframes anda { 0%, 30% { transform: none; } 45%, 85% { transform: translateX(calc(100% + 15px)); } 100% { transform: none; } }
   .ft-doc { width: 70%; height: 100%; background: var(--papel); border-radius: 8px; padding: 14px 14px; display: grid; gap: 7px; align-content: start; position: relative; box-shadow: 0 6px 16px -10px #0005; }
   .ft-doc .l { height: 6px; border-radius: 3px; background: var(--linha); }
   .ft-doc .m { width: 70%; }
@@ -404,12 +397,77 @@
   .ft-doc .hl.c { animation-delay: .7s; width: 80%; }
   @keyframes marca { 0%, 15% { --p: 0%; } 40%, 90% { --p: 100%; } 100% { --p: 0%; } }
   @property --p { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
-  .ft-doc .nota { position: absolute; right: -18px; bottom: 12px; background: var(--tinta); color: var(--fundo); font-size: .64rem; padding: 5px 9px; border-radius: 100px; animation: entra 5s 1.6s infinite; opacity: 0; }
-  .ft-pix { display: grid; justify-items: center; gap: 8px; }
-  .ft-pix .qr { width: 78px; height: 78px; border-radius: 8px; box-shadow: 0 0 0 1px var(--linha), 0 6px 16px -10px #0005; shape-rendering: crispEdges; }
-  .ft-pix .pago { font-weight: 700; color: #1f7a3a; background: #d9fdd3; border-radius: 100px; padding: 3px 12px; animation: entra 5s 1s infinite; opacity: 0; }
-  .ft-pix .baixar { font-size: .66rem; color: var(--ouro); animation: entra 5s 1.8s infinite; opacity: 0; }
+  .ft-doc .nota { position: absolute; right: -18px; background: var(--tinta); color: var(--fundo); font-size: .64rem; padding: 5px 9px; border-radius: 100px; white-space: nowrap; animation: entra 6s infinite; opacity: 0; }
+  .ft-doc .n1 { top: 30px; animation-delay: 1.2s; } .ft-doc .n2 { top: 66px; animation-delay: 1.9s; } .ft-doc .n3 { top: 102px; animation-delay: 2.6s; }
   @media (prefers-reduced-motion: reduce) { .feito-tela * { animation: none !important; opacity: 1 !important; } }
+
+  /* Card largo: um dia da equipe de vendas em 3 horas (07:55, 13:40, 18:00), loop de 14 s, dado inventado.
+     Tudo sincronizado pelo mesmo ciclo: relógio, cursor da linha do tempo, conversa e barras trocam juntos. */
+  .feito-largo { grid-column: 1 / -1; }
+  @media (max-width: 559px) { .feito-tela:has(.ft-chat) { height: 214px; } }
+  .feito .feito-dor { font-size: .86rem; color: var(--suave); border-left: 2px solid var(--ouro-vivo); padding: 2px 0 2px 10px; margin-bottom: 14px; }
+  .feito .feito-dor b { color: var(--tinta); font-weight: 600; }
+  @media (min-width: 760px) {
+    .feito-largo { display: grid; grid-template-columns: 1.7fr 1fr; grid-template-rows: 1fr auto 1fr; column-gap: 32px; padding: 18px 28px 18px 18px; }
+    .feito-largo .feito-tela { grid-column: 1; grid-row: 1 / 4; margin-bottom: 0; }
+    .feito-largo .feito-dor { align-self: end; }
+    .feito-largo .feito-cab { margin-bottom: 10px; }
+    .feito-largo h3 { font-size: 1.5rem; }
+    .feito-largo p { align-self: start; font-size: .95rem; }
+    .ft-rotina .rt-cena i { font-size: .74rem; }
+  }
+  .ft-rotina { --ciclo: 14s; height: auto; display: grid; gap: 10px; align-content: start; place-items: stretch; padding: 12px; font-size: .72rem; }
+  .ft-rotina * { animation-duration: var(--ciclo); animation-iteration-count: infinite; animation-play-state: paused; }
+  .ft-rotina .rt-linha::after { animation-duration: var(--ciclo); animation-iteration-count: infinite; animation-play-state: paused; }
+  .on .ft-rotina *, .on .ft-rotina .rt-linha::after { animation-play-state: running; }
+  .rt-topo { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .rt-grupo { display: flex; align-items: center; gap: 7px; font-weight: 600; color: var(--tinta); }
+  .rt-grupo::before { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--ouro-fundo); box-shadow: inset 0 0 0 1.5px var(--ouro-vivo); }
+  .rt-grupo { white-space: nowrap; }
+  .rt-grupo small { font-weight: 400; color: var(--suave); }
+  @media (max-width: 559px) { .rt-grupo small { display: none; } }
+  .rt-hora { display: grid; font: 600 .78rem "JetBrains Mono", monospace; background: var(--tinta); color: var(--fundo); border-radius: 100px; padding: 4px 10px; }
+  .rt-hora b, .rt-n span { grid-area: 1 / 1; opacity: 0; }
+  .rt-hora b:nth-child(1), .rt-n span:nth-child(1) { animation-name: rt-h1; }
+  .rt-hora b:nth-child(2), .rt-n span:nth-child(2) { animation-name: rt-h2; }
+  .rt-hora b:nth-child(3), .rt-n span:nth-child(3) { animation-name: rt-h3; }
+  @keyframes rt-h1 { 0%, 32.9% { opacity: 1; } 33%, 100% { opacity: 0; } }
+  @keyframes rt-h2 { 0%, 32.9% { opacity: 0; } 33%, 65.9% { opacity: 1; } 66%, 100% { opacity: 0; } }
+  @keyframes rt-h3 { 0%, 65.9% { opacity: 0; } 66%, 99.9% { opacity: 1; } 100% { opacity: 0; } }
+  .rt-corpo { display: grid; gap: 10px; }
+  @media (min-width: 760px) { .rt-corpo { grid-template-columns: 1.15fr 1fr; align-items: start; } .ft-rotina { padding: 16px 18px; min-height: 250px; } }
+  .rt-chat { display: grid; min-height: 132px; }
+  .rt-cena { grid-area: 1 / 1; display: grid; gap: 5px; align-content: start; }
+  .rt-cena i { justify-self: start; max-width: 94%; padding: 6px 10px; border-radius: 4px 10px 10px 10px; background: var(--papel); color: var(--tinta); box-shadow: 0 1px 2px #0001; opacity: 0; font-size: .7rem; }
+  .rt-cena i em { font-style: normal; color: var(--suave); }
+  .rt-cena .ok { background: #d9fdd3; color: #14361d; }
+  .c1 i { animation-name: rt-c1; } .c2 i { animation-name: rt-c2; } .c3 i { animation-name: rt-c3; }
+  .rt-cena i:nth-child(2) { animation-delay: .35s; } .rt-cena i:nth-child(3) { animation-delay: .7s; } .rt-cena i:nth-child(4) { animation-delay: 1.05s; }
+  /* entrada com mola leve (passa um pouco e assenta), saída curta pra cima */
+  @keyframes rt-c1 { 0% { opacity: 0; transform: translateY(8px) scale(.97); animation-timing-function: cubic-bezier(.34, 1.4, .5, 1); } 4%, 25% { opacity: 1; transform: none; animation-timing-function: ease-in; } 28%, 100% { opacity: 0; transform: translateY(-6px); } }
+  @keyframes rt-c2 { 0%, 34% { opacity: 0; transform: translateY(8px) scale(.97); animation-timing-function: cubic-bezier(.34, 1.4, .5, 1); } 38%, 62% { opacity: 1; transform: none; animation-timing-function: ease-in; } 65%, 100% { opacity: 0; transform: translateY(-6px); } }
+  @keyframes rt-c3 { 0%, 67% { opacity: 0; transform: translateY(8px) scale(.97); animation-timing-function: cubic-bezier(.34, 1.4, .5, 1); } 71%, 91% { opacity: 1; transform: none; animation-timing-function: ease-in; } 94%, 100% { opacity: 0; transform: translateY(-6px); } }
+  .rt-painel { background: var(--papel); border: 1px solid var(--linha); border-radius: 12px; padding: 10px 12px; display: grid; gap: 8px; }
+  .rt-linha { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); position: relative; font: 500 .62rem "JetBrains Mono", monospace; color: var(--suave); text-align: center; padding-bottom: 7px; }
+  .rt-linha::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--linha); border-radius: 2px; }
+  .rt-linha::after { content: ""; position: absolute; left: 0; bottom: 0; width: 33.34%; height: 2px; border-radius: 2px; background: var(--ouro-vivo); animation-name: rt-cursor; }
+  @keyframes rt-cursor { 0%, 31% { transform: translateX(0); animation-timing-function: cubic-bezier(.65, 0, .35, 1); } 35%, 64% { transform: translateX(100%); animation-timing-function: cubic-bezier(.65, 0, .35, 1); } 68%, 96% { transform: translateX(200%); animation-timing-function: cubic-bezier(.65, 0, .35, 1); } 100% { transform: translateX(0); } }
+  .rt-meta, .rt-vend { display: grid; grid-template-columns: 4.6em 1fr 2.8em; align-items: center; gap: 8px; color: var(--tinta); }
+  .rt-meta { font-weight: 600; }
+  .rt-meta small { font-size: .62rem; color: var(--ouro); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .rt-barra { height: 7px; border-radius: 4px; background: color-mix(in srgb, var(--linha) 70%, transparent); overflow: hidden; }
+  .rt-barra i { display: block; height: 100%; border-radius: 4px; background: color-mix(in srgb, var(--tinta) 55%, transparent); transform-origin: left; transform: scaleX(var(--c)); animation-name: rt-enche; }
+  .rt-meta .rt-barra i { background: var(--ouro-vivo); }
+  /* barra = % / 110, assim os 104% da Ana cabem; mesmas viradas do relógio, com mola */
+  @keyframes rt-enche { 0% { transform: scaleX(0); animation-timing-function: cubic-bezier(.34, 1.25, .5, 1); } 5%, 31% { transform: scaleX(var(--a)); animation-timing-function: cubic-bezier(.34, 1.25, .5, 1); } 38%, 64% { transform: scaleX(var(--b)); animation-timing-function: cubic-bezier(.34, 1.25, .5, 1); } 71%, 96% { transform: scaleX(var(--c)); } 100% { transform: scaleX(0); } }
+  .rt-vend.ana .rt-barra i { animation-name: rt-enche, rt-bate; }
+  @keyframes rt-bate { 0%, 70% { background: color-mix(in srgb, var(--tinta) 55%, transparent); } 73%, 97% { background: var(--ouro-vivo); } 100% { background: color-mix(in srgb, var(--tinta) 55%, transparent); } }
+  .rt-n { display: grid; text-align: right; font: 600 .66rem "JetBrains Mono", monospace; }
+  @media (prefers-reduced-motion: reduce) {
+    .ft-rotina .c1 i, .ft-rotina .c2 i, .rt-hora b:nth-child(-n+2), .rt-n span:nth-child(-n+2) { opacity: 0 !important; }
+    .rt-linha::after { transform: translateX(200%); }
+    .rt-vend.ana .rt-barra i { background: var(--ouro-vivo); }
+  }
 
   /* Terminal da IA (referência do Alex: painel "TERMINAL · I/O") */
   .montagem-palco { display: grid; place-items: center; padding: 18px; background: radial-gradient(60% 70% at 28% 50%, var(--ouro-fundo), transparent 70%), var(--papel); }
@@ -665,35 +723,45 @@
   </section>
 
   <section class="wrap feitos-sec">
-    <div class="feitos-cab rev"><span class="rotulo">Já construído pela Animus</span><h2>Sistemas com IA <em>que já estão rodando</em></h2></div>
+    <div class="feitos-cab rev"><span class="rotulo">Casos que já rodam</span><h2>O que era feito na mão, todo dia, <em>e hoje roda sozinho</em></h2></div>
     <div class="feitos-grid">
-      <article class="feito rev">
+      <article class="feito feito-largo rev">
+        <p class="feito-dor"><b>Antes:</b> separar a planilha, montar o relatório e cobrar a equipe de rua, um por um, todo dia.</p>
+        <div class="feito-tela ft-rotina" aria-hidden="true">
+          <div class="rt-topo"><span class="rt-grupo">Equipe de vendas <small>· 3 vendedores</small></span><span class="rt-hora"><b>07:55</b><b>13:40</b><b>18:00</b></span></div>
+          <div class="rt-corpo">
+            <div class="rt-chat">
+              <div class="rt-cena c1"><i>Bom dia, equipe. Hoje vale passar primeiro em:</i><i>Mercado Boa Vista <em>· pedido parado há 52 dias</em></i><i>Ótica Central <em>· conta 30 dias em atraso</em></i><i>Casa do Construtor <em>· sem compra no mês</em></i></div>
+              <div class="rt-cena c2"><i>Parcial da tarde: a equipe fez 61% da meta do dia.</i><i>Bruno, faltam 3 visitas da sua rota.</i></div>
+              <div class="rt-cena c3"><i>Fechamento de hoje: 88% da meta.</i><i class="ok">Ana bateu a meta ✓</i><i>Amanhã o Bruno começa pela rota que ficou.</i></div>
+            </div>
+            <div class="rt-painel">
+              <ol class="rt-linha"><li>07:55</li><li>13:40</li><li>18:00</li></ol>
+              <div class="rt-meta"><small>Equipe</small><span class="rt-barra"><i style="--a:.164;--b:.555;--c:.8"></i></span><span class="rt-n"><span>18%</span><span>61%</span><span>88%</span></span></div>
+              <div class="rt-vend ana"><span>Ana</span><span class="rt-barra"><i style="--a:.227;--b:.682;--c:.945"></i></span><span class="rt-n"><span>25%</span><span>75%</span><span>104%</span></span></div>
+              <div class="rt-vend"><span>Carla</span><span class="rt-barra"><i style="--a:.164;--b:.573;--c:.8"></i></span><span class="rt-n"><span>18%</span><span>63%</span><span>88%</span></span></div>
+              <div class="rt-vend"><span>Bruno</span><span class="rt-barra"><i style="--a:.1;--b:.409;--c:.655"></i></span><span class="rt-n"><span>11%</span><span>45%</span><span>72%</span></span></div>
+            </div>
+          </div>
+        </div>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="relogio" aria-hidden="true"></canvas><h3>Bom dia, parcial e fechamento sem você cobrar ninguém</h3></div>
+        <p>Cada vendedor começa o dia sabendo onde ir, recebe a parcial à tarde e vê no fim do dia quem ficou pra trás. Você só entra quando precisa decidir. Rodando todo dia com uma equipe de vendas externa.</p>
+      </article>
+      <article class="feito rev d1">
+        <p class="feito-dor"><b>Antes:</b> a mensagem ficava em aberto enquanto o dono atendia.</p>
         <div class="feito-tela" aria-hidden="true">
           <div class="ft-chat"><i class="b1">Vocês fazem visita sábado?</i><i class="b2 eu">Fazemos sim. Qual imóvel te interessou?</i><i class="b3">O apê do Centro</i><i class="b4 tag">→ Passado pro corretor · interesse alto</i></div>
         </div>
-        <div class="feito-cab"><canvas class="ico3d" data-ico="atendimento" aria-hidden="true"></canvas><h3>Atendente que qualifica no WhatsApp</h3></div>
-        <p>Conversa com quem chama, entende o que a pessoa precisa e passa pro dono só o que pede decisão.</p>
-      </article>
-      <article class="feito rev d1">
-        <div class="feito-tela" aria-hidden="true">
-          <div class="ft-kanban"><div><small>Novo</small><i class="k1">Pizzaria do Vale</i><i class="k2">Studio Bella</i></div><div><small>Pesquisado</small><i class="k3">Clínica Sorriso<em>4,9 · 200 avaliações</em></i></div><div><small>Conversa</small><i class="k4">Pet Amigo</i></div></div>
-        </div>
-        <div class="feito-cab"><canvas class="ico3d" data-ico="sistema" aria-hidden="true"></canvas><h3>Painel de prospecção</h3></div>
-        <p>Junta os contatos, pesquisa cada empresa antes da conversa e mostra quem está pronto pra fechar.</p>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="atendimento" aria-hidden="true"></canvas><h3>Quem chama é respondido, e só chega pra você o que pede decisão</h3></div>
+        <p>Conversa com quem chama no WhatsApp, a qualquer hora, e entende o que a pessoa precisa antes de passar adiante.</p>
       </article>
       <article class="feito rev d2">
+        <p class="feito-dor"><b>Antes:</b> o erro da petição só aparecia depois de protocolada.</p>
         <div class="feito-tela" aria-hidden="true">
-          <div class="ft-doc"><span class="l"></span><span class="l m"></span><span class="l hl"></span><span class="l"></span><span class="l hl c"></span><span class="l m"></span><b class="nota">3 pontos a ajustar</b></div>
+          <div class="ft-doc"><span class="l"></span><span class="l m"></span><span class="l hl"></span><span class="l"></span><span class="l hl c"></span><span class="l m"></span><b class="nota n1">Pedido incompleto</b><b class="nota n2">Falta prova do dano</b><b class="nota n3">Rever valor da causa</b></div>
         </div>
-        <div class="feito-cab"><canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas><h3>Analista de petições pra advocacia</h3></div>
-        <p>Lê a petição inicial e aponta onde ela pode melhorar. Em teste com um escritório.</p>
-      </article>
-      <article class="feito rev d3">
-        <div class="feito-tela" aria-hidden="true">
-          <div class="ft-pix"><svg class="qr" viewBox="-1 -1 23 23" aria-hidden="true"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#16140f"><rect x="0" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="14" y="0" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="14" y="4" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="15" y="6" width="1" height="1"/><rect x="16" y="0" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="17" y="0" width="1" height="1"/><rect x="17" y="2" width="1" height="1"/><rect x="17" y="3" width="1" height="1"/><rect x="17" y="4" width="1" height="1"/><rect x="17" y="6" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="20" y="1" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="20" y="5" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="0" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="1" y="14" width="1" height="1"/><rect x="1" y="20" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="2" y="17" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="3" y="16" width="1" height="1"/><rect x="3" y="17" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="4" y="17" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="5" y="14" width="1" height="1"/><rect x="5" y="20" width="1" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="6" y="16" width="1" height="1"/><rect x="6" y="17" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="2" y="12" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="11" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="10" y="12" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="10" y="20" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="11" y="19" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="12" y="7" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="13" y="18" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="14" y="19" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="15" y="19" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="17" y="19" width="1" height="1"/><rect x="18" y="9" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="18" y="15" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/></g></svg><span class="pago">✓ Pago</span><span class="baixar">Baixar material ↓</span></div>
-        </div>
-        <div class="feito-cab"><canvas class="ico3d" data-ico="engrenagem" aria-hidden="true"></canvas><h3>Venda com Pix e entrega na hora</h3></div>
-        <p>A pessoa paga na página e já recebe o material, sem ninguém precisar mandar nada.</p>
+        <div class="feito-cab"><canvas class="ico3d" data-ico="caderno" aria-hidden="true"></canvas><h3>A petição chega revisada antes de ir pro tribunal</h3></div>
+        <p>Lê a petição inicial e aponta onde ela pode melhorar. Em uso num escritório de advocacia. Pronto para testar no seu.</p>
       </article>
     </div>
   </section>
